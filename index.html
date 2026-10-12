@@ -42,6 +42,14 @@ body::after{
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 a{color:#9ec8ff;text-decoration:none}
 
+/* IDIOMAS */
+.langs{display:inline-flex;gap:6px;margin:0 auto 20px;padding:5px;border:1px solid var(--line);
+  border-radius:999px;background:rgba(255,255,255,.04)}
+.langs button{background:transparent;border:1px solid transparent;color:var(--muted);font:inherit;
+  font-size:12.5px;font-weight:800;letter-spacing:.06em;padding:7px 15px;border-radius:999px;cursor:pointer;transition:.25s}
+.langs button:hover{color:var(--txt);border-color:var(--line)}
+.langs button.on{background:linear-gradient(120deg,var(--nv),var(--nv2));color:#2A3844;box-shadow:0 6px 18px rgba(231,172,87,.20)}
+
 /* REVEAL */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
@@ -256,21 +264,26 @@ footer ul{margin:10px 0 0 18px}footer li{margin:4px 0}
 
 <div class="wrap">
   <header>
-    <div class="kicker rv"><span class="dot"></span> Comparador interactivo · IA local</div>
-    <h1 class="rv d1">Elige <span class="grad">dos tarjetas</span><br>y compáralas al instante</h1>
-    <p class="sub rv d2">VRAM, ancho de banda, cómputo, consumo, precio, <b>tokens/s</b>, imagen, vídeo y <b>ruido</b>. Catálogo: <b>NVIDIA desde la RTX 3060 12 GB</b>, <b>AMD desde la RX 6800</b> y <b>Apple M1 en adelante</b>.</p>
+    <div class="langs rv" id="langs" role="group" aria-label="Idioma / Language / Sprache">
+      <button type="button" data-lang="es">ES</button>
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="de">DE</button>
+    </div>
+    <div class="kicker rv"><span class="dot"></span> <span data-i18n>Comparador interactivo · IA local</span></div>
+    <h1 class="rv d1" data-i18n>Elige <span class="grad">dos tarjetas</span><br>y compáralas al instante</h1>
+    <p class="sub rv d2" data-i18n>VRAM, ancho de banda, cómputo, consumo, precio, <b>tokens/s</b>, imagen, vídeo y <b>ruido</b>. Catálogo: <b>NVIDIA desde la RTX 3060 12 GB</b>, <b>AMD desde la RX 6800</b> y <b>Apple M1 en adelante</b>.</p>
   </header>
 
   <!-- ================== COMPARADOR ================== -->
   <section id="comparador" style="border-top:0;padding-top:8px">
     <div class="pickgrid">
       <div class="pickbox a rv d1">
-        <span class="plabel">Tarjeta A</span>
+        <span class="plabel" data-i18n>Tarjeta A</span>
         <div class="picker" id="pickA"></div>
       </div>
       <div class="swapcell rv d1"><button class="swap" id="swapBtn" title="Intercambiar A y B" aria-label="Intercambiar A y B">&#8646;</button></div>
       <div class="pickbox b rv d1">
-        <span class="plabel">Tarjeta B</span>
+        <span class="plabel" data-i18n>Tarjeta B</span>
         <div class="picker" id="pickB"></div>
       </div>
     </div>
@@ -289,60 +302,60 @@ footer ul{margin:10px 0 0 18px}footer li{margin:4px 0}
 
   <!-- ================== VEREDICTO ================== -->
   <section id="veredicto">
-    <h2 class="sec rv">¿Cuál gana según lo que hagas?</h2>
-    <p class="lead rv d1">Elige tu perfil: el veredicto se calcula con las dos tarjetas seleccionadas.</p>
+    <h2 class="sec rv" data-i18n>¿Cuál gana según lo que hagas?</h2>
+    <p class="lead rv d1" data-i18n>Elige tu perfil: el veredicto se calcula con las dos tarjetas seleccionadas.</p>
     <div class="seg rv d2" id="seg">
-      <button data-k="ia" class="on">IA local / LLM</button>
-      <button data-k="gaming">Gaming / render</button>
-      <button data-k="densa">Workstation densa</button>
-      <button data-k="video">Imagen / vídeo</button>
-      <button data-k="euro">Mejor precio/GB</button>
+      <button data-k="ia" class="on" data-i18n>IA local / LLM</button>
+      <button data-k="gaming" data-i18n>Gaming / render</button>
+      <button data-k="densa" data-i18n>Workstation densa</button>
+      <button data-k="video" data-i18n>Imagen / vídeo</button>
+      <button data-k="euro" data-i18n>Mejor precio/GB</button>
     </div>
     <div class="verdict rv d3" id="verdict"></div>
   </section>
 
   <!-- ================== RENDIMIENTO ================== -->
   <section id="rendimiento">
-    <h2 class="sec rv">Cara a cara en números</h2>
-    <p class="lead rv d1">La barra más larga de cada fila es el 100 %. <span class="winner">★</span> marca quién gana esa fila.</p>
+    <h2 class="sec rv" data-i18n>Cara a cara en números</h2>
+    <p class="lead rv d1" data-i18n>La barra más larga de cada fila es el 100 %. <span class="winner">★</span> marca quién gana esa fila.</p>
     <div class="bars" id="bars"></div>
   </section>
 
   <!-- ================== GENERACIÓN ================== -->
   <section id="generacion">
-    <h2 class="sec rv">Velocidad de generación: texto, imagen y vídeo</h2>
-    <p class="lead rv d1">En texto manda el <b>ancho de banda</b>; en imagen y vídeo pesa además el <b>cómputo</b> y la madurez del software.</p>
-    <div class="genax rv d2"><h3>Texto · LLM</h3><div class="bars" id="gen-texto"></div>
-      <p class="src">Estimación teórica: <code>tok/s ≈ ancho de banda × 0,70 ÷ GB de pesos</code>. En modelos <b>MoE</b> (como Qwen 35B-A3B) la velocidad real es mucho mayor porque solo se leen los pesos activos. La fila de 70B te avisa si el modelo <b>no cabe</b> en la VRAM.</p>
+    <h2 class="sec rv" data-i18n>Velocidad de generación: texto, imagen y vídeo</h2>
+    <p class="lead rv d1" data-i18n>En texto manda el <b>ancho de banda</b>; en imagen y vídeo pesa además el <b>cómputo</b> y la madurez del software.</p>
+    <div class="genax rv d2"><h3 data-i18n>Texto · LLM</h3><div class="bars" id="gen-texto"></div>
+      <p class="src" data-i18n>Estimación teórica: <code>tok/s ≈ ancho de banda × 0,70 ÷ GB de pesos</code>. En modelos <b>MoE</b> (como Qwen 35B-A3B) la velocidad real es mucho mayor porque solo se leen los pesos activos. La fila de 70B te avisa si el modelo <b>no cabe</b> en la VRAM.</p>
     </div>
-    <div class="genax rv d2"><h3>Imagen · difusión</h3><div class="bars" id="gen-imagen"></div>
-      <p class="src">Imágenes por minuto a 1024×1024, escaladas por cómputo FP16 tomando la RTX 5090 medida como referencia (Flux.1 dev: 5,55 img/min; SDXL: 13,6 img/min).</p>
+    <div class="genax rv d2"><h3 data-i18n>Imagen · difusión</h3><div class="bars" id="gen-imagen"></div>
+      <p class="src" data-i18n>Imágenes por minuto a 1024×1024, escaladas por cómputo FP16 tomando la RTX 5090 medida como referencia (Flux.1 dev: 5,55 img/min; SDXL: 13,6 img/min).</p>
     </div>
-    <div class="genax rv d2"><h3>Vídeo · generación</h3><div class="bars" id="gen-video"></div>
-      <p class="src">Clips por hora (clip de 5 s a 720p, ~20 pasos), escalados por cómputo. Es el caso más duro de todos.</p>
+    <div class="genax rv d2"><h3 data-i18n>Vídeo · generación</h3><div class="bars" id="gen-video"></div>
+      <p class="src" data-i18n>Clips por hora (clip de 5 s a 720p, ~20 pasos), escalados por cómputo. Es el caso más duro de todos.</p>
     </div>
     <div class="note rv d3" id="gennote"></div>
   </section>
 
   <!-- ================== RUIDO ================== -->
   <section id="ruido">
-    <h2 class="sec rv">Ruido</h2>
-    <p class="lead rv d1">El dB es logarítmico: <b>+10 dB ≈ el doble de sonoridad percibida</b>. Y no solo importa el volumen: el <b>tono</b> y <b>hacia dónde sale el aire</b>.</p>
+    <h2 class="sec rv" data-i18n>Ruido</h2>
+    <p class="lead rv d1" data-i18n>El dB es logarítmico: <b>+10 dB ≈ el doble de sonoridad percibida</b>. Y no solo importa el volumen: el <b>tono</b> y <b>hacia dónde sale el aire</b>.</p>
     <div class="noise rv d2">
       <div class="nscale" id="nscale"></div>
       <div class="cards" id="noisecards"></div>
-      <p class="src">Los valores de la RTX 5090 FE están medidos (32,5 dBA a 1 m en cámara anecoica; hasta 40,1 dB en gaming). El resto son <b>estimaciones orientativas</b> por tipo de refrigeración (blower, axial, pasiva) y reportes de usuarios.</p>
+      <p class="src" data-i18n>Los valores de la RTX 5090 FE están medidos (32,5 dBA a 1 m en cámara anecoica; hasta 40,1 dB en gaming). El resto son <b>estimaciones orientativas</b> por tipo de refrigeración (blower, axial, pasiva) y reportes de usuarios.</p>
     </div>
   </section>
 
   <!-- ================== TABLA ================== -->
   <section id="specs">
-    <h2 class="sec rv">Especificaciones</h2>
-    <p class="lead rv d1">Ficha completa de las dos tarjetas seleccionadas.</p>
-    <p class="scrollhint">Desliza la tabla hacia un lado para ver la 2.ª tarjeta →</p>
+    <h2 class="sec rv" data-i18n>Especificaciones</h2>
+    <p class="lead rv d1" data-i18n>Ficha completa de las dos tarjetas seleccionadas.</p>
+    <p class="scrollhint" data-i18n>Desliza la tabla hacia un lado para ver la 2.ª tarjeta →</p>
     <div class="tblwrap rv d2">
       <table>
-        <thead><tr><th>Característica</th><th class="a" id="thA">A</th><th class="b" id="thB">B</th></tr></thead>
+        <thead><tr><th data-i18n>Característica</th><th class="a" id="thA">A</th><th class="b" id="thB">B</th></tr></thead>
         <tbody id="tbody"></tbody>
       </table>
     </div>
@@ -350,36 +363,36 @@ footer ul{margin:10px 0 0 18px}footer li{margin:4px 0}
 
   <!-- ================== PRECIO ================== -->
   <section id="precio">
-    <h2 class="sec rv">Precio y coste por GB</h2>
-    <p class="lead rv d1">Precios de referencia en España (octubre 2026, nuevo o mercado de segunda mano según el caso). Varían mucho.</p>
+    <h2 class="sec rv" data-i18n>Precio y coste por GB</h2>
+    <p class="lead rv d1" data-i18n>Precios de referencia en España (octubre 2026, nuevo o mercado de segunda mano según el caso). Varían mucho.</p>
     <div class="price" id="price"></div>
     <div class="note rv d3" id="pricenote"></div>
   </section>
 
   <!-- ================== GUÍA ================== -->
   <section id="guia">
-    <h2 class="sec rv">Cómo leer este comparador (y qué mirar)</h2>
+    <h2 class="sec rv" data-i18n>Cómo leer este comparador (y qué mirar)</h2>
     <div class="cards">
-      <div class="card rv d1"><h3><span class="ico tie">GB</span> La VRAM decide <em>qué</em> puedes usar</h3><p>El tamaño del modelo + el contexto deben caber. Si no caben, va a RAM y la velocidad se hunde. Por eso 32 GB con poco ancho de banda &gt; 12 GB rápidos, para modelos grandes.</p></div>
-      <div class="card rv d1"><h3><span class="ico tie">GB/s</span> El ancho de banda decide <em>a qué velocidad</em></h3><p>La generación token a token es un cuello de botella de memoria: se lee el modelo entero por cada token. Es el número que más pesa en LLM.</p></div>
-      <div class="card rv d2"><h3><span class="ico tie">FP32/FP16</span> El cómputo decide imagen y vídeo</h3><p>Difusión y vídeo son mucho más intensivos en cómputo: ahí los Tensor/CUDA cores marcan la diferencia.</p></div>
-      <div class="card rv d2"><h3><span class="ico tie">€</span> El precio por GB</h3><p>Con presupuesto ajustado casi siempre gana quien más VRAM te da por euro. Pero cuenta también luz (W) y fuente de alimentación.</p></div>
-      <div class="card rv d3"><h3><span class="ico tie">SW</span> El software no es opinión</h3><p><b>NVIDIA</b>: CUDA/TensorRT, todo funciona sin fricción. <b>AMD RDNA 4</b>: ROCm nativo, ya serio. <b>AMD RDNA 2/3</b>: ROCm en Linux, con más trabajo. <b>Apple</b>: Metal/MPS, sorprendente con llama.cpp, pero sin CUDA.</p></div>
-      <div class="card rv d3"><h3><span class="ico tie">W</span> El consumo a 24/7</h3><p>A 0,20 €/kWh, pasar de 300 W a 575 W son unos <b>+48 € al año</b> por tarjeta. En un clúster de 4 unidades, casi 200 € anuales.</p></div>
+      <div class="card rv d1"><h3 data-i18n>La VRAM decide <em>qué</em> puedes usar</h3><p data-i18n>El tamaño del modelo + el contexto deben caber. Si no caben, va a RAM y la velocidad se hunde. Por eso 32 GB con poco ancho de banda &gt; 12 GB rápidos, para modelos grandes.</p></div>
+      <div class="card rv d1"><h3 data-i18n>El ancho de banda decide <em>a qué velocidad</em></h3><p data-i18n>La generación token a token es un cuello de botella de memoria: se lee el modelo entero por cada token. Es el número que más pesa en LLM.</p></div>
+      <div class="card rv d2"><h3 data-i18n>El cómputo decide imagen y vídeo</h3><p data-i18n>Difusión y vídeo son mucho más intensivos en cómputo: ahí los Tensor/CUDA cores marcan la diferencia.</p></div>
+      <div class="card rv d2"><h3 data-i18n>El precio por GB</h3><p data-i18n>Con presupuesto ajustado casi siempre gana quien más VRAM te da por euro. Pero cuenta también luz (W) y fuente de alimentación.</p></div>
+      <div class="card rv d3"><h3 data-i18n>El software no es opinión</h3><p data-i18n><b>NVIDIA</b>: CUDA/TensorRT, todo funciona sin fricción. <b>AMD RDNA 4</b>: ROCm nativo, ya serio. <b>AMD RDNA 2/3</b>: ROCm en Linux, con más trabajo. <b>Apple</b>: Metal/MPS, sorprendente con llama.cpp, pero sin CUDA.</p></div>
+      <div class="card rv d3"><h3 data-i18n>El consumo a 24/7</h3><p data-i18n>A 0,20 €/kWh, pasar de 300 W a 575 W son unos <b>+48 € al año</b> por tarjeta. En un clúster de 4 unidades, casi 200 € anuales.</p></div>
     </div>
   </section>
 
   <footer>
-    <h2 class="sec rv" style="font-size:20px">Metodología y fuentes</h2>
+    <h2 class="sec rv" style="font-size:20px" data-i18n>Metodología y fuentes</h2>
     <ul>
-      <li><b>Especificaciones (verificadas):</b> <i>List of Nvidia graphics processing units</i> y <i>List of AMD graphics processing units</i> de Wikipedia (ancho de banda, FP32 boost, TDP, PVP) + <i>Apple silicon</i> para la familia M1/M4 + ficha oficial ASUS/AMD de la R9700.</li>
-      <li><b>Estimaciones de LLM:</b> modelo bandwidth-bound <code>tok/s ≈ BW × 0,70 ÷ GB de pesos</code> (calibrado contra mediciones reales: R9700 ≈ 99 tok/s en 7B Q4 y 29–33 tok/s en 27B Q4).</li>
-      <li><b>Imagen/vídeo:</b> escalado por cómputo FP16 sobre referencias medidas de la RTX 5090.</li>
-      <li><b>Precios:</b> agregador <b>gpuprix.com</b> (España, octubre de 2026, oferta más barata en stock) y contraste con idealo.es. Los PVP en USD son los oficiales de lanzamiento.</li>
-      <li><b>Ruido:</b> mediciones publicadas para la RTX 5090 FE; el resto, estimación por diseño térmico.</li>
+      <li data-i18n><b>Especificaciones (verificadas):</b> <i>List of Nvidia graphics processing units</i> y <i>List of AMD graphics processing units</i> de Wikipedia (ancho de banda, FP32 boost, TDP, PVP) + <i>Apple silicon</i> para la familia M1/M4 + ficha oficial ASUS/AMD de la R9700.</li>
+      <li data-i18n><b>Estimaciones de LLM:</b> modelo bandwidth-bound <code>tok/s ≈ BW × 0,70 ÷ GB de pesos</code> (calibrado contra mediciones reales: R9700 ≈ 99 tok/s en 7B Q4 y 29–33 tok/s en 27B Q4).</li>
+      <li data-i18n><b>Imagen/vídeo:</b> escalado por cómputo FP16 sobre referencias medidas de la RTX 5090.</li>
+      <li data-i18n><b>Precios:</b> agregador <b>gpuprix.com</b> (España, octubre de 2026, oferta más barata en stock) y contraste con idealo.es. Los PVP en USD son los oficiales de lanzamiento.</li>
+      <li data-i18n><b>Ruido:</b> mediciones publicadas para la RTX 5090 FE; el resto, estimación por diseño térmico.</li>
     </ul>
-    <p class="note"><b>Corrección documentada:</b> frente a versiones anteriores, la RX 9070 son <b>36,12 TFLOPS</b> (no ~45) y la RTX 3060 12 GB tiene <b>336 GB/s</b> (no 360). Todo el catálogo se revisó contra las fuentes citadas.</p>
-    <p class="note"><b>Aviso:</b> esta página es divulgativa. Los tok/s son estimaciones según el ancho de banda (la VRAM disponible varía por configuración en Apple) y el rendimiento real depende del modelo, la cuantización, los drivers y el software. Los precios cambian a diario.</p>
+    <p class="note" data-i18n><b>Corrección documentada:</b> frente a versiones anteriores, la RX 9070 son <b>36,12 TFLOPS</b> (no ~45) y la RTX 3060 12 GB tiene <b>336 GB/s</b> (no 360). Todo el catálogo se revisó contra las fuentes citadas.</p>
+    <p class="note" data-i18n><b>Aviso:</b> esta página es divulgativa. Los tok/s son estimaciones según el ancho de banda (la VRAM disponible varía por configuración en Apple) y el rendimiento real depende del modelo, la cuantización, los drivers y el software. Los precios cambian a diario.</p>
   </footer>
 </div>
 
@@ -436,11 +449,313 @@ const BY = {}; CAT.forEach(c => BY[c.id] = c);
 const BRANDNAME = {nv:"NVIDIA", amd:"AMD · Radeon", ap:"Apple · M1 en adelante"};
 const BRANDGRP = {nv:"NVIDIA (desde RTX 3060 12 GB)", amd:"AMD Radeon (desde RX 6800)", ap:"Apple (M1 en adelante)"};
 
+/* ============================ i18n ============================ */
+const LOCALES = { es:"es-ES", en:"en-GB", de:"de-DE" };
+const I18N = {
+  en: {
+    // --- global ---
+    [`Comparador de GPUs para IA · NVIDIA (desde RTX 3060 12 GB) · AMD (desde RX 6800) · Apple M1+`]: `GPU comparison for AI · NVIDIA (from RTX 3060 12 GB) · AMD (from RX 6800) · Apple M1+`,
+    [`Infografía interactiva: elige dos tarjetas gráficas y compáralas al instante (VRAM, ancho de banda, FP32, consumo, precio, tokens/s, imagen, vídeo y ruido). Catálogo NVIDIA desde RTX 3060 12 GB, AMD desde RX 6800 y Apple M1 en adelante.`]: `Interactive infographic: pick two graphics cards and compare them instantly (VRAM, bandwidth, FP32, power, price, tokens/s, image, video and noise). Catalog: NVIDIA from the RTX 3060 12 GB, AMD from the RX 6800 and Apple M1 and later.`,
+    // --- hero ---
+    [`Comparador interactivo · IA local`]: `Interactive comparison · Local AI`,
+    [`Elige <span class="grad">dos tarjetas</span><br>y compáralas al instante`]: `Pick <span class="grad">two cards</span><br>and compare them instantly`,
+    [`VRAM, ancho de banda, cómputo, consumo, precio, <b>tokens/s</b>, imagen, vídeo y <b>ruido</b>. Catálogo: <b>NVIDIA desde la RTX 3060 12 GB</b>, <b>AMD desde la RX 6800</b> y <b>Apple M1 en adelante</b>.`]: `VRAM, bandwidth, compute, power, price, <b>tokens/s</b>, image, video and <b>noise</b>. Catalog: <b>NVIDIA from the RTX 3060 12 GB</b>, <b>AMD from the RX 6800</b> and <b>Apple M1 and later</b>.`,
+    // --- comparador ---
+    [`Tarjeta A`]: `Card A`,
+    [`Tarjeta B`]: `Card B`,
+    [`Intercambiar A y B`]: `Swap A and B`,
+    // --- veredicto ---
+    [`¿Cuál gana según lo que hagas?`]: `Which one wins for your use case?`,
+    [`Elige tu perfil: el veredicto se calcula con las dos tarjetas seleccionadas.`]: `Pick your profile: the verdict is computed with the two selected cards.`,
+    [`IA local / LLM`]: `Local AI / LLM`,
+    [`Gaming / render`]: `Gaming / rendering`,
+    [`Workstation densa`]: `Dense workstation`,
+    [`Imagen / vídeo`]: `Image / video`,
+    [`Mejor precio/GB`]: `Best price/GB`,
+    // --- rendimiento ---
+    [`Cara a cara en números`]: `Head to head in numbers`,
+    [`La barra más larga de cada fila es el 100 %. <span class="winner">★</span> marca quién gana esa fila.`]: `The longer bar in each row is 100 %. <span class="winner">★</span> marks who wins that row.`,
+    // --- generación ---
+    [`Velocidad de generación: texto, imagen y vídeo`]: `Generation speed: text, image and video`,
+    [`En texto manda el <b>ancho de banda</b>; en imagen y vídeo pesa además el <b>cómputo</b> y la madurez del software.`]: `For text, <b>bandwidth</b> rules; for image and video, <b>compute</b> and software maturity also matter.`,
+    [`Texto · LLM`]: `Text · LLM`,
+    [`Imagen · difusión`]: `Image · diffusion`,
+    [`Vídeo · generación`]: `Video · generation`,
+    [`Estimación teórica: <code>tok/s ≈ ancho de banda × 0,70 ÷ GB de pesos</code>. En modelos <b>MoE</b> (como Qwen 35B-A3B) la velocidad real es mucho mayor porque solo se leen los pesos activos. La fila de 70B te avisa si el modelo <b>no cabe</b> en la VRAM.`]: `Theoretical estimate: <code>tok/s ≈ bandwidth × 0.70 ÷ GB of weights</code>. In <b>MoE</b> models (like Qwen 35B-A3B) real speed is much higher because only the active weights are read. The 70B row warns you if the model <b>does not fit</b> in VRAM.`,
+    [`Imágenes por minuto a 1024×1024, escaladas por cómputo FP16 tomando la RTX 5090 medida como referencia (Flux.1 dev: 5,55 img/min; SDXL: 13,6 img/min).`]: `Images per minute at 1024×1024, scaled by FP16 compute using the measured RTX 5090 as reference (Flux.1 dev: 5.55 img/min; SDXL: 13.6 img/min).`,
+    [`Clips por hora (clip de 5 s a 720p, ~20 pasos), escalados por cómputo. Es el caso más duro de todos.`]: `Clips per hour (5 s clip at 720p, ~20 steps), scaled by compute. It is the hardest case of all.`,
+    // --- ruido ---
+    [`Ruido`]: `Noise`,
+    [`El dB es logarítmico: <b>+10 dB ≈ el doble de sonoridad percibida</b>. Y no solo importa el volumen: el <b>tono</b> y <b>hacia dónde sale el aire</b>.`]: `dB is logarithmic: <b>+10 dB ≈ twice the perceived loudness</b>. And not only volume matters: the <b>tone</b> and <b>where the air is blown</b>.`,
+    [`Los valores de la RTX 5090 FE están medidos (32,5 dBA a 1 m en cámara anecoica; hasta 40,1 dB en gaming). El resto son <b>estimaciones orientativas</b> por tipo de refrigeración (blower, axial, pasiva) y reportes de usuarios.`]: `The RTX 5090 FE values are measured (32.5 dBA at 1 m in an anechoic chamber; up to 40.1 dB in gaming). The rest are <b>rough estimates</b> by cooling type (blower, axial, passive) and user reports.`,
+    // --- specs ---
+    [`Especificaciones`]: `Specifications`,
+    [`Ficha completa de las dos tarjetas seleccionadas.`]: `Full spec sheet of the two selected cards.`,
+    [`Desliza la tabla hacia un lado para ver la 2.ª tarjeta →`]: `Swipe the table sideways to see the 2nd card →`,
+    [`Característica`]: `Feature`,
+    // --- precio ---
+    [`Precio y coste por GB`]: `Price and cost per GB`,
+    [`Precios de referencia en España (octubre 2026, nuevo o mercado de segunda mano según el caso). Varían mucho.`]: `Reference prices in Spain (October 2026, new or second-hand depending on the case). They vary a lot.`,
+    // --- guía ---
+    [`Cómo leer este comparador (y qué mirar)`]: `How to read this comparison (and what to look at)`,
+    [`La VRAM decide <em>qué</em> puedes usar`]: `VRAM decides <em>what</em> you can run`,
+    [`El tamaño del modelo + el contexto deben caber. Si no caben, va a RAM y la velocidad se hunde. Por eso 32 GB con poco ancho de banda &gt; 12 GB rápidos, para modelos grandes.`]: `The model size + context must fit. If they do not, it spills to RAM and speed collapses. That is why 32 GB with modest bandwidth &gt; fast 12 GB, for large models.`,
+    [`El ancho de banda decide <em>a qué velocidad</em>`]: `Bandwidth decides <em>how fast</em>`,
+    [`La generación token a token es un cuello de botella de memoria: se lee el modelo entero por cada token. Es el número que más pesa en LLM.`]: `Token-by-token generation is a memory bottleneck: the entire model is read for every token. It is the number that matters most in LLMs.`,
+    [`El cómputo decide imagen y vídeo`]: `Compute decides image and video`,
+    [`Difusión y vídeo son mucho más intensivos en cómputo: ahí los Tensor/CUDA cores marcan la diferencia.`]: `Diffusion and video are far more compute-intensive: that is where Tensor/CUDA cores make the difference.`,
+    [`El precio por GB`]: `Price per GB`,
+    [`Con presupuesto ajustado casi siempre gana quien más VRAM te da por euro. Pero cuenta también luz (W) y fuente de alimentación.`]: `On a tight budget, whoever gives you the most VRAM per euro almost always wins. But also factor in electricity (W) and the power supply.`,
+    [`El software no es opinión`]: `Software is not an opinion`,
+    [`<b>NVIDIA</b>: CUDA/TensorRT, todo funciona sin fricción. <b>AMD RDNA 4</b>: ROCm nativo, ya serio. <b>AMD RDNA 2/3</b>: ROCm en Linux, con más trabajo. <b>Apple</b>: Metal/MPS, sorprendente con llama.cpp, pero sin CUDA.`]: `<b>NVIDIA</b>: CUDA/TensorRT, everything works without friction. <b>AMD RDNA 4</b>: native ROCm, now serious. <b>AMD RDNA 2/3</b>: ROCm on Linux, with more work. <b>Apple</b>: Metal/MPS, surprising with llama.cpp, but no CUDA.`,
+    [`El consumo a 24/7`]: `Power draw at 24/7`,
+    [`A 0,20 €/kWh, pasar de 300 W a 575 W son unos <b>+48 € al año</b> por tarjeta. En un clúster de 4 unidades, casi 200 € anuales.`]: `At €0.20/kWh, going from 300 W to 575 W is about <b>+€48 a year</b> per card. In a 4-unit cluster, almost €200 a year.`,
+    // --- footer ---
+    [`Metodología y fuentes`]: `Methodology and sources`,
+    [`<b>Especificaciones (verificadas):</b> <i>List of Nvidia graphics processing units</i> y <i>List of AMD graphics processing units</i> de Wikipedia (ancho de banda, FP32 boost, TDP, PVP) + <i>Apple silicon</i> para la familia M1/M4 + ficha oficial ASUS/AMD de la R9700.`]: `<b>Specs (verified):</b> Wikipedia's <i>List of Nvidia graphics processing units</i> and <i>List of AMD graphics processing units</i> (bandwidth, FP32 boost, TDP, MSRP) + <i>Apple silicon</i> for the M1/M4 family + the official ASUS/AMD R9700 datasheet.`,
+    [`<b>Estimaciones de LLM:</b> modelo bandwidth-bound <code>tok/s ≈ BW × 0,70 ÷ GB de pesos</code> (calibrado contra mediciones reales: R9700 ≈ 99 tok/s en 7B Q4 y 29–33 tok/s en 27B Q4).`]: `<b>LLM estimates:</b> bandwidth-bound model <code>tok/s ≈ BW × 0.70 ÷ GB of weights</code> (calibrated against real measurements: R9700 ≈ 99 tok/s on 7B Q4 and 29–33 tok/s on 27B Q4).`,
+    [`<b>Imagen/vídeo:</b> escalado por cómputo FP16 sobre referencias medidas de la RTX 5090.`]: `<b>Image/video:</b> scaled by FP16 compute from measured RTX 5090 references.`,
+    [`<b>Precios:</b> agregador <b>gpuprix.com</b> (España, octubre de 2026, oferta más barata en stock) y contraste con idealo.es. Los PVP en USD son los oficiales de lanzamiento.`]: `<b>Prices:</b> aggregator <b>gpuprix.com</b> (Spain, October 2026, cheapest in-stock offer) cross-checked with idealo.es. USD MSRPs are the official launch prices.`,
+    [`<b>Ruido:</b> mediciones publicadas para la RTX 5090 FE; el resto, estimación por diseño térmico.`]: `<b>Noise:</b> published measurements for the RTX 5090 FE; the rest, estimates by thermal design.`,
+    [`<b>Corrección documentada:</b> frente a versiones anteriores, la RX 9070 son <b>36,12 TFLOPS</b> (no ~45) y la RTX 3060 12 GB tiene <b>336 GB/s</b> (no 360). Todo el catálogo se revisó contra las fuentes citadas.`]: `<b>Documented correction:</b> versus earlier versions, the RX 9070 is <b>36.12 TFLOPS</b> (not ~45) and the RTX 3060 12 GB has <b>336 GB/s</b> (not 360). The whole catalog was reviewed against the cited sources.`,
+    [`<b>Aviso:</b> esta página es divulgativa. Los tok/s son estimaciones según el ancho de banda (la VRAM disponible varía por configuración en Apple) y el rendimiento real depende del modelo, la cuantización, los drivers y el software. Los precios cambian a diario.`]: `<b>Disclaimer:</b> this page is educational. Tokens/s are estimates based on bandwidth (available VRAM varies by configuration on Apple) and real performance depends on the model, quantization, drivers and software. Prices change daily.`,
+    // --- marcas ---
+    [`Apple · M1 en adelante`]: `Apple · M1 and later`,
+    [`NVIDIA (desde RTX 3060 12 GB)`]: `NVIDIA (from RTX 3060 12 GB)`,
+    [`AMD Radeon (desde RX 6800)`]: `AMD Radeon (from RX 6800)`,
+    [`Apple (M1 en adelante)`]: `Apple (M1 and later)`,
+    // --- dinámico ---
+    [`Buscar tarjeta…`]: `Search card…`,
+    [`medido`]: `measured`,
+    [`estimado`]: `estimated`,
+    [`consumo`]: `power`,
+    [`no cabe`]: `does not fit`,
+    [`cabe`]: `fits`,
+    [`n/d`]: `n/a`,
+    [`Ancho de banda`]: `Bandwidth`,
+    [`Cómputo FP32`]: `FP32 compute`,
+    [`Cómputo FP16 (matriz)`]: `FP16 compute (matrix)`,
+    [`Consumo (menos es mejor)`]: `Power draw (lower is better)`,
+    [`Precio de mercado España (oct. 2026 · menos es mejor)`]: `Market price Spain (Oct 2026 · lower is better)`,
+    [`Prefill · prompt de 512 tokens`]: `Prefill · 512-token prompt`,
+    [`Clip de 5 s · 720p · ~20 pasos`]: `5 s clip · 720p · ~20 steps`,
+    [`Datos medidos en llama.cpp/vLLM sobre el modelo idéntico.`]: `Measured data with llama.cpp/vLLM on the identical model.`,
+    [`Medido: la brecha del prefill es la más grande entre AMD y NVIDIA.`]: `Measured: the prefill gap is the largest between AMD and NVIDIA.`,
+    [`<b>Nota:</b> en <b>texto</b> las tarjetas de mucho ancho de banda mandan; en <b>imagen y vídeo</b> el que manda es el cómputo y el software. `]: `<b>Note:</b> in <b>text</b>, high-bandwidth cards rule; in <b>image and video</b>, compute and software rule. `,
+    [`En <b>Apple</b> la memoria es unificada y compartida con el sistema: la VRAM útil es menor que la cifra nominal. `]: `On <b>Apple</b>, memory is unified and shared with the system: usable VRAM is less than the nominal figure. `,
+    [`En <b>AMD RDNA 2/3</b> el soporte ROCm existe pero exige más trabajo que CUDA.`]: `On <b>AMD RDNA 2/3</b>, ROCm support exists but requires more work than CUDA.`,
+    [`Refrigeración: `]: `Cooling: `,
+    [`pasivo`]: `passive`,
+    [`Con varias tarjetas`]: `With several cards`,
+    [`Los <b>blower</b> expulsan el aire fuera de la caja: para un clúster, N blowers suenan menos en conjunto que N axiales recirculando calor. Las <b>Apple</b> con refrigeración pasiva son las más silenciosas, pero no las puedes apilar.`]: `<b>Blower</b> cards push air out of the case: for a cluster, N blowers are quieter overall than N axial cards recirculating heat. <b>Apple</b> units with passive cooling are the quietest, but you cannot stack them.`,
+    [`Marca / arquitectura`]: `Brand / architecture`,
+    [`Año`]: `Year`,
+    [`Memoria`]: `Memory`,
+    [`FP16 (matriz)`]: `FP16 (matrix)`,
+    [`Consumo`]: `Power draw`,
+    [`Precio de mercado (España, oct. 2026)`]: `Market price (Spain, Oct 2026)`,
+    [`Coste por GB (mercado)`]: `Cost per GB (market)`,
+    [`PVP de lanzamiento`]: `Launch MSRP`,
+    [`Refrigeración`]: `Cooling`,
+    [`PVP de lanzamiento: {0} USD`]: `Launch MSRP: {0} USD`,
+    [`sin tarjeta suelta (va en el equipo)`]: `no standalone card (built into the machine)`,
+    [`<b>{0} €/GB</b> a precio de mercado`]: `<b>{0} €/GB</b> at market price`,
+    [`sin precio de mercado`]: `no market price`,
+    [`En luz (24/7 a 0,20 €/kWh) la A cuesta ≈{0} €/año y la B ≈{1} €/año. `]: `In electricity (24/7 at €0.20/kWh) A costs ≈{0} €/year and B ≈{1} €/year. `,
+    [`<b>Estos son precios de mercado reales</b> (España, octubre de 2026, agregador gpuprix.com: la oferta más barata en stock). La <b>crisis de memoria de 2025–2026</b> los ha disparado muy por encima del PVP: una RTX 5090 de $1.999 de PVP se vende cerca de <b>6.500 €</b>. Ojo con las paradojas: por escasez y demanda de IA, tarjetas viejas como la RX 6800 (16 GB) o la 7900 XTX pueden costar <b>más</b> que modelos nuevos mejores. Compra por <b>€/GB y por resultados</b>, no por generación. `]: `<b>These are real market prices</b> (Spain, October 2026, gpuprix.com aggregator: the cheapest in-stock offer). The <b>2025–2026 memory crisis</b> has pushed them far above MSRP: an RTX 5090 with a $1,999 MSRP sells for close to <b>€6,500</b>. Watch out for paradoxes: due to scarcity and AI demand, old cards like the RX 6800 (16 GB) or the 7900 XTX can cost <b>more</b> than better new models. Buy by <b>€/GB and by results</b>, not by generation. `,
+    [`Con el precio de la {0} te compras varias {1}.`]: `For the price of the {0} you can buy several {1}.`,
+    [`En Apple no hay tarjeta suelta: es el equipo completo, con memoria unificada limitada por configuración.`]: `On Apple there is no standalone card: it is the whole machine, with unified memory limited by configuration.`,
+    [`EMPATE`]: `TIE`,
+    [`Depende del caso`]: `Depends on the case`,
+    [`Gana {0}`]: `Wins: {0}`,
+    [`Combinación actual: <b>{0}</b> (A) vs <b>{1}</b> (B).`]: `Current combination: <b>{0}</b> (A) vs <b>{1}</b> (B).`,
+    [`En modelos densos medianos gana quien tiene más ancho de banda: <b>{0} tok/s</b> frente a <b>{1} tok/s</b> (27B Q4).`]: `On medium dense models, the one with more bandwidth wins: <b>{0} tok/s</b> vs <b>{1} tok/s</b> (27B Q4).`,
+    [` Además, la de {0} GB es la única que puede cargar un 70B Q4 completo.`]: ` Also, the {0} GB one is the only one that can load a full 70B Q4.`,
+    [`Cómputo puro y ecosistema gráfico: <b>{0} vs {1} TFLOPS FP32</b>. En gaming y render con trazado de rayos la ventaja es de {2}.`]: `Raw compute and graphics ecosystem: <b>{0} vs {1} TFLOPS FP32</b>. In gaming and ray-traced rendering the advantage goes to {2}.`,
+    [`Para apilar varias tarjetas pesan formato, calor y consumo: <b>{0} / {1} W</b> frente a <b>{2} / {3} W</b>.`]: `For stacking several cards, form factor, heat and power matter: <b>{0} / {1} W</b> vs <b>{2} / {3} W</b>.`,
+    [`Difusión y vídeo dependen del cómputo: <b>{0} vs {1} TFLOPS FP16</b>. También pesa el software: donde hay CUDA, casi todo funciona a la primera.`]: `Diffusion and video depend on compute: <b>{0} vs {1} TFLOPS FP16</b>. Software also matters: where there is CUDA, almost everything works out of the box.`,
+    [`€ por GB de VRAM a precio de mercado: <b>{0}</b> frente a <b>{1}</b>.`]: `€ per GB of VRAM at market price: <b>{0}</b> vs <b>{1}</b>.`,
+    // --- catálogo ---
+    [`~31 dB · axial de 2 ventiladores`]: `~31 dB · 2-fan axial`,
+    [`35,1 dB medidos (FE) · axial`]: `35.1 dB measured (FE) · axial`,
+    [`32,5–40,1 dB medidos · axial (más ruidosa que la 4090)`]: `32.5–40.1 dB measured · axial (louder than the 4090)`,
+    [`~30–45 dB estimado · blower de 2 slots (casi silenciosa a ~210 W)`]: `~30–45 dB estimated · 2-slot blower (almost silent at ~210 W)`,
+    [`~24 dB · refrigeración pasiva o ventilador muy lento`]: `~24 dB · passive cooling or very slow fan`,
+    [`~26 dB · refrigeración pasiva o ventilador suave`]: `~26 dB · passive cooling or gentle fan`,
+    [`~30 dB · ventilador, sube bajo carga larga`]: `~30 dB · fan, ramps up under sustained load`,
+    [`~32 dB · Mac Studio, ventilador audible bajo carga`]: `~32 dB · Mac Studio, audible fan under load`,
+    [`~30 dB · MacBook Pro, ventilador sólo bajo carga`]: `~30 dB · MacBook Pro, fan only under load`,
+    [`ROCm nativo`]: `Native ROCm`,
+    [`Ojo: la RX 6800 es de <b>16 GB</b>. La de 12 GB de esa familia es la RX 6700 XT.`]: `Note: the RX 6800 has <b>16 GB</b>. The 12 GB one in that family is the RX 6700 XT.`,
+    [`Memoria unificada LPDDR4X`]: `Unified memory LPDDR4X`,
+    [`Memoria unificada LPDDR5`]: `Unified memory LPDDR5`,
+    [`Memoria unificada LPDDR5X`]: `Unified memory LPDDR5X`,
+    [`Apple M1 (GPU 8 núcleos)`]: `Apple M1 (8-core GPU)`,
+    [`Apple M1 Pro (GPU 16 núcleos)`]: `Apple M1 Pro (16-core GPU)`,
+    [`Apple M1 Max (GPU 32 núcleos)`]: `Apple M1 Max (32-core GPU)`,
+    [`Apple M1 Ultra (GPU 64 núcleos)`]: `Apple M1 Ultra (64-core GPU)`,
+    [`Apple M4 Max (GPU 40 núcleos)`]: `Apple M4 Max (40-core GPU)`
+  },
+  de: {
+    // --- global ---
+    [`Comparador de GPUs para IA · NVIDIA (desde RTX 3060 12 GB) · AMD (desde RX 6800) · Apple M1+`]: `GPU-Vergleich für KI · NVIDIA (ab RTX 3060 12 GB) · AMD (ab RX 6800) · Apple M1+`,
+    [`Infografía interactiva: elige dos tarjetas gráficas y compáralas al instante (VRAM, ancho de banda, FP32, consumo, precio, tokens/s, imagen, vídeo y ruido). Catálogo NVIDIA desde RTX 3060 12 GB, AMD desde RX 6800 y Apple M1 en adelante.`]: `Interaktive Infografik: zwei Grafikkarten auswählen und sofort vergleichen (VRAM, Bandbreite, FP32, Leistungsaufnahme, Preis, Tokens/s, Bild, Video und Lautstärke). Katalog: NVIDIA ab RTX 3060 12 GB, AMD ab RX 6800 und Apple M1 und neuer.`,
+    // --- hero ---
+    [`Comparador interactivo · IA local`]: `Interaktiver Vergleich · Lokale KI`,
+    [`Elige <span class="grad">dos tarjetas</span><br>y compáralas al instante`]: `Wähle <span class="grad">zwei Karten</span><br>und vergleiche sie sofort`,
+    [`VRAM, ancho de banda, cómputo, consumo, precio, <b>tokens/s</b>, imagen, vídeo y <b>ruido</b>. Catálogo: <b>NVIDIA desde la RTX 3060 12 GB</b>, <b>AMD desde la RX 6800</b> y <b>Apple M1 en adelante</b>.`]: `VRAM, Bandbreite, Rechenleistung, Leistungsaufnahme, Preis, <b>Tokens/s</b>, Bild, Video und <b>Lautstärke</b>. Katalog: <b>NVIDIA ab RTX 3060 12 GB</b>, <b>AMD ab RX 6800</b> und <b>Apple M1 und neuer</b>.`,
+    // --- comparador ---
+    [`Tarjeta A`]: `Karte A`,
+    [`Tarjeta B`]: `Karte B`,
+    [`Intercambiar A y B`]: `A und B tauschen`,
+    // --- veredicto ---
+    [`¿Cuál gana según lo que hagas?`]: `Welche gewinnt für deinen Anwendungsfall?`,
+    [`Elige tu perfil: el veredicto se calcula con las dos tarjetas seleccionadas.`]: `Wähle dein Profil: Das Urteil wird mit den beiden ausgewählten Karten berechnet.`,
+    [`IA local / LLM`]: `Lokale KI / LLM`,
+    [`Gaming / render`]: `Gaming / Rendern`,
+    [`Workstation densa`]: `Dichte Workstation`,
+    [`Imagen / vídeo`]: `Bild / Video`,
+    [`Mejor precio/GB`]: `Bester Preis/GB`,
+    // --- rendimiento ---
+    [`Cara a cara en números`]: `Direktvergleich in Zahlen`,
+    [`La barra más larga de cada fila es el 100 %. <span class="winner">★</span> marca quién gana esa fila.`]: `Der längere Balken jeder Zeile ist 100 %. <span class="winner">★</span> markiert, wer die Zeile gewinnt.`,
+    // --- generación ---
+    [`Velocidad de generación: texto, imagen y vídeo`]: `Generierungsgeschwindigkeit: Text, Bild und Video`,
+    [`En texto manda el <b>ancho de banda</b>; en imagen y vídeo pesa además el <b>cómputo</b> y la madurez del software.`]: `Bei Text entscheidet die <b>Bandbreite</b>; bei Bild und Video zählen zusätzlich die <b>Rechenleistung</b> und die Software-Reife.`,
+    [`Texto · LLM`]: `Text · LLM`,
+    [`Imagen · difusión`]: `Bild · Diffusion`,
+    [`Vídeo · generación`]: `Video · Generierung`,
+    [`Estimación teórica: <code>tok/s ≈ ancho de banda × 0,70 ÷ GB de pesos</code>. En modelos <b>MoE</b> (como Qwen 35B-A3B) la velocidad real es mucho mayor porque solo se leen los pesos activos. La fila de 70B te avisa si el modelo <b>no cabe</b> en la VRAM.`]: `Theoretische Schätzung: <code>Tok/s ≈ Bandbreite × 0,70 ÷ GB Gewichte</code>. Bei <b>MoE</b>-Modellen (wie Qwen 35B-A3B) ist die reale Geschwindigkeit viel höher, weil nur die aktiven Gewichte gelesen werden. Die 70B-Zeile warnt, wenn das Modell <b>nicht in den VRAM passt</b>.`,
+    [`Imágenes por minuto a 1024×1024, escaladas por cómputo FP16 tomando la RTX 5090 medida como referencia (Flux.1 dev: 5,55 img/min; SDXL: 13,6 img/min).`]: `Bilder pro Minute bei 1024×1024, skaliert nach FP16-Rechenleistung mit der gemessenen RTX 5090 als Referenz (Flux.1 dev: 5,55 Bilder/min; SDXL: 13,6 Bilder/min).`,
+    [`Clips por hora (clip de 5 s a 720p, ~20 pasos), escalados por cómputo. Es el caso más duro de todos.`]: `Clips pro Stunde (5-s-Clip bei 720p, ~20 Schritte), nach Rechenleistung skaliert. Der härteste Fall überhaupt.`,
+    // --- ruido ---
+    [`Ruido`]: `Lautstärke`,
+    [`El dB es logarítmico: <b>+10 dB ≈ el doble de sonoridad percibida</b>. Y no solo importa el volumen: el <b>tono</b> y <b>hacia dónde sale el aire</b>.`]: `dB ist logarithmisch: <b>+10 dB ≈ doppelte empfundene Lautheit</b>. Und nicht nur die Lautstärke zählt: der <b>Klang</b> und <b>wohin die Luft geblasen wird</b>.`,
+    [`Los valores de la RTX 5090 FE están medidos (32,5 dBA a 1 m en cámara anecoica; hasta 40,1 dB en gaming). El resto son <b>estimaciones orientativas</b> por tipo de refrigeración (blower, axial, pasiva) y reportes de usuarios.`]: `Die Werte der RTX 5090 FE sind gemessen (32,5 dBA bei 1 m im schalltoten Raum; bis 40,1 dB beim Gaming). Der Rest sind <b>grobe Schätzungen</b> nach Kühlungsart (Blower, axial, passiv) und Nutzerberichten.`,
+    // --- specs ---
+    [`Especificaciones`]: `Technische Daten`,
+    [`Ficha completa de las dos tarjetas seleccionadas.`]: `Vollständige Daten der beiden ausgewählten Karten.`,
+    [`Desliza la tabla hacia un lado para ver la 2.ª tarjeta →`]: `Tabelle seitlich wischen, um die 2. Karte zu sehen →`,
+    [`Característica`]: `Merkmal`,
+    // --- precio ---
+    [`Precio y coste por GB`]: `Preis und Kosten pro GB`,
+    [`Precios de referencia en España (octubre 2026, nuevo o mercado de segunda mano según el caso). Varían mucho.`]: `Referenzpreise in Spanien (Oktober 2026, je nach Fall neu oder gebraucht). Sie schwanken stark.`,
+    // --- guía ---
+    [`Cómo leer este comparador (y qué mirar)`]: `So liest man diesen Vergleich (und worauf man achten sollte)`,
+    [`La VRAM decide <em>qué</em> puedes usar`]: `VRAM entscheidet, <em>was</em> du nutzen kannst`,
+    [`El tamaño del modelo + el contexto deben caber. Si no caben, va a RAM y la velocidad se hunde. Por eso 32 GB con poco ancho de banda &gt; 12 GB rápidos, para modelos grandes.`]: `Modellgröße + Kontext müssen passen. Wenn nicht, geht es in den RAM und die Geschwindigkeit bricht ein. Deshalb sind 32 GB mit mäßiger Bandbreite &gt; schnelle 12 GB, bei großen Modellen.`,
+    [`El ancho de banda decide <em>a qué velocidad</em>`]: `Die Bandbreite entscheidet, <em>wie schnell</em>`,
+    [`La generación token a token es un cuello de botella de memoria: se lee el modelo entero por cada token. Es el número que más pesa en LLM.`]: `Die Token-für-Token-Generierung ist ein Speicher-Engpass: Bei jedem Token wird das ganze Modell gelesen. Die wichtigste Zahl bei LLMs.`,
+    [`El cómputo decide imagen y vídeo`]: `Die Rechenleistung entscheidet bei Bild und Video`,
+    [`Difusión y vídeo son mucho más intensivos en cómputo: ahí los Tensor/CUDA cores marcan la diferencia.`]: `Diffusion und Video sind deutlich rechenintensiver: Dort machen Tensor-/CUDA-Kerne den Unterschied.`,
+    [`El precio por GB`]: `Der Preis pro GB`,
+    [`Con presupuesto ajustado casi siempre gana quien más VRAM te da por euro. Pero cuenta también luz (W) y fuente de alimentación.`]: `Bei knappem Budget gewinnt fast immer, wer pro Euro den meisten VRAM bietet. Aber auch Strom (W) und Netzteil einrechnen.`,
+    [`El software no es opinión`]: `Software ist keine Meinung`,
+    [`<b>NVIDIA</b>: CUDA/TensorRT, todo funciona sin fricción. <b>AMD RDNA 4</b>: ROCm nativo, ya serio. <b>AMD RDNA 2/3</b>: ROCm en Linux, con más trabajo. <b>Apple</b>: Metal/MPS, sorprendente con llama.cpp, pero sin CUDA.`]: `<b>NVIDIA</b>: CUDA/TensorRT, alles läuft reibungslos. <b>AMD RDNA 4</b>: natives ROCm, inzwischen ernst zu nehmen. <b>AMD RDNA 2/3</b>: ROCm unter Linux, mit mehr Aufwand. <b>Apple</b>: Metal/MPS, überraschend gut mit llama.cpp, aber kein CUDA.`,
+    [`El consumo a 24/7`]: `Leistungsaufnahme rund um die Uhr`,
+    [`A 0,20 €/kWh, pasar de 300 W a 575 W son unos <b>+48 € al año</b> por tarjeta. En un clúster de 4 unidades, casi 200 € anuales.`]: `Bei 0,20 €/kWh bedeuten 300 W → 575 W etwa <b>+48 € pro Jahr</b> pro Karte. In einem Cluster mit 4 Einheiten fast 200 € pro Jahr.`,
+    // --- footer ---
+    [`Metodología y fuentes`]: `Methodik und Quellen`,
+    [`<b>Especificaciones (verificadas):</b> <i>List of Nvidia graphics processing units</i> y <i>List of AMD graphics processing units</i> de Wikipedia (ancho de banda, FP32 boost, TDP, PVP) + <i>Apple silicon</i> para la familia M1/M4 + ficha oficial ASUS/AMD de la R9700.`]: `<b>Spezifikationen (verifiziert):</b> Wikipedias <i>List of Nvidia graphics processing units</i> und <i>List of AMD graphics processing units</i> (Bandbreite, FP32-Boost, TDP, UVP) + <i>Apple silicon</i> für die M1/M4-Familie + das offizielle ASUS/AMD-Datenblatt der R9700.`,
+    [`<b>Estimaciones de LLM:</b> modelo bandwidth-bound <code>tok/s ≈ BW × 0,70 ÷ GB de pesos</code> (calibrado contra mediciones reales: R9700 ≈ 99 tok/s en 7B Q4 y 29–33 tok/s en 27B Q4).`]: `<b>LLM-Schätzungen:</b> bandwidth-bound-Modell <code>Tok/s ≈ BW × 0,70 ÷ GB Gewichte</code> (kalibriert an echten Messungen: R9700 ≈ 99 Tok/s bei 7B Q4 und 29–33 Tok/s bei 27B Q4).`,
+    [`<b>Imagen/vídeo:</b> escalado por cómputo FP16 sobre referencias medidas de la RTX 5090.`]: `<b>Bild/Video:</b> skaliert nach FP16-Rechenleistung anhand gemessener RTX-5090-Referenzen.`,
+    [`<b>Precios:</b> agregador <b>gpuprix.com</b> (España, octubre de 2026, oferta más barata en stock) y contraste con idealo.es. Los PVP en USD son los oficiales de lanzamiento.`]: `<b>Preise:</b> Aggregator <b>gpuprix.com</b> (Spanien, Oktober 2026, günstigstes verfügbares Angebot), abgeglichen mit idealo.es. USD-UVP sind die offiziellen Startpreise.`,
+    [`<b>Ruido:</b> mediciones publicadas para la RTX 5090 FE; el resto, estimación por diseño térmico.`]: `<b>Lautstärke:</b> veröffentlichte Messungen für die RTX 5090 FE; der Rest Schätzungen nach Thermik-Design.`,
+    [`<b>Corrección documentada:</b> frente a versiones anteriores, la RX 9070 son <b>36,12 TFLOPS</b> (no ~45) y la RTX 3060 12 GB tiene <b>336 GB/s</b> (no 360). Todo el catálogo se revisó contra las fuentes citadas.`]: `<b>Dokumentierte Korrektur:</b> gegenüber früheren Versionen hat die RX 9070 <b>36,12 TFLOPS</b> (nicht ~45) und die RTX 3060 12 GB <b>336 GB/s</b> (nicht 360). Der gesamte Katalog wurde gegen die genannten Quellen geprüft.`,
+    [`<b>Aviso:</b> esta página es divulgativa. Los tok/s son estimaciones según el ancho de banda (la VRAM disponible varía por configuración en Apple) y el rendimiento real depende del modelo, la cuantización, los drivers y el software. Los precios cambian a diario.`]: `<b>Hinweis:</b> Diese Seite dient der Information. Die Tok/s sind Schätzungen anhand der Bandbreite (der verfügbare VRAM variiert je nach Apple-Konfiguration) und die reale Leistung hängt von Modell, Quantisierung, Treibern und Software ab. Preise ändern sich täglich.`,
+    // --- marcas ---
+    [`Apple · M1 en adelante`]: `Apple · M1 und neuer`,
+    [`NVIDIA (desde RTX 3060 12 GB)`]: `NVIDIA (ab RTX 3060 12 GB)`,
+    [`AMD Radeon (desde RX 6800)`]: `AMD Radeon (ab RX 6800)`,
+    [`Apple (M1 en adelante)`]: `Apple (ab M1)`,
+    // --- dinámico ---
+    [`Buscar tarjeta…`]: `Karte suchen…`,
+    [`medido`]: `gemessen`,
+    [`estimado`]: `geschätzt`,
+    [`consumo`]: `Verbrauch`,
+    [`no cabe`]: `passt nicht`,
+    [`cabe`]: `passt`,
+    [`n/d`]: `k. A.`,
+    [`Ancho de banda`]: `Bandbreite`,
+    [`Cómputo FP32`]: `FP32-Rechenleistung`,
+    [`Cómputo FP16 (matriz)`]: `FP16-Rechenleistung (Matrix)`,
+    [`Consumo (menos es mejor)`]: `Leistungsaufnahme (niedriger ist besser)`,
+    [`Precio de mercado España (oct. 2026 · menos es mejor)`]: `Marktpreis Spanien (Okt. 2026 · niedriger ist besser)`,
+    [`Prefill · prompt de 512 tokens`]: `Prefill · 512-Token-Prompt`,
+    [`Clip de 5 s · 720p · ~20 pasos`]: `5-s-Clip · 720p · ~20 Schritte`,
+    [`Datos medidos en llama.cpp/vLLM sobre el modelo idéntico.`]: `Gemessene Daten mit llama.cpp/vLLM beim identischen Modell.`,
+    [`Medido: la brecha del prefill es la más grande entre AMD y NVIDIA.`]: `Gemessen: Die Prefill-Lücke ist die größte zwischen AMD und NVIDIA.`,
+    [`<b>Nota:</b> en <b>texto</b> las tarjetas de mucho ancho de banda mandan; en <b>imagen y vídeo</b> el que manda es el cómputo y el software. `]: `<b>Hinweis:</b> Bei <b>Text</b> entscheiden Karten mit hoher Bandbreite; bei <b>Bild und Video</b> entscheiden Rechenleistung und Software. `,
+    [`En <b>Apple</b> la memoria es unificada y compartida con el sistema: la VRAM útil es menor que la cifra nominal. `]: `Bei <b>Apple</b> ist der Speicher vereinheitlicht und mit dem System geteilt: der nutzbare VRAM ist geringer als der Nennwert. `,
+    [`En <b>AMD RDNA 2/3</b> el soporte ROCm existe pero exige más trabajo que CUDA.`]: `Bei <b>AMD RDNA 2/3</b> gibt es ROCm-Support, er erfordert aber mehr Aufwand als CUDA.`,
+    [`Refrigeración: `]: `Kühlung: `,
+    [`pasivo`]: `passiv`,
+    [`Con varias tarjetas`]: `Mit mehreren Karten`,
+    [`Los <b>blower</b> expulsan el aire fuera de la caja: para un clúster, N blowers suenan menos en conjunto que N axiales recirculando calor. Las <b>Apple</b> con refrigeración pasiva son las más silenciosas, pero no las puedes apilar.`]: `<b>Blower</b>-Karten blasen die Luft aus dem Gehäuse: In einem Cluster sind N Blower insgesamt leiser als N axiale Karten, die Wärme umwälzen. <b>Apple</b>-Geräte mit passiver Kühlung sind die leisesten, aber man kann sie nicht stapeln.`,
+    [`Marca / arquitectura`]: `Marke / Architektur`,
+    [`Año`]: `Jahr`,
+    [`Memoria`]: `Speicher`,
+    [`FP16 (matriz)`]: `FP16 (Matrix)`,
+    [`Consumo`]: `Leistungsaufnahme`,
+    [`Precio de mercado (España, oct. 2026)`]: `Marktpreis (Spanien, Okt. 2026)`,
+    [`Coste por GB (mercado)`]: `Kosten pro GB (Markt)`,
+    [`PVP de lanzamiento`]: `Start-UVP`,
+    [`Refrigeración`]: `Kühlung`,
+    [`PVP de lanzamiento: {0} USD`]: `Start-UVP: {0} USD`,
+    [`sin tarjeta suelta (va en el equipo)`]: `keine Einzelkarte (im Gerät verbaut)`,
+    [`<b>{0} €/GB</b> a precio de mercado`]: `<b>{0} €/GB</b> zum Marktpreis`,
+    [`sin precio de mercado`]: `kein Marktpreis`,
+    [`En luz (24/7 a 0,20 €/kWh) la A cuesta ≈{0} €/año y la B ≈{1} €/año. `]: `Beim Strom (24/7 bei 0,20 €/kWh) kostet A ≈{0} €/Jahr und B ≈{1} €/Jahr. `,
+    [`<b>Estos son precios de mercado reales</b> (España, octubre de 2026, agregador gpuprix.com: la oferta más barata en stock). La <b>crisis de memoria de 2025–2026</b> los ha disparado muy por encima del PVP: una RTX 5090 de $1.999 de PVP se vende cerca de <b>6.500 €</b>. Ojo con las paradojas: por escasez y demanda de IA, tarjetas viejas como la RX 6800 (16 GB) o la 7900 XTX pueden costar <b>más</b> que modelos nuevos mejores. Compra por <b>€/GB y por resultados</b>, no por generación. `]: `<b>Das sind reale Marktpreise</b> (Spanien, Oktober 2026, Aggregator gpuprix.com: das günstigste verfügbare Angebot). Die <b>Speicherkrise 2025–2026</b> hat sie weit über die UVP getrieben: Eine RTX 5090 mit 1.999 $ UVP kostet fast <b>6.500 €</b>. Vorsicht vor Paradoxen: Wegen Knappheit und KI-Nachfrage können alte Karten wie die RX 6800 (16 GB) oder die 7900 XTX <b>mehr</b> kosten als bessere neue Modelle. Kaufe nach <b>€/GB und Ergebnissen</b>, nicht nach Generation. `,
+    [`Con el precio de la {0} te compras varias {1}.`]: `Für den Preis der {0} bekommst du mehrere {1}.`,
+    [`En Apple no hay tarjeta suelta: es el equipo completo, con memoria unificada limitada por configuración.`]: `Bei Apple gibt es keine Einzelkarte: Es ist das ganze Gerät, mit vereinheitlichtem Speicher, begrenzt durch die Konfiguration.`,
+    [`EMPATE`]: `UNENTSCHIEDEN`,
+    [`Depende del caso`]: `Kommt darauf an`,
+    [`Gana {0}`]: `Gewinnt: {0}`,
+    [`Combinación actual: <b>{0}</b> (A) vs <b>{1}</b> (B).`]: `Aktuelle Kombination: <b>{0}</b> (A) vs. <b>{1}</b> (B).`,
+    [`En modelos densos medianos gana quien tiene más ancho de banda: <b>{0} tok/s</b> frente a <b>{1} tok/s</b> (27B Q4).`]: `Bei mittleren dichten Modellen gewinnt die höhere Bandbreite: <b>{0} Tok/s</b> gegenüber <b>{1} Tok/s</b> (27B Q4).`,
+    [` Además, la de {0} GB es la única que puede cargar un 70B Q4 completo.`]: ` Außerdem kann nur die mit {0} GB ein volles 70B Q4 laden.`,
+    [`Cómputo puro y ecosistema gráfico: <b>{0} vs {1} TFLOPS FP32</b>. En gaming y render con trazado de rayos la ventaja es de {2}.`]: `Rohe Rechenleistung und Grafik-Ökosystem: <b>{0} vs. {1} TFLOPS FP32</b>. Beim Gaming und Raytracing-Rendering liegt {2} vorn.`,
+    [`Para apilar varias tarjetas pesan formato, calor y consumo: <b>{0} / {1} W</b> frente a <b>{2} / {3} W</b>.`]: `Beim Stapeln mehrerer Karten zählen Bauform, Wärme und Verbrauch: <b>{0} / {1} W</b> gegenüber <b>{2} / {3} W</b>.`,
+    [`Difusión y vídeo dependen del cómputo: <b>{0} vs {1} TFLOPS FP16</b>. También pesa el software: donde hay CUDA, casi todo funciona a la primera.`]: `Diffusion und Video hängen von der Rechenleistung ab: <b>{0} vs. {1} TFLOPS FP16</b>. Auch die Software zählt: Wo CUDA ist, funktioniert fast alles sofort.`,
+    [`€ por GB de VRAM a precio de mercado: <b>{0}</b> frente a <b>{1}</b>.`]: `€ pro GB VRAM zum Marktpreis: <b>{0}</b> gegenüber <b>{1}</b>.`,
+    // --- catálogo ---
+    [`~31 dB · axial de 2 ventiladores`]: `~31 dB · axial mit 2 Lüftern`,
+    [`35,1 dB medidos (FE) · axial`]: `35,1 dB gemessen (FE) · axial`,
+    [`32,5–40,1 dB medidos · axial (más ruidosa que la 4090)`]: `32,5–40,1 dB gemessen · axial (lauter als die 4090)`,
+    [`~30–45 dB estimado · blower de 2 slots (casi silenciosa a ~210 W)`]: `~30–45 dB geschätzt · 2-Slot-Blower (fast lautlos bei ~210 W)`,
+    [`~24 dB · refrigeración pasiva o ventilador muy lento`]: `~24 dB · passive Kühlung oder sehr langsamer Lüfter`,
+    [`~26 dB · refrigeración pasiva o ventilador suave`]: `~26 dB · passive Kühlung oder leiser Lüfter`,
+    [`~30 dB · ventilador, sube bajo carga larga`]: `~30 dB · Lüfter, steigt bei langer Last`,
+    [`~32 dB · Mac Studio, ventilador audible bajo carga`]: `~32 dB · Mac Studio, hörbarer Lüfter unter Last`,
+    [`~30 dB · MacBook Pro, ventilador sólo bajo carga`]: `~30 dB · MacBook Pro, Lüfter nur unter Last`,
+    [`ROCm nativo`]: `Natives ROCm`,
+    [`Ojo: la RX 6800 es de <b>16 GB</b>. La de 12 GB de esa familia es la RX 6700 XT.`]: `Achtung: Die RX 6800 hat <b>16 GB</b>. Die 12-GB-Version dieser Familie ist die RX 6700 XT.`,
+    [`Memoria unificada LPDDR4X`]: `Unified Memory LPDDR4X`,
+    [`Memoria unificada LPDDR5`]: `Unified Memory LPDDR5`,
+    [`Memoria unificada LPDDR5X`]: `Unified Memory LPDDR5X`,
+    [`Apple M1 (GPU 8 núcleos)`]: `Apple M1 (8-Kern-GPU)`,
+    [`Apple M1 Pro (GPU 16 núcleos)`]: `Apple M1 Pro (16-Kern-GPU)`,
+    [`Apple M1 Max (GPU 32 núcleos)`]: `Apple M1 Max (32-Kern-GPU)`,
+    [`Apple M1 Ultra (GPU 64 núcleos)`]: `Apple M1 Ultra (64-Kern-GPU)`,
+    [`Apple M4 Max (GPU 40 núcleos)`]: `Apple M4 Max (40-Kern-GPU)`
+  }
+};
+let LANG = "es";
+try { const saved = localStorage.getItem("gpuLang"); if (saved==="es"||saved==="en"||saved==="de") LANG = saved; } catch(e){}
+function t(s){
+  let r = (LANG!=="es" && I18N[LANG] && I18N[LANG][s]!==undefined) ? I18N[LANG][s] : s;
+  if (arguments.length > 1){
+    for (let i=1;i<arguments.length;i++){ r = r.split("{"+(i-1)+"}").join(arguments[i]); }
+  }
+  return r;
+}
+
 /* ============================ ESTADO ============================ */
 const $ = id => document.getElementById(id);
 const state = { a:"r9700", b:"rtx5090", perfil:"ia" };
 const CUR = { a:"amd", b:"nv" };   /* marca de cada hueco, para colorear por marca */
-const fmt = (x,d) => (x===null||x===undefined||isNaN(x)) ? "—" : x.toLocaleString("es-ES",{minimumFractionDigits:d===undefined?0:d,maximumFractionDigits:d===undefined?1:d});
+const fmt = (x,d) => (x===null||x===undefined||isNaN(x)) ? "—" : x.toLocaleString(LOCALES[LANG],{minimumFractionDigits:d===undefined?0:d,maximumFractionDigits:d===undefined?1:d});
 
 /* ============================ CÁLCULOS ============================ */
 const MODELS = [
@@ -467,10 +782,10 @@ function buildPicker(hostId, key){
   const cur = BY[state[key]];
   let items = "";
   ["nv","amd","ap"].forEach(b => {
-    items += '<div class="pgroup">'+BRANDNAME[b]+'</div>';
+    items += '<div class="pgroup">'+t(BRANDNAME[b])+'</div>';
     CAT.filter(c => c.brand===b).forEach(c => {
       items += '<button type="button" class="pitem'+(c.id===cur.id?" on":"")+'" data-id="'+c.id+'">'+
-                 '<span class="pi-n">'+c.n+'</span>'+
+                 '<span class="pi-n">'+t(c.n)+'</span>'+
                  '<span class="pi-r">'+c.vram+' GB · '+c.bw+' GB/s</span>'+
                '</button>';
     });
@@ -478,11 +793,11 @@ function buildPicker(hostId, key){
   host.className = "picker";
   host.innerHTML =
     '<button type="button" class="picker-btn" aria-haspopup="listbox" aria-expanded="false">'+
-      '<span><span class="sel-name">'+cur.n+'</span><span class="sel-meta">'+BRANDNAME[cur.brand]+' · '+cardMeta(cur)+'</span></span>'+
+      '<span><span class="sel-name">'+t(cur.n)+'</span><span class="sel-meta">'+t(BRANDNAME[cur.brand])+' · '+cardMeta(cur)+'</span></span>'+
       '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>'+
     '</button>'+
     '<div class="picker-panel" role="listbox">'+
-      '<input class="psearch" type="search" placeholder="Buscar tarjeta…" aria-label="Buscar tarjeta">'+
+      '<input class="psearch" type="search" placeholder="'+t("Buscar tarjeta…")+'" aria-label="'+t("Buscar tarjeta…")+'">'+
       '<div class="plist">'+items+'</div>'+
     '</div>';
 
@@ -501,7 +816,8 @@ function buildPicker(hostId, key){
     const q = search.value.toLowerCase().trim();
     host.querySelectorAll(".pitem").forEach(el => {
       const c = BY[el.dataset.id];
-      el.style.display = (c.n+" "+c.arch+" "+c.bus).toLowerCase().includes(q) ? "" : "none";
+      const hay = (c.n+" "+t(c.n)+" "+c.arch+" "+c.bus+" "+t(c.bus)).toLowerCase();
+      el.style.display = hay.includes(q) ? "" : "none";
     });
     host.querySelectorAll(".pgroup").forEach(g => {
       let sib = g.nextElementSibling, any = false;
@@ -538,22 +854,22 @@ function closePicker(){
 }
 document.addEventListener("keydown", e => { if(e.key === "Escape") closePicker(); });
 document.addEventListener("click", e => { if(pickerOpen && !pickerOpen.contains(e.target)) closePicker(); });
-function brandBadge(c){ return '<span class="brand '+c.brand+'">'+BRANDNAME[c.brand]+'</span>'; }
+function brandBadge(c){ return '<span class="brand '+c.brand+'">'+t(BRANDNAME[c.brand])+'</span>'; }
 
 function renderStrip(){
-  const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
-  const box = (c,k) => {
+  const A = BY[state.a], B = BY[state.b];
+  const box = (c) => {
     return '<div class="mini c-'+c.brand+'">'+brandBadge(c)+
-      '<h3>'+c.n+'</h3>'+
-      '<div class="tagline">'+c.arch+' · '+c.year+' · '+c.sw+'</div>'+
+      '<h3>'+t(c.n)+'</h3>'+
+      '<div class="tagline">'+t(c.arch)+' · '+c.year+' · '+t(c.sw)+'</div>'+
       '<div class="kv">'+
         '<div><b>'+c.vram+' GB</b><span>VRAM</span></div>'+
         '<div><b>'+c.bw+'</b><span>GB/s</span></div>'+
         '<div><b>'+c.fp32+'</b><span>TFLOPS FP32</span></div>'+
-        '<div><b>'+c.tdp+' W</b><span>consumo</span></div>'+
+        '<div><b>'+c.tdp+' W</b><span>'+t("consumo")+'</span></div>'+
       '</div></div>';
   };
-  $("strip").innerHTML = box(A,"a") + box(B,"b");
+  $("strip").innerHTML = box(A) + box(B);
 }
 
 /* ============================ RENDER: BARRAS ============================ */
@@ -576,7 +892,7 @@ function mkBars(box, rows){
     const row = document.createElement("div");
     row.className = "barrow";
     row.innerHTML =
-      '<div class="head"><span class="name">'+r.n+' '+(r.tag?'<span class="tagi '+r.tag+'">'+(r.tag==="m"?"medido":"estimado")+'</span>':'')+'</span><span class="unit">'+r.u+'</span></div>'+
+      '<div class="head"><span class="name">'+r.n+' '+(r.tag?'<span class="tagi '+r.tag+'">'+t(r.tag==="m"?"medido":"estimado")+'</span>':'')+'</span><span class="unit">'+r.u+'</span></div>'+
       '<div class="track">'+
         '<div class="bline c-'+CUR.a+'"><span class="who">A</span><span class="meter"><i data-w="'+pa+'"></i></span><span class="val">'+ta+'</span></div>'+
         '<div class="bline c-'+CUR.b+'"><span class="who">B</span><span class="meter"><i data-w="'+pb+'"></i></span><span class="val">'+tb+'</span></div>'+
@@ -586,7 +902,7 @@ function mkBars(box, rows){
     ioBars.observe(row);
   });
 }
-function unit(v,u,d){ return v===null ? "no cabe" : fmt(v,d===undefined?1:d)+" "+u; }
+function unit(v,u,d){ return v===null ? t("no cabe") : fmt(v,d===undefined?1:d)+" "+u; }
 
 function renderPerf(){
   const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
@@ -595,12 +911,12 @@ function renderPerf(){
   const wA = star(A.bw,B.bw), wF = star(A.fp32,B.fp32), wV = star(A.vram,B.vram);
   const wT = star(-A.tdp,-B.tdp), wP = star(-(A.street||1e9),-(B.street||1e9));
   const rows = [
-    {n:"Ancho de banda"+mark("a",wA),u:"GB/s",va:A.bw,vb:B.bw,wa:fmt(A.bw)+" GB/s"+mark("a",wA),wb:fmt(B.bw)+" GB/s"+mark("b",wA)},
-    {n:"Cómputo FP32"+mark("a",wF),u:"TFLOPS",va:A.fp32,vb:B.fp32,wa:A.fp32+" TFLOPS"+mark("a",wF),wb:B.fp32+" TFLOPS"+mark("b",wF)},
-    {n:"Cómputo FP16 (matriz)",u:"TFLOPS",va:ca.fp16,vb:cb.fp16,wa:fmt(ca.fp16)+" TFLOPS",wb:fmt(cb.fp16)+" TFLOPS"},
-    {n:"VRAM"+mark("a",wV),u:"GB",va:A.vram,vb:B.vram,wa:A.vram+" GB"+mark("a",wV),wb:B.vram+" GB"+mark("b",wV)},
-    {n:"Consumo (menos es mejor)"+mark("a",wT),u:"W",va:-(A.tdp),vb:-(B.tdp),wa:A.tdp+" W"+mark("a",wT),wb:B.tdp+" W"+mark("b",wT)},
-    {n:"Precio de mercado España (oct. 2026 · menos es mejor)"+mark("a",wP),u:"€",va:-(A.street||0),vb:-(B.street||0),wa:(A.street?fmt(A.street)+" €":"n/d")+mark("a",wP),wb:(B.street?fmt(B.street)+" €":"n/d")+mark("b",wP)}
+    {n:t("Ancho de banda")+mark("a",wA),u:"GB/s",va:A.bw,vb:B.bw,wa:fmt(A.bw)+" GB/s"+mark("a",wA),wb:fmt(B.bw)+" GB/s"+mark("b",wA)},
+    {n:t("Cómputo FP32")+mark("a",wF),u:"TFLOPS",va:A.fp32,vb:B.fp32,wa:A.fp32+" TFLOPS"+mark("a",wF),wb:B.fp32+" TFLOPS"+mark("b",wF)},
+    {n:t("Cómputo FP16 (matriz)"),u:"TFLOPS",va:ca.fp16,vb:cb.fp16,wa:fmt(ca.fp16)+" TFLOPS",wb:fmt(cb.fp16)+" TFLOPS"},
+    {n:t("VRAM")+mark("a",wV),u:"GB",va:A.vram,vb:B.vram,wa:A.vram+" GB"+mark("a",wV),wb:B.vram+" GB"+mark("b",wV)},
+    {n:t("Consumo (menos es mejor)")+mark("a",wT),u:"W",va:-(A.tdp),vb:-(B.tdp),wa:A.tdp+" W"+mark("a",wT),wb:B.tdp+" W"+mark("b",wT)},
+    {n:t("Precio de mercado España (oct. 2026 · menos es mejor)")+mark("a",wP),u:"€",va:-(A.street||0),vb:-(B.street||0),wa:(A.street?fmt(A.street)+" €":t("n/d"))+mark("a",wP),wb:(B.street?fmt(B.street)+" €":t("n/d"))+mark("b",wP)}
   ];
   /* las barras negativas se reordenan: usamos valor absoluto para el ancho */
   rows.forEach(r => { r.va = Math.abs(r.va); r.vb = Math.abs(r.vb); });
@@ -608,30 +924,25 @@ function renderPerf(){
 }
 
 /* ============================ RENDER: GENERACIÓN ============================ */
-function medOrEst(key, metric){
-  const t = CAT.filter(c => c.med && c.med[metric] !== undefined);
-  if (t.length >= 2 && t.length === CAT.filter(c=>c.med).length) { /* noop */ }
-  return t;
-}
 function genRows(kind){
   const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
   const both = (m) => (A.med && A.med[m]!==undefined && B.med && B.med[m]!==undefined);
   const rows = [];
   if (kind === "texto"){
     /* MoE medido si ambos lo tienen */
-    if (both("moe")) rows.push({n:"Qwen 35B MoE · Q4 (decode)",u:"tok/s",va:A.med.moe,vb:B.med.moe,wa:A.med.moe+" tok/s",wb:B.med.moe+" tok/s",tag:"m",src:"Datos medidos en llama.cpp/vLLM sobre el modelo idéntico."});
+    if (both("moe")) rows.push({n:"Qwen 35B MoE · Q4 (decode)",u:"tok/s",va:A.med.moe,vb:B.med.moe,wa:A.med.moe+" tok/s",wb:B.med.moe+" tok/s",tag:"m",src:t("Datos medidos en llama.cpp/vLLM sobre el modelo idéntico.")});
     MODELS.forEach(m => {
       const a = ca.tps[m.k], b = cb.tps[m.k];
-      rows.push({n:m.n,u:"tok/s",va:a||0,vb:b||0,wa:(a?fmt(a,0)+" tok/s":"no cabe"),wb:(b?fmt(b,0)+" tok/s":"no cabe"),tag:"e"});
+      rows.push({n:m.n,u:"tok/s",va:a||0,vb:b||0,wa:(a?fmt(a,0)+" tok/s":t("no cabe")),wb:(b?fmt(b,0)+" tok/s":t("no cabe")),tag:"e"});
     });
-    if (both("pre")) rows.push({n:"Prefill · prompt de 512 tokens",u:"tok/s",va:A.med.pre,vb:B.med.pre,wa:A.med.pre+" tok/s",wb:B.med.pre+" tok/s",tag:"m",src:"Medido: la brecha del prefill es la más grande entre AMD y NVIDIA."});
+    if (both("pre")) rows.push({n:t("Prefill · prompt de 512 tokens"),u:"tok/s",va:A.med.pre,vb:B.med.pre,wa:A.med.pre+" tok/s",wb:B.med.pre+" tok/s",tag:"m",src:t("Medido: la brecha del prefill es la más grande entre AMD y NVIDIA.")});
   }
   if (kind === "imagen"){
     rows.push({n:"Flux.1 dev · 1024×1024",u:"img/min",va:ca.imgFlux,vb:cb.imgFlux,wa:fmt(ca.imgFlux,1)+" img/min",wb:fmt(cb.imgFlux,1)+" img/min",tag:both("flux")?"m":"e"});
     rows.push({n:"SDXL · 1024×1024",u:"img/min",va:ca.imgSdxl,vb:cb.imgSdxl,wa:fmt(ca.imgSdxl,1)+" img/min",wb:fmt(cb.imgSdxl,1)+" img/min",tag:both("sdxl")?"m":"e"});
   }
   if (kind === "video"){
-    rows.push({n:"Clip de 5 s · 720p · ~20 pasos",u:"clips/h",va:ca.vid,vb:cb.vid,wa:fmt(ca.vid,1)+" clips/h",wb:fmt(cb.vid,1)+" clips/h",tag:both("vid")?"m":"e"});
+    rows.push({n:t("Clip de 5 s · 720p · ~20 pasos"),u:"clips/h",va:ca.vid,vb:cb.vid,wa:fmt(ca.vid,1)+" clips/h",wb:fmt(cb.vid,1)+" clips/h",tag:both("vid")?"m":"e"});
   }
   return rows;
 }
@@ -642,59 +953,61 @@ function renderNoise(){
   const NMIN = 20, NMAX = 52, pos = v => ((v - NMIN)/(NMAX-NMIN))*100;
   let h = '<div class="naxis"></div>';
   for (let v = 20; v <= 50; v += 5) h += '<span class="ntick" style="left:'+pos(v)+'%">'+v+' dB</span>';
-  h += '<div class="nmark c-'+B.brand+'" style="left:'+pos(B.db)+'%"><span class="lb">'+B.n.split(" ").slice(0,3).join(" ")+' · '+B.db+' dB</span><span class="dot2"></span></div>';
-  h += '<div class="nmark c-'+A.brand+' up" style="left:'+pos(A.db)+'%"><span class="lb">'+A.n.split(" ").slice(0,3).join(" ")+' · '+A.db+' dB</span><span class="dot2"></span></div>';
+  h += '<div class="nmark c-'+B.brand+'" style="left:'+pos(B.db)+'%"><span class="lb">'+t(B.n).split(" ").slice(0,3).join(" ")+' · '+B.db+' dB</span><span class="dot2"></span></div>';
+  h += '<div class="nmark c-'+A.brand+' up" style="left:'+pos(A.db)+'%"><span class="lb">'+t(A.n).split(" ").slice(0,3).join(" ")+' · '+A.db+' dB</span><span class="dot2"></span></div>';
   $("nscale").innerHTML = h;
   const card = (c,k) => '<div class="card" style="border-color:'+(k==="a"?"rgba(255,92,56,.35)":"rgba(46,230,168,.35)")+'">'+
-    '<h3><span class="ico '+c.brand+'">dB</span> '+c.n+'</h3><p>'+c.dbTxt+'</p>'+
-    '<p class="src" style="margin-top:10px">Refrigeración: '+c.fmt+' · '+c.tdp+' W</p></div>';
+    '<h3><span class="ico '+c.brand+'">dB</span> '+t(c.n)+'</h3><p>'+t(c.dbTxt)+'</p>'+
+    '<p class="src" style="margin-top:10px">'+t("Refrigeración: ")+t(c.fmt)+' · '+c.tdp+' W</p></div>';
   $("noisecards").innerHTML = card(A,"a") + card(B,"b") +
-    '<div class="card" style="border-color:rgba(255,209,102,.35)"><h3><span class="ico tie">×N</span> Con varias tarjetas</h3><p>Los <b>blower</b> expulsan el aire fuera de la caja: para un clúster, N blowers suenan menos en conjunto que N axiales recirculando calor. Las <b>Apple</b> con refrigeración pasiva son las más silenciosas, pero no las puedes apilar.</p></div>';
+    '<div class="card" style="border-color:rgba(255,209,102,.35)"><h3><span class="ico tie">×N</span> '+t("Con varias tarjetas")+'</h3><p>'+t("Los <b>blower</b> expulsan el aire fuera de la caja: para un clúster, N blowers suenan menos en conjunto que N axiales recirculando calor. Las <b>Apple</b> con refrigeración pasiva son las más silenciosas, pero no las puedes apilar.")+'</p></div>';
 }
 
 /* ============================ RENDER: TABLA ============================ */
 function renderTable(){
   const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
-  $("thA").textContent = A.n; $("thB").textContent = B.n;
+  $("thA").textContent = t(A.n); $("thB").textContent = t(B.n);
   const row = (k, a, b, win) => {
     const w = s => win===s ? '<span class="badge-w">★</span>' : '';
     return '<tr><td>'+k+'</td><td>'+a+w("a")+'</td><td>'+b+w("b")+'</td></tr>';
   };
   let html = "";
-  html += '<tr><td>Marca / arquitectura</td><td>'+BRANDNAME[A.brand]+' · '+A.arch+'</td><td>'+BRANDNAME[B.brand]+' · '+B.arch+'</td></tr>';
-  html += '<tr><td>Año</td><td>'+A.year+'</td><td>'+B.year+'</td></tr>';
-  html += row("VRAM", A.vram+" GB", B.vram+" GB", A.vram>B.vram?"a":B.vram>A.vram?"b":null);
-  html += '<tr><td>Memoria</td><td>'+A.bus+'</td><td>'+B.bus+'</td></tr>';
-  html += row("Ancho de banda", A.bw+" GB/s", B.bw+" GB/s", A.bw>B.bw?"a":B.bw>A.bw?"b":null);
+  html += '<tr><td>'+t("Marca / arquitectura")+'</td><td>'+t(BRANDNAME[A.brand])+' · '+t(A.arch)+'</td><td>'+t(BRANDNAME[B.brand])+' · '+t(B.arch)+'</td></tr>';
+  html += '<tr><td>'+t("Año")+'</td><td>'+A.year+'</td><td>'+B.year+'</td></tr>';
+  html += row(t("VRAM"), A.vram+" GB", B.vram+" GB", A.vram>B.vram?"a":B.vram>A.vram?"b":null);
+  html += '<tr><td>'+t("Memoria")+'</td><td>'+t(A.bus)+'</td><td>'+t(B.bus)+'</td></tr>';
+  html += row(t("Ancho de banda"), A.bw+" GB/s", B.bw+" GB/s", A.bw>B.bw?"a":B.bw>A.bw?"b":null);
   html += row("FP32", A.fp32+" TFLOPS", B.fp32+" TFLOPS", A.fp32>B.fp32?"a":B.fp32>A.fp32?"b":null);
-  html += row("FP16 (matriz)", fmt(ca.fp16)+" TFLOPS", fmt(cb.fp16)+" TFLOPS", ca.fp16>cb.fp16?"a":cb.fp16>ca.fp16?"b":null);
-  html += row("Consumo", A.tdp+" W", B.tdp+" W", A.tdp<B.tdp?"a":B.tdp<A.tdp?"b":null);
-  html += row("Precio de mercado (España, oct. 2026)", A.street?fmt(A.street)+" €":"n/d", B.street?fmt(B.street)+" €":"n/d", (A.street&&B.street)?(A.street<B.street?"a":B.street<A.street?"b":null):null);
-  html += row("Coste por GB (mercado)", ca.eurGb?fmt(ca.eurGb,0)+" €/GB":"—", cb.eurGb?fmt(cb.eurGb,0)+" €/GB":"—", (ca.eurGb&&cb.eurGb)?(ca.eurGb<cb.eurGb?"a":cb.eurGb<ca.eurGb?"b":null):null);
-  html += row("PVP de lanzamiento", A.msrp?fmt(A.msrp)+" USD":"—", B.msrp?fmt(B.msrp)+" USD":"—", (A.msrp&&B.msrp)?(A.msrp<B.msrp?"a":B.msrp<A.msrp?"b":null):null);
-  html += '<tr><td>Refrigeración</td><td>'+A.fmt+'</td><td>'+B.fmt+'</td></tr>';
-  html += '<tr><td>Software</td><td>'+A.sw+'</td><td>'+B.sw+'</td></tr>';
-  html += '<tr><td>70B Q4 (~42 GB)</td><td>'+(ca.tps["70b"]?"cabe":"no cabe")+'</td><td>'+(cb.tps["70b"]?"cabe":"no cabe")+'</td></tr>';
+  html += row(t("FP16 (matriz)"), fmt(ca.fp16)+" TFLOPS", fmt(cb.fp16)+" TFLOPS", ca.fp16>cb.fp16?"a":cb.fp16>ca.fp16?"b":null);
+  html += row(t("Consumo"), A.tdp+" W", B.tdp+" W", A.tdp<B.tdp?"a":B.tdp<A.tdp?"b":null);
+  html += row(t("Precio de mercado (España, oct. 2026)"), A.street?fmt(A.street)+" €":t("n/d"), B.street?fmt(B.street)+" €":t("n/d"), (A.street&&B.street)?(A.street<B.street?"a":B.street<A.street?"b":null):null);
+  html += row(t("Coste por GB (mercado)"), ca.eurGb?fmt(ca.eurGb,0)+" €/GB":"—", cb.eurGb?fmt(cb.eurGb,0)+" €/GB":"—", (ca.eurGb&&cb.eurGb)?(ca.eurGb<cb.eurGb?"a":cb.eurGb<ca.eurGb?"b":null):null);
+  html += row(t("PVP de lanzamiento"), A.msrp?fmt(A.msrp)+" USD":"—", B.msrp?fmt(B.msrp)+" USD":"—", (A.msrp&&B.msrp)?(A.msrp<B.msrp?"a":B.msrp<A.msrp?"b":null):null);
+  html += '<tr><td>'+t("Refrigeración")+'</td><td>'+t(A.fmt)+'</td><td>'+t(B.fmt)+'</td></tr>';
+  html += '<tr><td>Software</td><td>'+t(A.sw)+'</td><td>'+t(B.sw)+'</td></tr>';
+  html += '<tr><td>70B Q4 (~42 GB)</td><td>'+(ca.tps["70b"]?t("cabe"):t("no cabe"))+'</td><td>'+(cb.tps["70b"]?t("cabe"):t("no cabe"))+'</td></tr>';
   $("tbody").innerHTML = html;
 }
 
 /* ============================ RENDER: PRECIO ============================ */
 function renderPrice(){
   const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
-  const box = (c,cc,k) => '<div class="pricebox c-'+c.brand+'"><span class="brand '+c.brand+'">'+BRANDNAME[c.brand]+'</span>'+
-    '<div style="font-size:14px;color:var(--muted);margin-top:8px">'+c.n+'</div>'+
-    '<div class="amt">'+(c.street? fmt(c.street)+" €" : "n/d")+'</div>'+
-    '<small>'+c.vram+' GB · '+c.tdp+' W · '+c.arch+'<br>'+(c.msrp? 'PVP de lanzamiento: $'+fmt(c.msrp)+' USD' : 'sin tarjeta suelta (va en el equipo)')+'</small>'+
-    '<p style="margin-top:12px;color:var(--muted);font-size:14px">'+(cc.eurGb? "<b>"+fmt(cc.eurGb,0)+" €/GB</b> a precio de mercado" : "sin precio de mercado")+'</p></div>';
-  $("price").innerHTML = box(A,ca,"a") + box(B,cb,"b");
+  const box = (c,cc) => '<div class="pricebox c-'+c.brand+'"><span class="brand '+c.brand+'">'+t(BRANDNAME[c.brand])+'</span>'+
+    '<div style="font-size:14px;color:var(--muted);margin-top:8px">'+t(c.n)+'</div>'+
+    '<div class="amt">'+(c.street? fmt(c.street)+" €" : t("n/d"))+'</div>'+
+    '<small>'+c.vram+' GB · '+c.tdp+' W · '+t(c.arch)+'<br>'+(c.msrp? t("PVP de lanzamiento: {0} USD", fmt(c.msrp)) : t("sin tarjeta suelta (va en el equipo)"))+'</small>'+
+    '<p style="margin-top:12px;color:var(--muted);font-size:14px">'+(cc.eurGb? t("<b>{0} €/GB</b> a precio de mercado", fmt(cc.eurGb,0)) : t("sin precio de mercado"))+'</p></div>';
+  $("price").innerHTML = box(A,ca) + box(B,cb);
   const cheap = (ca.eurGb&&cb.eurGb) ? (ca.eurGb<cb.eurGb ? A : B) : B;
   const cost = 24*365/1000;
   const ea = (A.tdp*cost*0.20).toFixed(0), eb = (B.tdp*cost*0.20).toFixed(0);
-  $("pricenote").innerHTML = '<b>Estos son precios de mercado reales</b> (España, octubre de 2026, agregador gpuprix.com: la oferta más barata en stock). '+
-    'La <b>crisis de memoria de 2025–2026</b> los ha disparado muy por encima del PVP: una RTX 5090 de $1.999 de PVP se vende cerca de <b>6.500 €</b>. '+
-    'Ojo con las paradojas: por escasez y demanda de IA, tarjetas viejas como la RX 6800 (16 GB) o la 7900 XTX pueden costar <b>más</b> que modelos nuevos mejores. Compra por <b>€/GB y por resultados</b>, no por generación. '+
-    'En luz (24/7 a 0,20 €/kWh) la A cuesta ≈'+ea+' €/año y la B ≈'+eb+' €/año. '+
-    (cheap.street ? 'Con el precio de la '+(cheap===A?B.n:A.n)+' te compras varias '+cheap.n+'.' : 'En Apple no hay tarjeta suelta: es el equipo completo, con memoria unificada limitada por configuración.');
+  const tail = cheap.street
+    ? t("Con el precio de la {0} te compras varias {1}.", (cheap===A?B.n:A.n), cheap.n)
+    : t("En Apple no hay tarjeta suelta: es el equipo completo, con memoria unificada limitada por configuración.");
+  $("pricenote").innerHTML =
+    t("<b>Estos son precios de mercado reales</b> (España, octubre de 2026, agregador gpuprix.com: la oferta más barata en stock). La <b>crisis de memoria de 2025–2026</b> los ha disparado muy por encima del PVP: una RTX 5090 de $1.999 de PVP se vende cerca de <b>6.500 €</b>. Ojo con las paradojas: por escasez y demanda de IA, tarjetas viejas como la RX 6800 (16 GB) o la 7900 XTX pueden costar <b>más</b> que modelos nuevos mejores. Compra por <b>€/GB y por resultados</b>, no por generación. ")
+    + t("En luz (24/7 a 0,20 €/kWh) la A cuesta ≈{0} €/año y la B ≈{1} €/año. ", ea, eb)
+    + tail;
 }
 
 /* ============================ RENDER: VEREDICTO ============================ */
@@ -702,35 +1015,34 @@ function renderVerdict(){
   const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
   const P = state.perfil;
   let winner = "tie", why = "";
-  const nameOf = c => c.n;
   if (P === "ia"){
     const va = ca.tps["27b"]||0, vb = cb.tps["27b"]||0;
     winner = va>vb ? "a" : vb>va ? "b" : "tie";
-    why = "En modelos densos medianos gana quien tiene más ancho de banda: <b>"+fmt(Math.max(va,vb),0)+" tok/s</b> frente a <b>"+fmt(Math.min(va,vb),0)+" tok/s</b> (27B Q4).";
-    if ((A.vram>=42) !== (B.vram>=42)) why += " Además, la de "+Math.max(A.vram,B.vram)+" GB es la única que puede cargar un 70B Q4 completo.";
+    why = t("En modelos densos medianos gana quien tiene más ancho de banda: <b>{0} tok/s</b> frente a <b>{1} tok/s</b> (27B Q4).", fmt(Math.max(va,vb),0), fmt(Math.min(va,vb),0));
+    if ((A.vram>=42) !== (B.vram>=42)) why += t(" Además, la de {0} GB es la única que puede cargar un 70B Q4 completo.", Math.max(A.vram,B.vram));
   } else if (P === "gaming"){
     winner = A.fp32>B.fp32 ? "a" : B.fp32>A.fp32 ? "b" : "tie";
-    why = "Cómputo puro y ecosistema gráfico: <b>"+Math.max(A.fp32,B.fp32)+" vs "+Math.min(A.fp32,B.fp32)+" TFLOPS FP32</b>. En gaming y render con trazado de rayos la ventaja es de "+ (winner==="a"?A.n:B.n) +".";
+    why = t("Cómputo puro y ecosistema gráfico: <b>{0} vs {1} TFLOPS FP32</b>. En gaming y render con trazado de rayos la ventaja es de {2}.", Math.max(A.fp32,B.fp32), Math.min(A.fp32,B.fp32), t((winner==="a"?A.n:B.n)));
   } else if (P === "densa"){
     const sc = c => (c.fmt==="pasivo"?2:c.fmt==="blower"?1:0) - c.tdp/500 + c.vram/64;
     const sa = sc(A), sb = sc(B);
     winner = sa>sb ? "a" : sb>sa ? "b" : "tie";
-    why = "Para apilar varias tarjetas pesan formato, calor y consumo: <b>"+A.fmt+" / "+A.tdp+" W</b> frente a <b>"+B.fmt+" / "+B.tdp+" W</b>.";
+    why = t("Para apilar varias tarjetas pesan formato, calor y consumo: <b>{0} / {1} W</b> frente a <b>{2} / {3} W</b>.", t(A.fmt), A.tdp, t(B.fmt), B.tdp);
   } else if (P === "video"){
     winner = ca.fp16>cb.fp16 ? "a" : cb.fp16>ca.fp16 ? "b" : "tie";
-    why = "Difusión y vídeo dependen del cómputo: <b>"+fmt(Math.max(ca.fp16,cb.fp16),0)+" vs "+fmt(Math.min(ca.fp16,cb.fp16),0)+" TFLOPS FP16</b>. También pesa el software: donde hay CUDA, casi todo funciona a la primera.";
+    why = t("Difusión y vídeo dependen del cómputo: <b>{0} vs {1} TFLOPS FP16</b>. También pesa el software: donde hay CUDA, casi todo funciona a la primera.", fmt(Math.max(ca.fp16,cb.fp16),0), fmt(Math.min(ca.fp16,cb.fp16),0));
   } else {
     const ga = ca.eurGb||1e9, gb2 = cb.eurGb||1e9;
     winner = ga<gb2 ? "a" : gb2<ga ? "b" : "tie";
-    why = "€ por GB de VRAM a precio de mercado: <b>"+(ca.eurGb?fmt(ca.eurGb,0)+" €/GB":"—")+"</b> frente a <b>"+(cb.eurGb?fmt(cb.eurGb,0)+" €/GB":"—")+"</b>.";
+    why = t("€ por GB de VRAM a precio de mercado: <b>{0}</b> frente a <b>{1}</b>.", (ca.eurGb?fmt(ca.eurGb,0)+" €/GB":"—"), (cb.eurGb?fmt(cb.eurGb,0)+" €/GB":"—"));
   }
   const winCard = winner==="a"?A:winner==="b"?B:null;
-  const pill = winner==="tie" ? '<span class="pill tie">EMPATE</span>' :
-    '<span class="pill '+winCard.brand+'">'+winCard.n+'</span>';
+  const pill = winner==="tie" ? '<span class="pill tie">'+t("EMPATE")+'</span>' :
+    '<span class="pill '+winCard.brand+'">'+t(winCard.n)+'</span>';
   $("verdict").innerHTML =
-    '<div class="win-row">'+pill+'<span>'+(winner==="tie"?"Depende del caso":("Gana "+nameOf(winCard)))+'</span></div>'+
+    '<div class="win-row">'+pill+'<span>'+(winner==="tie"?t("Depende del caso"):t("Gana {0}", t(winCard.n)))+'</span></div>'+
     '<p style="color:var(--muted)">'+why+'</p>'+
-    '<p class="src">Combinación actual: <b>'+A.n+'</b> (A) vs <b>'+B.n+'</b> (B).</p>';
+    '<p class="src">'+t("Combinación actual: <b>{0}</b> (A) vs <b>{1}</b> (B).", t(A.n), t(B.n))+'</p>';
 }
 
 /* ============================ RENDER GLOBAL ============================ */
@@ -742,9 +1054,9 @@ function renderAll(){
   mkBars($("gen-imagen"), genRows("imagen"));
   mkBars($("gen-video"), genRows("video"));
   const A = BY[state.a], B = BY[state.b];
-  $("gennote").innerHTML = "<b>Nota:</b> en <b>texto</b> las tarjetas de mucho ancho de banda mandan; en <b>imagen y vídeo</b> el que manda es el cómputo y el software. "+
-    (A.brand==="ap"||B.brand==="ap" ? "En <b>Apple</b> la memoria es unificada y compartida con el sistema: la VRAM útil es menor que la cifra nominal. " : "")+
-    (A.brand==="amd"||B.brand==="amd" ? "En <b>AMD RDNA 2/3</b> el soporte ROCm existe pero exige más trabajo que CUDA." : "");
+  $("gennote").innerHTML = t("<b>Nota:</b> en <b>texto</b> las tarjetas de mucho ancho de banda mandan; en <b>imagen y vídeo</b> el que manda es el cómputo y el software. ")
+    + (A.brand==="ap"||B.brand==="ap" ? t("En <b>Apple</b> la memoria es unificada y compartida con el sistema: la VRAM útil es menor que la cifra nominal. ") : "")
+    + (A.brand==="amd"||B.brand==="amd" ? t("En <b>AMD RDNA 2/3</b> el soporte ROCm existe pero exige más trabajo que CUDA.") : "");
   renderNoise();
   renderTable();
   renderPrice();
@@ -753,7 +1065,7 @@ function renderAll(){
 
 /* ============================ EVENTOS ============================ */
 function syncSelects(){ buildPicker("pickA", "a"); buildPicker("pickB", "b"); }
-$("swapBtn").addEventListener("click", () => { const t = state.a; state.a = state.b; state.b = t; syncSelects(); renderAll(); });
+$("swapBtn").addEventListener("click", () => { const tt = state.a; state.a = state.b; state.b = tt; syncSelects(); renderAll(); });
 $("presets").addEventListener("click", e => {
   const b = e.target.closest("button"); if(!b) return;
   const [x,y] = b.dataset.p.split(",");
@@ -766,6 +1078,27 @@ $("seg").addEventListener("click", e => {
   const box = $("verdict");
   box.style.animation = "none"; void box.offsetWidth; box.style.animation = "pop .45s ease";
   renderVerdict();
+});
+
+/* ============================ IDIOMA ============================ */
+const i18nNodes = Array.from(document.querySelectorAll("[data-i18n]")).map(el => ({ el, es: el.innerHTML }));
+function applyLang(){
+  document.documentElement.lang = LANG;
+  document.title = t("Comparador de GPUs para IA · NVIDIA (desde RTX 3060 12 GB) · AMD (desde RX 6800) · Apple M1+");
+  const md = document.querySelector('meta[name="description"]');
+  if (md) md.setAttribute("content", t("Infografía interactiva: elige dos tarjetas gráficas y compáralas al instante (VRAM, ancho de banda, FP32, consumo, precio, tokens/s, imagen, vídeo y ruido). Catálogo NVIDIA desde RTX 3060 12 GB, AMD desde RX 6800 y Apple M1 en adelante."));
+  i18nNodes.forEach(({el, es}) => { el.innerHTML = t(es); });
+  const sw = $("swapBtn");
+  if (sw){ sw.setAttribute("title", t("Intercambiar A y B")); sw.setAttribute("aria-label", t("Intercambiar A y B")); }
+  document.querySelectorAll("#langs button").forEach(b => b.classList.toggle("on", b.dataset.lang===LANG));
+  syncSelects();
+  renderAll();
+}
+$("langs").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  LANG = b.dataset.lang;
+  try { localStorage.setItem("gpuLang", LANG); } catch(err){}
+  applyLang();
 });
 
 /* REVEAL */
@@ -782,8 +1115,7 @@ addEventListener("scroll", ()=>{ const h=document.documentElement;
   prog.style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%" }, {passive:true});
 
 /* arranque */
-syncSelects();
-renderAll();
+applyLang();
 </script>
 </body>
 </html>
