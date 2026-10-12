@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>R9700 32GB vs RTX 5090 32GB · Infografía comparativa</title>
-<meta name="description" content="Infografía comparativa: ASUS Turbo Radeon AI PRO R9700 32GB vs NVIDIA GeForce RTX 5090 32GB. Especificaciones, rendimiento, consumo, precio y veredicto para IA local, gaming y trabajo.">
+<title>Comparador de GPUs para IA · NVIDIA (desde RTX 3060 12 GB) · AMD (desde RX 6800) · Apple M1+</title>
+<meta name="description" content="Infografía interactiva: elige dos tarjetas gráficas y compáralas al instante (VRAM, ancho de banda, FP32, consumo, precio, tokens/s, imagen, vídeo y ruido). Catálogo NVIDIA desde RTX 3060 12 GB, AMD desde RX 6800 y Apple M1 en adelante.">
 <style>
-/* ============================== BASE ============================== */
 :root{
   --bg:#07070c; --bg2:#0d0d16; --panel:rgba(255,255,255,.04);
   --line:rgba(255,255,255,.10);
   --txt:#eef1f8; --muted:#9aa3bd;
   --amd:#ff5c38; --amd2:#ffab3d;
   --nv:#76d13a; --nv2:#2ee6a8;
+  --ap:#9fb4d6; --ap2:#dfe9ff;
   --win:#ffd166;
   --r:20px;
   --shadow:0 20px 60px rgba(0,0,0,.55);
@@ -27,9 +27,9 @@ body{
 body::before{
   content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
   background:
-    radial-gradient(900px 600px at 12% -5%, rgba(255,92,56,.20), transparent 60%),
-    radial-gradient(900px 600px at 88% 5%, rgba(46,230,168,.16), transparent 60%),
-    radial-gradient(1200px 800px at 50% 110%, rgba(118,209,58,.10), transparent 60%);
+    radial-gradient(900px 600px at 12% -5%, rgba(255,92,56,.18), transparent 60%),
+    radial-gradient(900px 600px at 88% 5%, rgba(46,230,168,.15), transparent 60%),
+    radial-gradient(1200px 800px at 50% 110%, rgba(155,180,214,.10), transparent 60%);
   animation:bgmove 22s ease-in-out infinite alternate;
 }
 @keyframes bgmove{from{transform:translateY(0) scale(1)}to{transform:translateY(-28px) scale(1.06)}}
@@ -41,176 +41,140 @@ body::after{
 }
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 a{color:#9ec8ff;text-decoration:none}
-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;background:rgba(255,255,255,.07);padding:2px 6px;border-radius:6px}
 
-/* ============================== REVEAL ============================== */
+/* REVEAL */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
-.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
-.rv.d4{transition-delay:.32s}.rv.d5{transition-delay:.40s}.rv.d6{transition-delay:.48s}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
 
-/* ============================== HERO ============================== */
-header{padding:62px 0 34px;text-align:center;position:relative}
-.kicker{
-  display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;
-  color:#cfd6ea;background:rgba(255,255,255,.05);border:1px solid var(--line);padding:7px 15px;border-radius:999px;margin-bottom:22px
-}
+/* HERO */
+header{padding:56px 0 26px;text-align:center;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:#cfd6ea;background:rgba(255,255,255,.05);border:1px solid var(--line);padding:7px 15px;border-radius:999px;margin-bottom:22px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--win);box-shadow:0 0 12px var(--win);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
-h1{font-size:clamp(30px,6.2vw,62px);line-height:1.05;letter-spacing:-.02em;margin-bottom:14px}
-.grad{background:linear-gradient(96deg,var(--amd) 0%,var(--amd2) 35%,#fff 52%,var(--nv2) 70%,var(--nv) 100%);
-  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
-  animation:slide 9s ease-in-out infinite alternate}
+h1{font-size:clamp(28px,5.6vw,56px);line-height:1.06;letter-spacing:-.02em;margin-bottom:14px}
+.grad{background:linear-gradient(96deg,var(--amd) 0%,var(--amd2) 30%,#fff 50%,var(--nv2) 70%,var(--nv) 100%);
+  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:slide 9s ease-in-out infinite alternate}
 @keyframes slide{from{background-position:0% 50%}to{background-position:100% 50%}}
-.sub{color:var(--muted);max-width:64ch;margin:0 auto;font-size:17.5px}
-.hero-cards{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:44px}
-@media(max-width:820px){.hero-cards{grid-template-columns:1fr;gap:14px}.vs-sep{display:none}}
-.hcard{
-  position:relative;border-radius:var(--r);padding:26px 22px;border:1px solid var(--line);
-  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
-  box-shadow:var(--shadow);overflow:hidden;transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s
-}
-.hcard:hover{transform:translateY(-8px)}
-.hcard::before{content:"";position:absolute;inset:0;opacity:.20;pointer-events:none}
-.hcard.amd::before{background:radial-gradient(420px 220px at 20% 0%,var(--amd),transparent 70%)}
-.hcard.nv::before{background:radial-gradient(420px 220px at 80% 0%,var(--nv),transparent 70%)}
-.hcard h2{font-size:19px;position:relative;letter-spacing:-.01em}
-.hcard .tagline{color:var(--muted);font-size:14.5px;margin-top:6px;position:relative}
-.chip{display:inline-block;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
-  padding:4px 10px;border-radius:999px;margin-top:12px;position:relative;font-weight:700}
-.chip.amd{background:rgba(255,92,56,.16);color:#ffb59e;border:1px solid rgba(255,92,56,.5)}
-.chip.nv{background:rgba(46,230,168,.14);color:#a9f3d4;border:1px solid rgba(46,230,168,.5)}
-.bigstat{margin-top:18px;display:flex;align-items:baseline;gap:8px;position:relative}
-.bigstat b{font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.02em}
-.bigstat span{color:var(--muted);font-size:13.5px}
-.vs-sep{display:flex;align-items:center;justify-content:center}
-.vs-badge{
-  width:78px;height:78px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:19px;
-  background:linear-gradient(140deg,var(--amd),var(--nv));color:#080a10;box-shadow:0 0 44px rgba(255,255,255,.18);
-  animation:spin 12s linear infinite
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.vs-badge x{animation:spinrev 12s linear infinite}
-@keyframes spinrev{to{transform:rotate(-360deg)}}
+.sub{color:var(--muted);max-width:70ch;margin:0 auto;font-size:17.5px}
 
-/* ============================== SECCIONES ============================== */
-section{padding:60px 0;border-top:1px solid var(--line)}
-h2.sec{font-size:clamp(22px,3.6vw,34px);letter-spacing:-.02em;margin-bottom:8px}
-p.lead{color:var(--muted);margin-bottom:26px;max-width:70ch}
+/* COMPARADOR */
+.pickgrid{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:end;margin-top:34px}
+@media(max-width:760px){.pickgrid{grid-template-columns:1fr;gap:12px}.swapcell{order:3;justify-self:center}}
+.pickbox{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
+  border:1px solid var(--line);border-radius:var(--r);padding:18px;text-align:left;position:relative;overflow:hidden}
+.pickbox::before{content:"";position:absolute;inset:0;opacity:.16;pointer-events:none}
+.pickbox.a::before{background:radial-gradient(360px 180px at 15% 0%,var(--amd),transparent 70%)}
+.pickbox.b::before{background:radial-gradient(360px 180px at 85% 0%,var(--nv),transparent 70%)}
+.pickbox label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);position:relative}
+select{width:100%;background:#12121e;border:1px solid var(--line);color:var(--txt);padding:12px 13px;border-radius:12px;
+  font:inherit;font-size:15px;margin-top:8px;position:relative;cursor:pointer}
+select:focus{outline:2px solid var(--nv2);outline-offset:1px}
+optgroup{background:#12121e;color:var(--muted)}
+option{background:#12121e;color:var(--txt)}
+.swapcell{display:flex;justify-content:center}
+.swap{width:58px;height:58px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.06);
+  color:var(--txt);font-size:20px;cursor:pointer;transition:transform .4s,background .3s}
+.swap:hover{transform:rotate(180deg);background:rgba(255,255,255,.12)}
+.presets{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.presets button{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--muted);font:inherit;font-size:13px;
+  padding:8px 14px;border-radius:999px;cursor:pointer;transition:.3s}
+.presets button:hover{color:var(--txt);border-color:rgba(255,255,255,.3)}
+.vs-strip{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+@media(max-width:640px){.vs-strip{grid-template-columns:1fr}}
+.mini{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.mini h3{font-size:15.5px;line-height:1.3}
+.mini .tagline{color:var(--muted);font-size:12.5px;margin-top:4px}
+.mini .kv{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px}
+.mini .kv div{min-width:78px}
+.mini .kv b{display:block;font-size:19px;letter-spacing:-.01em}
+.mini .kv span{font-size:11.5px;color:var(--muted)}
+.mini.a{border-color:rgba(255,92,56,.45)}.mini.b{border-color:rgba(46,230,168,.45)}
+.mini.a .kv b{color:#ff9a76}.mini.b .kv b{color:#8beabf}
+.brand{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 8px;border-radius:6px;margin-bottom:7px}
+.brand.nv{background:rgba(46,230,168,.14);color:#a9f3d4;border:1px solid rgba(46,230,168,.45)}
+.brand.amd{background:rgba(255,92,56,.16);color:#ffb59e;border:1px solid rgba(255,92,56,.45)}
+.brand.ap{background:rgba(159,180,214,.16);color:#dbe6fa;border:1px solid rgba(159,180,214,.45)}
 
-/* ============================== BARRAS ============================== */
-.bars{display:grid;gap:26px;margin-top:8px}
+/* SECCIONES */
+section{padding:56px 0;border-top:1px solid var(--line)}
+h2.sec{font-size:clamp(21px,3.4vw,32px);letter-spacing:-.02em;margin-bottom:8px}
+p.lead{color:var(--muted);margin-bottom:24px;max-width:72ch}
+
+/* BARRAS */
+.bars{display:grid;gap:24px;margin-top:8px}
 .barrow{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
 .barrow .head{display:flex;flex-direction:column;align-items:flex-start;gap:3px;margin-bottom:13px}
 .barrow .name{font-weight:700;font-size:15.5px;line-height:1.35}
 .barrow .unit{color:var(--muted);font-size:12.5px}
 .track{display:grid;gap:10px}
 .bline{display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:10px}
-.bline .who{font-size:12.5px;font-weight:700}
-.bline.amd .who{color:#ff9a76}.bline.nv .who{color:#8beabf}
-.meter{position:relative;height:26px;border-radius:8px;background:rgba(255,255,255,.05);overflow:hidden;min-width:50px}
-.meter i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:8px;transition:width 1.5s cubic-bezier(.16,.9,.25,1)}
-.bline.amd .meter i{background:linear-gradient(90deg,#c33b1d,var(--amd),var(--amd2))}
-.bline.nv .meter i{background:linear-gradient(90deg,#1f8a5a,var(--nv2),var(--nv))}
+.bline .who{font-size:12.5px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bline .meter{position:relative;height:26px;border-radius:8px;background:rgba(255,255,255,.05);overflow:hidden;min-width:50px}
+.bline .meter i{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:8px;transition:width 1.4s cubic-bezier(.16,.9,.25,1)}
 .bline .val{font-size:13px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums;text-align:right}
-.bline.amd .val{color:#ffb59e}.bline.nv .val{color:#a9f3d4}
+.bline.a .who,.bline.a .val{color:#ff9a76}.bline.b .who,.bline.b .val{color:#8beabf}
+.bline.a .meter i{background:linear-gradient(90deg,#c33b1d,var(--amd),var(--amd2))}
+.bline.b .meter i{background:linear-gradient(90deg,#1f8a5a,var(--nv2),var(--nv))}
 .scrollhint{display:none;color:var(--muted);font-size:12.5px;margin:2px 0 8px}
-
-/* ------- ajustes móviles ------- */
-@media(max-width:620px){
-  .bars{gap:18px}
-  .barrow{padding:15px 14px;border-radius:14px}
-  .barrow .name{font-size:14.5px}
-  .bline{grid-template-columns:56px 1fr auto;gap:8px}
-  .bline .who{font-size:11.5px}
-  .bline .val{font-size:12px}
-  .meter{height:24px}
-  .scrollhint{display:block}
-  .genax{margin-top:26px}
-  .genax h3{font-size:16px}
-  .nscale{height:140px}
-  .nmark .lb{font-size:10.5px;padding:3px 7px;max-width:40vw;white-space:normal;text-align:center;line-height:1.2}
-  .noise{padding:20px 14px 26px}
-  .wrap{padding:0 15px}
-  .pricebox .amt{font-size:26px}
-}
-@media(max-width:400px){
-  .bline{grid-template-columns:52px 1fr auto;gap:6px}
-  .bline .who{font-size:11px}
-  .bline .val{font-size:11.5px}
-}
-
-/* ============================== TABLA ============================== */
-.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
-table{width:100%;border-collapse:collapse;min-width:680px}
-th,td{padding:13px 16px;text-align:left;font-size:14.5px;border-bottom:1px solid var(--line)}
-thead th{position:sticky;top:0;background:#0e0e19;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
-thead th.a{color:#ffb59e}thead th.b{color:#a9f3d4}
-tbody tr{transition:background .25s}
-tbody tr:hover{background:rgba(255,255,255,.045)}
-tbody td:first-child{color:var(--muted);white-space:nowrap}
-td b{font-weight:700}
-.winner{color:var(--win)}
-.badge-w{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.06em;padding:2px 7px;border-radius:6px;background:rgba(255,209,102,.16);color:var(--win);border:1px solid rgba(255,209,102,.4);margin-left:7px;vertical-align:1px}
-
-/* ============================== TARJETAS ============================== */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
-.card{
-  background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;
-  transition:transform .45s cubic-bezier(.2,.7,.2,1),border-color .45s,box-shadow .45s;position:relative;overflow:hidden
-}
-.card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.24);box-shadow:0 18px 44px rgba(0,0,0,.5)}
-.card h3{font-size:16.5px;margin-bottom:8px;display:flex;align-items:center;gap:9px}
-.card p{color:var(--muted);font-size:14.5px}
-.ico{width:26px;height:26px;flex:0 0 26px;border-radius:8px;display:grid;place-items:center;font-size:14px;font-weight:900}
-.ico.amd{background:rgba(255,92,56,.18);color:#ff8963;border:1px solid rgba(255,92,56,.45)}
-.ico.nv{background:rgba(46,230,168,.16);color:#66e8bb;border:1px solid rgba(46,230,168,.45)}
-.ico.tie{background:rgba(255,209,102,.16);color:var(--win);border:1px solid rgba(255,209,102,.45)}
-
-/* ============================== SELECTOR ============================== */
-.seg{display:inline-flex;gap:6px;background:rgba(255,255,255,.05);border:1px solid var(--line);padding:6px;border-radius:999px;flex-wrap:wrap}
-.seg button{
-  border:0;background:transparent;color:var(--muted);font:inherit;font-size:14px;font-weight:600;
-  padding:9px 16px;border-radius:999px;cursor:pointer;transition:.3s
-}
-.seg button:hover{color:var(--txt)}
-.seg button.on{background:linear-gradient(120deg,var(--amd),var(--nv));color:#080a10}
-.verdict{
-  margin-top:22px;border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--panel);
-  display:grid;gap:12px;animation:pop .45s ease
-}
-@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}
-.verdict h3{font-size:18px}
-.verdict .win-row{display:flex;align-items:center;gap:12px;font-weight:700;font-size:15.5px}
-.pill{font-size:11.5px;font-weight:800;letter-spacing:.07em;padding:4px 10px;border-radius:999px;text-transform:uppercase}
-.pill.amd{background:rgba(255,92,56,.16);color:#ffb59e;border:1px solid rgba(255,92,56,.45)}
-.pill.nv{background:rgba(46,230,168,.14);color:#a9f3d4;border:1px solid rgba(46,230,168,.45)}
-.pill.tie{background:rgba(255,209,102,.16);color:var(--win);border:1px solid rgba(255,209,102,.45)}
-
-/* ============================== PRECIO ============================== */
-.price{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:640px){.price{grid-template-columns:1fr}}
-.pricebox{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--panel);text-align:center}
-.pricebox .amt{font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-.02em;margin:6px 0}
-.pricebox.amd .amt{color:#ff9a76}.pricebox.nv .amt{color:#8beabf}
-.pricebox small{color:var(--muted)}
-
-/* ============================== FUENTES ============================== */
-footer{padding:44px 0 70px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
-footer ul{margin:10px 0 0 18px}
-footer li{margin:4px 0}
-.note{margin-top:18px;padding:14px 16px;border-radius:14px;background:rgba(255,209,102,.07);border:1px solid rgba(255,209,102,.28);color:#ffe6ad;font-size:13.5px}
-
-/* ============================== GENERACIÓN ============================== */
-.genax{margin-top:32px}
-.genax h3{font-size:17.5px;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.src{color:var(--muted);font-size:12.5px;margin-top:9px;line-height:1.5}
 .tagi{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap}
 .tagi.m{background:rgba(46,230,168,.14);color:#a9f3d4;border:1px solid rgba(46,230,168,.45)}
 .tagi.e{background:rgba(255,209,102,.16);color:var(--win);border:1px solid rgba(255,209,102,.42)}
-.genax .barrow{margin-top:14px}
+.src{color:var(--muted);font-size:12.5px;margin-top:9px;line-height:1.5}
+.genax{margin-top:30px}
+.genax h3{font-size:17px;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 
-/* ============================== RUIDO ============================== */
+/* TABLA */
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{padding:12px 16px;text-align:left;font-size:14.5px;border-bottom:1px solid var(--line)}
+thead th{position:sticky;top:0;background:#0e0e19;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+thead th.a{color:#ffb59e}thead th.b{color:#a9f3d4}
+tbody tr:hover{background:rgba(255,255,255,.045)}
+tbody td:first-child{color:var(--muted);white-space:nowrap}
+.winner{color:var(--win)}
+.badge-w{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.06em;padding:2px 7px;border-radius:6px;
+  background:rgba(255,209,102,.16);color:var(--win);border:1px solid rgba(255,209,102,.4);margin-left:7px;vertical-align:1px}
+
+/* TARJETAS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;
+  transition:transform .45s cubic-bezier(.2,.7,.2,1),border-color .45s,box-shadow .45s}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.24);box-shadow:0 18px 44px rgba(0,0,0,.5)}
+.card h3{font-size:16.5px;margin-bottom:8px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.card p{color:var(--muted);font-size:14.5px}
+.ico{width:26px;height:26px;flex:0 0 26px;border-radius:8px;display:grid;place-items:center;font-size:13px;font-weight:900}
+.ico.nv{background:rgba(46,230,168,.16);color:#66e8bb;border:1px solid rgba(46,230,168,.45)}
+.ico.amd{background:rgba(255,92,56,.18);color:#ff8963;border:1px solid rgba(255,92,56,.45)}
+.ico.ap{background:rgba(159,180,214,.16);color:#dbe6fa;border:1px solid rgba(159,180,214,.45)}
+.ico.tie{background:rgba(255,209,102,.16);color:var(--win);border:1px solid rgba(255,209,102,.45)}
+
+/* SELECTOR VEREDICTO */
+.seg{display:inline-flex;gap:6px;background:rgba(255,255,255,.05);border:1px solid var(--line);padding:6px;border-radius:999px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:14px;font-weight:600;padding:9px 15px;border-radius:999px;cursor:pointer;transition:.3s}
+.seg button:hover{color:var(--txt)}
+.seg button.on{background:linear-gradient(120deg,var(--amd),var(--nv));color:#080a10}
+.verdict{margin-top:22px;border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--panel);display:grid;gap:12px;animation:pop .45s ease}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}
+.verdict h3{font-size:18px}
+.win-row{display:flex;align-items:center;gap:12px;font-weight:700;font-size:15.5px;flex-wrap:wrap}
+.pill{font-size:11.5px;font-weight:800;letter-spacing:.07em;padding:4px 10px;border-radius:999px;text-transform:uppercase}
+.pill.nv{background:rgba(46,230,168,.14);color:#a9f3d4;border:1px solid rgba(46,230,168,.45)}
+.pill.amd{background:rgba(255,92,56,.16);color:#ffb59e;border:1px solid rgba(255,92,56,.45)}
+.pill.ap{background:rgba(159,180,214,.16);color:#dbe6fa;border:1px solid rgba(159,180,214,.45)}
+.pill.tie{background:rgba(255,209,102,.16);color:var(--win);border:1px solid rgba(255,209,102,.45)}
+
+/* PRECIO */
+.price{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.price{grid-template-columns:1fr}}
+.pricebox{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--panel);text-align:center}
+.pricebox .amt{font-size:clamp(22px,3.6vw,32px);font-weight:800;letter-spacing:-.02em;margin:6px 0}
+.pricebox.a .amt{color:#ff9a76}.pricebox.b .amt{color:#8beabf}
+.pricebox small{color:var(--muted)}
+
+/* RUIDO */
 .noise{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:26px 22px 30px}
 .nscale{position:relative;height:150px;margin:14px 0 30px}
 .naxis{position:absolute;left:0;right:0;bottom:0;height:44px;border-radius:12px;
@@ -219,42 +183,82 @@ footer li{margin:4px 0}
 .nmark{position:absolute;bottom:20px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px}
 .nmark.up{bottom:70px}
 .nmark .dot2{width:13px;height:13px;border-radius:50%;border:2px solid #0b0b12;box-shadow:0 0 16px rgba(255,255,255,.55)}
-.nmark .lb{font-size:12px;font-weight:700;background:rgba(10,10,18,.88);border:1px solid var(--line);padding:4px 9px;border-radius:12px;max-width:34vw;white-space:normal;text-align:center;line-height:1.25}
-.nmark.amd .dot2{background:var(--amd)}.nmark.nv .dot2{background:var(--nv)}
-.nmark.amd .lb{border-color:rgba(255,92,56,.5)}.nmark.nv .lb{border-color:rgba(46,230,168,.5)}
+.nmark .lb{font-size:12px;font-weight:700;background:rgba(10,10,18,.88);border:1px solid var(--line);padding:4px 9px;border-radius:12px;
+  max-width:34vw;white-space:normal;text-align:center;line-height:1.25}
+.nmark.a .dot2{background:var(--amd)}.nmark.b .dot2{background:var(--nv)}
+.nmark.a .lb{border-color:rgba(255,92,56,.5)}.nmark.b .lb{border-color:rgba(46,230,168,.5)}
+
+footer{padding:44px 0 70px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+footer ul{margin:10px 0 0 18px}footer li{margin:4px 0}
+.note{margin-top:18px;padding:14px 16px;border-radius:14px;background:rgba(255,209,102,.07);border:1px solid rgba(255,209,102,.28);color:#ffe6ad;font-size:13.5px}
+
+/* MÓVIL */
+@media(max-width:620px){
+  .wrap{padding:0 15px}
+  .bars{gap:18px}
+  .barrow{padding:15px 14px;border-radius:14px}
+  .barrow .name{font-size:14.5px}
+  .bline{grid-template-columns:58px 1fr auto;gap:8px}
+  .bline .who{font-size:11.5px}
+  .bline .val{font-size:12px}
+  .bline .meter{height:24px}
+  .scrollhint{display:block}
+  .genax{margin-top:24px}
+  .genax h3{font-size:15.5px}
+  .nscale{height:142px}
+  .nmark .lb{font-size:10.5px;padding:3px 7px;max-width:40vw}
+  .noise{padding:20px 14px 26px}
+  .pricebox .amt{font-size:24px}
+  header{padding:40px 0 18px}
+  .swap{width:50px;height:50px}
+  section{padding:42px 0}
+}
+@media(max-width:400px){
+  .bline{grid-template-columns:52px 1fr auto;gap:6px}
+  .bline .who{font-size:10.5px}
+  .bline .val{font-size:11.5px}
+}
 </style>
 </head>
 <body>
 
 <div class="wrap">
   <header>
-    <div class="kicker rv"><span class="dot"></span> Infografía · Comparativa de GPU · 32 GB</div>
-    <h1 class="rv d1">ASUS Turbo <span class="grad">Radeon AI PRO R9700</span><br>vs <span class="grad">GeForce RTX 5090</span></h1>
-    <p class="sub rv d2">Dos tarjetas con los mismos <b>32 GB de VRAM</b>, dos filosofías opuestas: eficiencia y precio por GB contra potencia bruta. Datos oficiales de ASUS, AMD, NVIDIA y TechPowerUp.</p>
+    <div class="kicker rv"><span class="dot"></span> Comparador interactivo · IA local</div>
+    <h1 class="rv d1">Elige <span class="grad">dos tarjetas</span><br>y compáralas al instante</h1>
+    <p class="sub rv d2">VRAM, ancho de banda, cómputo, consumo, precio, <b>tokens/s</b>, imagen, vídeo y <b>ruido</b>. Catálogo: <b>NVIDIA desde la RTX 3060 12 GB</b>, <b>AMD desde la RX 6800</b> y <b>Apple M1 en adelante</b>.</p>
   </header>
 
-  <div class="hero-cards">
-    <div class="hcard amd rv d3">
-      <span class="chip amd">RDNA 4 · Workstation</span>
-      <h2 style="margin-top:12px">ASUS Turbo Radeon AI PRO R9700</h2>
-      <p class="tagline">Blower de 2 slots. Compacta, eficiente y pensada para clústeres de IA y workstations densas.</p>
-      <div class="bigstat"><b>47,8</b><span>TFLOPS FP32</span></div>
-      <div class="bigstat" style="margin-top:6px"><b>300 W</b><span>TDP</span></div>
+  <!-- ================== COMPARADOR ================== -->
+  <section id="comparador" style="border-top:0;padding-top:8px">
+    <div class="pickgrid">
+      <div class="pickbox a rv d1">
+        <label for="selA">Tarjeta A</label>
+        <select id="selA"></select>
+      </div>
+      <div class="swapcell rv d1"><button class="swap" id="swapBtn" title="Intercambiar A y B" aria-label="Intercambiar A y B">&#8646;</button></div>
+      <div class="pickbox b rv d1">
+        <label for="selB">Tarjeta B</label>
+        <select id="selB"></select>
+      </div>
     </div>
-    <div class="vs-sep rv d3"><div class="vs-badge"><span><x>VS</x></span></div></div>
-    <div class="hcard nv rv d3">
-      <span class="chip nv">Blackwell · Flagship</span>
-      <h2 style="margin-top:12px">GeForce RTX 5090 32 GB</h2>
-      <p class="tagline">La GPU de consumo más potente jamás fabricada. Ecosistema CUDA maduro y ancho de banda brutal.</p>
-      <div class="bigstat"><b>104,8</b><span>TFLOPS FP32</span></div>
-      <div class="bigstat" style="margin-top:6px"><b>575 W</b><span>TGP</span></div>
-    </div>
-  </div>
 
-  <!-- ================== VEREDICTO INTERACTIVO ================== -->
+    <div class="presets rv d2" id="presets">
+      <button data-p="r9700,rtx5090">R9700 32 GB vs RTX 5090</button>
+      <button data-p="rtx3060-12,rtx4090">3060 12 GB vs 4090</button>
+      <button data-p="rx6800,rtx3060-12">RX 6800 vs 3060 12 GB</button>
+      <button data-p="m1max,rtx3090">Mac M1 Max vs 3090</button>
+      <button data-p="rx9070xt,rtx5070ti">RX 9070 XT vs 5070 Ti</button>
+      <button data-p="m1,rtx3060-12">Mac M1 vs 3060 12 GB</button>
+    </div>
+
+    <div class="vs-strip rv d3" id="strip"></div>
+  </section>
+
+  <!-- ================== VEREDICTO ================== -->
   <section id="veredicto">
     <h2 class="sec rv">¿Cuál gana según lo que hagas?</h2>
-    <p class="lead rv d1">Elige tu perfil y la infografía actualiza el veredicto en tiempo real.</p>
+    <p class="lead rv d1">Elige tu perfil: el veredicto se calcula con las dos tarjetas seleccionadas.</p>
     <div class="seg rv d2" id="seg">
       <button data-k="ia" class="on">IA local / LLM</button>
       <button data-k="gaming">Gaming / render</button>
@@ -262,306 +266,420 @@ footer li{margin:4px 0}
       <button data-k="video">Imagen / vídeo</button>
       <button data-k="euro">Mejor precio/GB</button>
     </div>
-    <div class="verdict rv d3" id="verdict">
-      <div class="win-row"><span class="pill nv" id="v-pill">RTX 5090</span><span id="v-title"></span></div>
-      <p id="v-text" style="color:var(--muted)"></p>
-    </div>
+    <div class="verdict rv d3" id="verdict"></div>
   </section>
 
   <!-- ================== RENDIMIENTO ================== -->
   <section id="rendimiento">
     <h2 class="sec rv">Cara a cara en números</h2>
-    <p class="lead rv d1">Barras normalizadas: la más alta de cada fila es el 100 %. Pasa el cursor para leer el valor.</p>
+    <p class="lead rv d1">La barra más larga de cada fila es el 100 %. <span class="winner">★</span> marca quién gana esa fila.</p>
     <div class="bars" id="bars"></div>
   </section>
 
   <!-- ================== GENERACIÓN ================== -->
   <section id="generacion">
     <h2 class="sec rv">Velocidad de generación: texto, imagen y vídeo</h2>
-    <p class="lead rv d1">Cuánto tarda cada tarjeta en <b>producir contenido</b>. En texto manda el ancho de banda; en imagen y vídeo pesa además el cómputo y la madurez del software (CUDA frente a ROCm).</p>
-
-    <div class="genax rv d2">
-      <h3>Texto · LLM <span class="tagi m">datos medidos</span></h3>
-      <div class="bars" id="gen-texto"></div>
-      <p class="src">Tok/s en generación (decode) y prefill, medidos en llama.cpp sobre modelos Qwen. El prefill es donde la brecha es brutal: 2,6× y hasta 3,4× con contextos largos.</p>
+    <p class="lead rv d1">En texto manda el <b>ancho de banda</b>; en imagen y vídeo pesa además el <b>cómputo</b> y la madurez del software.</p>
+    <div class="genax rv d2"><h3>Texto · LLM</h3><div class="bars" id="gen-texto"></div>
+      <p class="src">Estimación teórica: <code>tok/s ≈ ancho de banda × 0,70 ÷ GB de pesos</code>. En modelos <b>MoE</b> (como Qwen 35B-A3B) la velocidad real es mucho mayor porque solo se leen los pesos activos. La fila de 70B te avisa si el modelo <b>no cabe</b> en la VRAM.</p>
     </div>
-
-    <div class="genax rv d2">
-      <h3>Imagen · difusión <span class="tagi e">estimado</span></h3>
-      <div class="bars" id="gen-imagen"></div>
-      <p class="src">Imágenes por minuto a 1024×1024. La 5090 tiene benchmark público; la R9700 se estima en 2–2,5× más lenta (misma lógica: menos cómputo y ROCm menos pulido para estos pipelines).</p>
+    <div class="genax rv d2"><h3>Imagen · difusión</h3><div class="bars" id="gen-imagen"></div>
+      <p class="src">Imágenes por minuto a 1024×1024, escaladas por cómputo FP16 tomando la RTX 5090 medida como referencia (Flux.1 dev: 5,55 img/min; SDXL: 13,6 img/min).</p>
     </div>
-
-    <div class="genax rv d2">
-      <h3>Vídeo · generación <span class="tagi e">estimado</span></h3>
-      <div class="bars" id="gen-video"></div>
-      <p class="src">Clips por hora (más = mejor). Un clip de 5 s a 720p con ~20 pasos es la prueba más dura: muchísimo cómputo y varias pasadas. Es donde la 5090 más se despega y donde el soporte de ROCm en ComfyUI/Wan aún obliga a parches.</p>
+    <div class="genax rv d2"><h3>Vídeo · generación</h3><div class="bars" id="gen-video"></div>
+      <p class="src">Clips por hora (clip de 5 s a 720p, ~20 pasos), escalados por cómputo. Es el caso más duro de todos.</p>
     </div>
-
-    <div class="note rv d3"><b>La regla de oro:</b> en <b>texto</b> la R9700 es competitiva (hasta 156 tok/s en MoE, casi el 80 % de la 5090), pero en <b>prefill, imagen y vídeo</b> la ventaja de NVIDIA crece sin pausa: es cómputo puro, no ancho de banda.</div>
+    <div class="note rv d3" id="gennote"></div>
   </section>
 
   <!-- ================== RUIDO ================== -->
   <section id="ruido">
-    <h2 class="sec rv">Ruido: lo que la ficha técnica no dice</h2>
-    <p class="lead rv d1">El dB es logarítmico: <b>+10 dB ≈ el doble de sonoridad percibida</b>. Y no todo es el volumen: importa el <b>tono</b> y <b>hacia dónde sale el aire</b>.</p>
-
+    <h2 class="sec rv">Ruido</h2>
+    <p class="lead rv d1">El dB es logarítmico: <b>+10 dB ≈ el doble de sonoridad percibida</b>. Y no solo importa el volumen: el <b>tono</b> y <b>hacia dónde sale el aire</b>.</p>
     <div class="noise rv d2">
       <div class="nscale" id="nscale"></div>
-      <div class="cards" style="margin-top:6px">
-        <div class="card" style="border-color:rgba(46,230,168,.35)">
-          <h3><span class="ico nv">dB</span> RTX 5090 FE <span class="tagi m">medido</span></h3>
-          <p><b>32,5 dBA</b> a 1 m en cámara anecoica (carga sostenida) y hasta <b>40,1 dB</b> en gaming con los ventiladores a ~1.673 rpm. Es claramente <b>más ruidosa que la RTX 4090</b>. Además hay reportes de <b>coil whine</b> en algunas unidades.</p>
-        </div>
-        <div class="card" style="border-color:rgba(255,92,56,.35)">
-          <h3><span class="ico amd">dB</span> R9700 (ASUS Turbo) <span class="tagi e">estimado</span></h3>
-          <p>No hay cifra oficial. Usuarios la dejan <b>prácticamente silenciosa</b> limitándola a ~210 W y 33 % de ventilador. A plena carga el <b>blower suena más agudo</b> (silbido) que el axial de la 5090, aunque menos "grave".</p>
-        </div>
-        <div class="card" style="border-color:rgba(255,209,102,.35)">
-          <h3><span class="ico tie">×N</span> La clave: 1, 2 o 4 tarjetas</h3>
-          <p>El blower <b>expulsa el aire por detrás</b>, fuera de la caja. Con varias tarjetas, N blowers suenan menos que N axiales recirculando calor dentro del chasis. Para un clúster, la R9700 gana en ruido <b>agregado</b> aunque suene parecido sola.</p>
-        </div>
-      </div>
-      <p class="src">Escala orientativa 20–50 dBA a 1 m. La 5090 FE medida por GamersNexus (32,5 dBA) y mezha (40,1 dB). La R9700 es un rango de estimación por reports de usuarios e ingestión del diseño (blower de 2 slots); no hay medición certificada.</p>
+      <div class="cards" id="noisecards"></div>
+      <p class="src">Los valores de la RTX 5090 FE están medidos (32,5 dBA a 1 m en cámara anecoica; hasta 40,1 dB en gaming). El resto son <b>estimaciones orientativas</b> por tipo de refrigeración (blower, axial, pasiva) y reportes de usuarios.</p>
     </div>
   </section>
 
   <!-- ================== TABLA ================== -->
   <section id="specs">
-    <h2 class="sec rv">Especificaciones completas</h2>
-    <p class="lead rv d1">Lo que importa (y <span class="winner">lo que no</span>) para decidir.</p>
-    <div class="tblwrap rv d2">
+    <h2 class="sec rv">Especificaciones</h2>
+    <p class="lead rv d1">Ficha completa de las dos tarjetas seleccionadas.</p>
     <p class="scrollhint">Desliza la tabla hacia un lado para ver la 2.ª tarjeta →</p>
+    <div class="tblwrap rv d2">
       <table>
-        <thead>
-          <tr><th>Característica</th><th class="a">ASUS Turbo AI PRO R9700 32G</th><th class="b">GeForce RTX 5090 32G</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Arquitectura</td><td>RDNA 4 (Navi 48)</td><td>Blackwell (GB202)</td></tr>
-          <tr><td>Memoria</td><td>32 GB GDDR6</td><td>32 GB GDDR7 <span class="badge-w">empate en capacidad</span></td></tr>
-          <tr><td>Bus de memoria</td><td>256-bit</td><td class="winner"><b>512-bit</b></td></tr>
-          <tr><td>Velocidad de memoria</td><td>20 Gbps</td><td class="winner"><b>28 Gbps</b></td></tr>
-          <tr><td>Ancho de banda</td><td>640 GB/s</td><td class="winner"><b>1.792 GB/s</b><span class="badge-w">2,8×</span></td></tr>
-          <tr><td>Unidades de cómputo</td><td>64 CU · 4.096 stream processors<br>128 aceleradores IA</td><td class="winner"><b>21.760 CUDA cores</b><br>680 Tensor cores (5ª gen)</td></tr>
-          <tr><td>Reloj boost</td><td class="winner"><b>2.940 MHz</b> (OC)</td><td>2.407 MHz</td></tr>
-          <tr><td>FP32</td><td>47,8 TFLOPS</td><td class="winner"><b>104,8 TFLOPS</b><span class="badge-w">2,2×</span></td></tr>
-          <tr><td>FP16 (matriz)</td><td>95,7 TFLOPS</td><td class="winner"><b>209,5 TFLOPS</b></td></tr>
-          <tr><td>INT8</td><td>766 TOPS</td><td class="winner"><b>≈1.676 TOPS</b></td></tr>
-          <tr><td>IA (peak, formato óptimo)</td><td>1.531 TOPS (INT4)</td><td class="winner"><b>3.352 AI TOPS</b> (FP4)</td></tr>
-          <tr><td>RT / aceleradores</td><td>64 Ray accelerators · 128 ROPs</td><td class="winner"><b>170 RT cores</b> (4ª gen)</td></tr>
-          <tr><td>Consumo</td><td class="winner"><b>300 W TDP</b></td><td>575 W TGP</td></tr>
-          <tr><td>Fuente recomendada</td><td class="winner"><b>750 W</b></td><td>1.000 W</td></tr>
-          <tr><td>Conector</td><td>1 × 16-pin</td><td>1 × 16-pin (12V-2×6)</td></tr>
-          <tr><td>Interfaz</td><td>PCIe 5.0 ×16</td><td>PCIe 5.0 ×16</td></tr>
-          <tr><td>Formato</td><td class="winner"><b>2 slots (bloque simple)</b><br>266,7 × 111,1 × 40 mm</td><td>2 slots (FE) a 3,5 slots (AIB)</td></tr>
-          <tr><td>Refrigeración</td><td class="winner"><b>Turbo blower</b> · sale el aire por detrás</td><td>Axial · recircula calor dentro de la caja</td></tr>
-          <tr><td>Salidas de vídeo</td><td>1 × HDMI 2.1b + 3 × DP 2.1a</td><td>1 × HDMI 2.1b + 3 × DP 2.1</td></tr>
-          <tr><td>Ecosistema software</td><td>ROCm / HIP / PyTorch (mejorando rápido)</td><td class="winner"><b>CUDA · cuDNN · TensorRT</b> (estándar de facto)</td></tr>
-          <tr><td>Precio (España, oct. 2026)</td><td class="winner"><b>≈ 2.200 €</b></td><td>≈ 5.800 € – 7.000 €</td></tr>
-        </tbody>
+        <thead><tr><th>Característica</th><th class="a" id="thA">A</th><th class="b" id="thB">B</th></tr></thead>
+        <tbody id="tbody"></tbody>
       </table>
-    </div>
-  </section>
-
-  <!-- ================== CASOS DE USO ================== -->
-  <section id="usos">
-    <h2 class="sec rv">Quién gana en cada escenario real</h2>
-    <p class="lead rv d1">Más allá del papel: dónde se nota cada tarjeta.</p>
-    <div class="cards">
-      <div class="card rv d1"><h3><span class="ico nv">5090</span> LLM en local (velocidad)</h3><p>La inferencia de modelos suele estar limitada por memoria: <b>1.792 GB/s</b> frente a 640 GB/s hacen a la 5090 aproximadamente <b>2,5–2,8× más rápida</b> en generación de tokens con modelos que caben en 32 GB.</p></div>
-      <div class="card rv d1"><h3><span class="ico amd">R9700</span> Precio por GB de VRAM</h3><p>Mismos 32 GB por <b>menos de la mitad del precio</b>. Dos R9700 (64 GB) cuestan menos que una 5090 y abren modelos que ninguna de las dos alcanza sola.</p></div>
-      <div class="card rv d2"><h3><span class="ico amd">R9700</span> MultigPU y cajas densas</h3><p>Su <b>blower de 2 slots</b> expulsa el calor por detrás: es la única opción sensata para meter 2–4 tarjetas en un chasis sin cocer el equipo.</p></div>
-      <div class="card rv d2"><h3><span class="ico nv">5090</span> Fine-tuning y entrenamiento</h3><p>Más del doble de cómputo FP32/FP16, Tensor Cores de 5ª gen y soporte FP4: entrena y ajusta modelos mucho más rápido. Además, CUDA es el camino sin sorpresas.</p></div>
-      <div class="card rv d3"><h3><span class="ico amd">R9700</span> Eficiencia energética</h3><p><b>300 W vs 575 W</b>: la mitad de consumo, la mitad de fuente, menos calor y menos factura. En un clúster encendido 24/7 la diferencia se multiplica.</p></div>
-      <div class="card rv d3"><h3><span class="ico nv">5090</span> Gaming y creación</h3><p>Sin comparación: trazado de rayos, DLSS 4 y 4K de sobra. La R9700 es una tarjeta profesional, no una tarjeta para jugar.</p></div>
     </div>
   </section>
 
   <!-- ================== PRECIO ================== -->
   <section id="precio">
-    <h2 class="sec rv">El número que decide</h2>
-    <p class="lead rv d1">Precios de referencia en España (octubre 2026). Varían mucho por modelo y existencias.</p>
-    <div class="price">
-      <div class="pricebox amd rv d2">
-        <div class="chip amd">Radeon AI PRO R9700</div>
-        <div class="amt">≈ 2.200 €</div>
-        <small>300 W · 2 slots · ROCm</small>
-        <p style="margin-top:14px;color:var(--muted);font-size:14px">≈ <b style="color:#ffb59e">68 €/GB</b> de VRAM</p>
-      </div>
-      <div class="pricebox nv rv d2">
-        <div class="chip nv">GeForce RTX 5090</div>
-        <div class="amt">≈ 5.800–7.000 €</div>
-        <small>575 W · 2–3,5 slots · CUDA</small>
-        <p style="margin-top:14px;color:var(--muted);font-size:14px">≈ <b style="color:#8beabf">180–220 €/GB</b> de VRAM</p>
-      </div>
+    <h2 class="sec rv">Precio y coste por GB</h2>
+    <p class="lead rv d1">Precios de referencia en España (octubre 2026, nuevo o mercado de segunda mano según el caso). Varían mucho.</p>
+    <div class="price" id="price"></div>
+    <div class="note rv d3" id="pricenote"></div>
+  </section>
+
+  <!-- ================== GUÍA ================== -->
+  <section id="guia">
+    <h2 class="sec rv">Cómo leer este comparador (y qué mirar)</h2>
+    <div class="cards">
+      <div class="card rv d1"><h3><span class="ico tie">GB</span> La VRAM decide <em>qué</em> puedes usar</h3><p>El tamaño del modelo + el contexto deben caber. Si no caben, va a RAM y la velocidad se hunde. Por eso 32 GB con poco ancho de banda &gt; 12 GB rápidos, para modelos grandes.</p></div>
+      <div class="card rv d1"><h3><span class="ico tie">GB/s</span> El ancho de banda decide <em>a qué velocidad</em></h3><p>La generación token a token es un cuello de botella de memoria: se lee el modelo entero por cada token. Es el número que más pesa en LLM.</p></div>
+      <div class="card rv d2"><h3><span class="ico tie">FP32/FP16</span> El cómputo decide imagen y vídeo</h3><p>Difusión y vídeo son mucho más intensivos en cómputo: ahí los Tensor/CUDA cores marcan la diferencia.</p></div>
+      <div class="card rv d2"><h3><span class="ico tie">€</span> El precio por GB</h3><p>Con presupuesto ajustado casi siempre gana quien más VRAM te da por euro. Pero cuenta también luz (W) y fuente de alimentación.</p></div>
+      <div class="card rv d3"><h3><span class="ico tie">SW</span> El software no es opinión</h3><p><b>NVIDIA</b>: CUDA/TensorRT, todo funciona sin fricción. <b>AMD RDNA 4</b>: ROCm nativo, ya serio. <b>AMD RDNA 2/3</b>: ROCm en Linux, con más trabajo. <b>Apple</b>: Metal/MPS, sorprendente con llama.cpp, pero sin CUDA.</p></div>
+      <div class="card rv d3"><h3><span class="ico tie">W</span> El consumo a 24/7</h3><p>A 0,20 €/kWh, pasar de 300 W a 575 W son unos <b>+48 € al año</b> por tarjeta. En un clúster de 4 unidades, casi 200 € anuales.</p></div>
     </div>
-    <div class="note rv d3"><b>La cuenta honesta:</b> por el precio de una RTX 5090 puedes montar <b>dos R9700 (64 GB)</b> y te sobran cientos de euros… pero moverás modelos pequeños más despacio y cargarás con dos veces el soporte de software. Si tu cuello de botella es <b>velocidad</b>, gana la 5090; si es <b>capacidad y presupuesto</b>, gana el par de R9700.</div>
   </section>
 
   <footer>
-    <h2 class="sec rv" style="font-size:20px">Fuentes</h2>
+    <h2 class="sec rv" style="font-size:20px">Metodología y fuentes</h2>
     <ul>
-      <li>ASUS — Turbo Radeon AI PRO R9700, ficha técnica oficial.</li>
-      <li>AMD — Radeon AI PRO R9700 (arquitectura RDNA 4, 32 GB).</li>
-      <li>NVIDIA — GeForce RTX 5090 (Blackwell, 32 GB GDDR7, 1.792 GB/s, 575 W).</li>
-      <li>TechPowerUp GPU Database — especificaciones y tasas teóricas.</li>
-      <li>Precios: agregadores del mercado español (octubre 2026).</li>
+      <li><b>Especificaciones (verificadas):</b> <i>List of Nvidia graphics processing units</i> y <i>List of AMD graphics processing units</i> de Wikipedia (ancho de banda, FP32 boost, TDP, PVP) + <i>Apple silicon</i> para la familia M1/M4 + ficha oficial ASUS/AMD de la R9700.</li>
+      <li><b>Estimaciones de LLM:</b> modelo bandwidth-bound <code>tok/s ≈ BW × 0,70 ÷ GB de pesos</code> (calibrado contra mediciones reales: R9700 ≈ 99 tok/s en 7B Q4 y 29–33 tok/s en 27B Q4).</li>
+      <li><b>Imagen/vídeo:</b> escalado por cómputo FP16 sobre referencias medidas de la RTX 5090.</li>
+      <li><b>Ruido:</b> mediciones publicadas para la RTX 5090 FE; el resto, estimación por diseño térmico.</li>
     </ul>
-    <p class="note"><b>Nota:</b> los FLOPS/TOPS son picos teóricos; el rendimiento real depende del modelo, los drivers y el software (CUDA frente a ROCm). Los precios cambian a diario. Infografía divulgativa, hecha para comparar de un vistazo.</p>
+    <p class="note"><b>Corrección documentada:</b> frente a versiones anteriores, la RX 9070 son <b>36,12 TFLOPS</b> (no ~45) y la RTX 3060 12 GB tiene <b>336 GB/s</b> (no 360). Todo el catálogo se revisó contra las fuentes citadas.</p>
+    <p class="note"><b>Aviso:</b> esta página es divulgativa. Los tok/s son estimaciones según el ancho de banda (la VRAM disponible varía por configuración en Apple) y el rendimiento real depende del modelo, la cuantización, los drivers y el software. Los precios cambian a diario.</p>
   </footer>
 </div>
 
 <script>
-/* ---------------------------- DATOS ---------------------------- */
-const BARS = [
-  {n:"Ancho de banda de memoria", u:"GB/s", a:640, b:1792},
-  {n:"Cómputo FP32", u:"TFLOPS", a:47.8, b:104.8},
-  {n:"Cómputo FP16 (matriz)", u:"TFLOPS", a:95.7, b:209.5},
-  {n:"IA (INT4 vs FP4)", u:"TOPS", a:1531, b:3352},
-  {n:"VRAM", u:"GB", a:32, b:32},
-  {n:"Consumo (menos es mejor)", u:"W", a:300, b:575, inv:true},
-  {n:"Precio (menos es mejor)", u:"€", a:2200, b:6200, inv:true},
-  {n:"Longitud de la tarjeta (menos es mejor)", u:"mm", a:267, b:304, inv:true}
+/* ============================ CATÁLOGO ============================ */
+/* bw: GB/s · fp32: TFLOPS · tdp: W · price: € referencia · db: dBA a 1 m (aprox)
+   fmt: blower | axial | pasivo · sw: soporte de software · med: datos medidos */
+const CAT = [
+  /* ---------------- NVIDIA (desde RTX 3060 12 GB) ----------------
+     bw GB/s · fp32 TFLOPS (boost) · tdp W · msrp USD de lanzamiento
+     Fuente: List of Nvidia GPUs (Wikipedia) + fichas NVIDIA */
+  {id:"rtx3060-12",n:"RTX 3060 12 GB",brand:"nv",arch:"Ampere",year:2021,vram:12,bus:"192-bit GDDR6",bw:336,fp32:12.738,tdp:170,msrp:329,fmt:"axial",db:31,dbTxt:"~31 dB · axial de 2 ventiladores",sw:"CUDA · TensorRT"},
+  {id:"rtx3080-12",n:"RTX 3080 12 GB",brand:"nv",arch:"Ampere",year:2022,vram:12,bus:"384-bit GDDR6X",bw:912.4,fp32:30.64,tdp:350,msrp:799,fmt:"axial",db:34,dbTxt:"~34 dB · axial"},
+  {id:"rtx3080ti",n:"RTX 3080 Ti 12 GB",brand:"nv",arch:"Ampere",year:2021,vram:12,bus:"384-bit GDDR6X",bw:912.4,fp32:34.099,tdp:350,msrp:1199,fmt:"axial",db:35,dbTxt:"~35 dB · axial"},
+  {id:"rtx3090",n:"RTX 3090 24 GB",brand:"nv",arch:"Ampere",year:2020,vram:24,bus:"384-bit GDDR6X",bw:936.2,fp32:35.581,tdp:350,msrp:1499,fmt:"axial",db:35,dbTxt:"~35 dB · axial"},
+  {id:"rtx3090ti",n:"RTX 3090 Ti 24 GB",brand:"nv",arch:"Ampere",year:2022,vram:24,bus:"384-bit GDDR6X",bw:1008.3,fp32:39.997,tdp:450,msrp:1999,fmt:"axial",db:37,dbTxt:"~37 dB · axial"},
+  {id:"rtx4060ti-16",n:"RTX 4060 Ti 16 GB",brand:"nv",arch:"Ada",year:2023,vram:16,bus:"128-bit GDDR6",bw:288,fp32:22.065,tdp:165,msrp:499,fmt:"axial",db:30,dbTxt:"~30 dB · axial"},
+  {id:"rtx4070-12",n:"RTX 4070 12 GB",brand:"nv",arch:"Ada",year:2023,vram:12,bus:"192-bit GDDR6X",bw:504.2,fp32:29.146,tdp:200,msrp:599,fmt:"axial",db:31,dbTxt:"~31 dB · axial"},
+  {id:"rtx4070tis",n:"RTX 4070 Ti Super 16 GB",brand:"nv",arch:"Ada",year:2024,vram:16,bus:"256-bit GDDR6X",bw:672.3,fp32:44.099,tdp:285,msrp:799,fmt:"axial",db:33,dbTxt:"~33 dB · axial"},
+  {id:"rtx4080s",n:"RTX 4080 Super 16 GB",brand:"nv",arch:"Ada",year:2024,vram:16,bus:"256-bit GDDR6X",bw:736.3,fp32:52.224,tdp:320,msrp:999,fmt:"axial",db:34,dbTxt:"~34 dB · axial"},
+  {id:"rtx4090",n:"RTX 4090 24 GB",brand:"nv",arch:"Ada",year:2022,vram:24,bus:"384-bit GDDR6X",bw:1008,fp32:82.575,tdp:450,msrp:1599,fmt:"axial",db:35.1,dbTxt:"35,1 dB medidos (FE) · axial",sw:"CUDA · TensorRT"},
+  {id:"rtx5060ti-16",n:"RTX 5060 Ti 16 GB",brand:"nv",arch:"Blackwell",year:2025,vram:16,bus:"128-bit GDDR7",bw:448,fp32:23.704,tdp:180,msrp:429,fmt:"axial",db:30,dbTxt:"~30 dB · axial"},
+  {id:"rtx5070-12",n:"RTX 5070 12 GB",brand:"nv",arch:"Blackwell",year:2025,vram:12,bus:"192-bit GDDR7",bw:672,fp32:30.717,tdp:250,msrp:549,fmt:"axial",db:32,dbTxt:"~32 dB · axial"},
+  {id:"rtx5070ti",n:"RTX 5070 Ti 16 GB",brand:"nv",arch:"Blackwell",year:2025,vram:16,bus:"256-bit GDDR7",bw:896,fp32:43.94,tdp:300,msrp:749,fmt:"axial",db:33,dbTxt:"~33 dB · axial"},
+  {id:"rtx5080",n:"RTX 5080 16 GB",brand:"nv",arch:"Blackwell",year:2025,vram:16,bus:"256-bit GDDR7",bw:960,fp32:56.276,tdp:360,msrp:999,fmt:"axial",db:34,dbTxt:"~34 dB · axial"},
+  {id:"rtx5090",n:"RTX 5090 32 GB",brand:"nv",arch:"Blackwell",year:2025,vram:32,bus:"512-bit GDDR7",bw:1792,fp32:104.753,tdp:575,msrp:1999,fmt:"axial",db:36.3,dbTxt:"32,5–40,1 dB medidos · axial (más ruidosa que la 4090)",
+   med:{moe:194,pre:7026,flux:5.55,sdxl:13.6,vid:19}},
+
+  /* ---------------- AMD (desde RX 6800) ----------------
+     Fuente: List of AMD GPUs (Wikipedia) + datasheet ASUS/AMD para la R9700 */
+  {id:"rx6800",n:"Radeon RX 6800 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:16.166,tdp:250,msrp:579,fmt:"axial",db:33,dbTxt:"~33 dB · axial",sw:"ROCm Linux",note:"Ojo: la RX 6800 es de <b>16 GB</b>. La de 12 GB de esa familia es la RX 6700 XT."},
+  {id:"rx6800xt",n:"Radeon RX 6800 XT 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:20.736,tdp:300,msrp:649,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm Linux"},
+  {id:"rx6900xt",n:"Radeon RX 6900 XT 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:23.04,tdp:300,msrp:999,fmt:"axial",db:35,dbTxt:"~35 dB · axial",sw:"ROCm Linux"},
+  {id:"rx6950xt",n:"Radeon RX 6950 XT 16 GB",brand:"amd",arch:"RDNA 2",year:2022,vram:16,bus:"256-bit GDDR6",bw:576,fp32:23.654,tdp:335,msrp:1099,fmt:"axial",db:36,dbTxt:"~36 dB · axial",sw:"ROCm Linux"},
+  {id:"rx7700xt",n:"Radeon RX 7700 XT 12 GB",brand:"amd",arch:"RDNA 3",year:2023,vram:12,bus:"192-bit GDDR6",bw:432,fp32:35.17,tdp:245,msrp:449,fmt:"axial",db:33,dbTxt:"~33 dB · axial",sw:"ROCm Linux"},
+  {id:"rx7800xt",n:"Radeon RX 7800 XT 16 GB",brand:"amd",arch:"RDNA 3",year:2023,vram:16,bus:"256-bit GDDR6",bw:624,fp32:37.32,tdp:263,msrp:499,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm Linux"},
+  {id:"rx7900gre",n:"Radeon RX 7900 GRE 16 GB",brand:"amd",arch:"RDNA 3",year:2024,vram:16,bus:"256-bit GDDR6",bw:576,fp32:45.98,tdp:260,msrp:549,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm Linux"},
+  {id:"rx7900xt",n:"Radeon RX 7900 XT 20 GB",brand:"amd",arch:"RDNA 3",year:2022,vram:20,bus:"320-bit GDDR6",bw:800,fp32:51.61,tdp:315,msrp:899,fmt:"axial",db:35,dbTxt:"~35 dB · axial",sw:"ROCm Linux"},
+  {id:"rx7900xtx",n:"Radeon RX 7900 XTX 24 GB",brand:"amd",arch:"RDNA 3",year:2022,vram:24,bus:"384-bit GDDR6",bw:960,fp32:61.44,tdp:355,msrp:999,fmt:"axial",db:36,dbTxt:"~36 dB · axial",sw:"ROCm Linux"},
+  {id:"rx9070",n:"Radeon RX 9070 16 GB",brand:"amd",arch:"RDNA 4",year:2025,vram:16,bus:"256-bit GDDR6",bw:640,fp32:36.12,tdp:220,msrp:549,fmt:"axial",db:33,dbTxt:"~33 dB · axial",sw:"ROCm nativo"},
+  {id:"rx9070xt",n:"Radeon RX 9070 XT 16 GB",brand:"amd",arch:"RDNA 4",year:2025,vram:16,bus:"256-bit GDDR6",bw:640,fp32:48.66,tdp:304,msrp:599,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm nativo"},
+  {id:"r9700",n:"ASUS Turbo Radeon AI PRO R9700 32 GB",brand:"amd",arch:"RDNA 4",year:2025,vram:32,bus:"256-bit GDDR6",bw:640,fp32:47.8,tdp:300,msrp:1299,fmt:"blower",db:38,dbTxt:"~30–45 dB estimado · blower de 2 slots (casi silenciosa a ~210 W)",sw:"ROCm nativo",
+   med:{moe:156,pre:2713,flux:2.5,sdxl:7,vid:7}},
+
+  /* ---------------- Apple (M1 en adelante) ----------------
+     Fuente: Apple silicon (Wikipedia): FP32, ancho de banda y capacidad máx. */
+  {id:"m1",n:"Apple M1 (GPU 8 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2020,vram:16,bus:"Memoria unificada LPDDR4X",bw:68.25,fp32:2.617,tdp:15,msrp:null,fmt:"pasivo",db:24,dbTxt:"~24 dB · refrigeración pasiva o ventilador muy lento",sw:"Metal · MPS"},
+  {id:"m1pro",n:"Apple M1 Pro (GPU 16 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2021,vram:32,bus:"Memoria unificada LPDDR5",bw:204.8,fp32:5.308,tdp:30,msrp:null,fmt:"pasivo",db:26,dbTxt:"~26 dB · refrigeración pasiva o ventilador suave",sw:"Metal · MPS"},
+  {id:"m1max",n:"Apple M1 Max (GPU 32 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2021,vram:64,bus:"Memoria unificada LPDDR5",bw:409.6,fp32:10.616,tdp:60,msrp:null,fmt:"axial",db:30,dbTxt:"~30 dB · ventilador, sube bajo carga larga",sw:"Metal · MPS"},
+  {id:"m1ultra",n:"Apple M1 Ultra (GPU 64 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2022,vram:128,bus:"Memoria unificada LPDDR5",bw:819.2,fp32:21.233,tdp:120,msrp:null,fmt:"axial",db:32,dbTxt:"~32 dB · Mac Studio, ventilador audible bajo carga",sw:"Metal · MPS"},
+  {id:"m4max",n:"Apple M4 Max (GPU 40 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2024,vram:128,bus:"Memoria unificada LPDDR5X",bw:546,fp32:16.16,tdp:70,msrp:null,fmt:"axial",db:30,dbTxt:"~30 dB · MacBook Pro, ventilador sólo bajo carga",sw:"Metal · MPS"}
 ];
-const VERD = {
-  ia:{win:"nv",pill:"nv",title:"RTX 5090 gana en velocidad",text:"Si tu prioridad es generar tokens rápido con modelos que caben en 32 GB, la 5090 arrasa por ancho de banda (1.792 vs 640 GB/s) y por Tensor Cores de 5ª gen. Único freno: precio y 575 W."},
-  gaming:{win:"nv",pill:"nv",title:"RTX 5090 sin discusión",text:"Para jugar, renderizar con ray tracing o usar DLSS 4 no hay comparación: la R9700 es una tarjeta profesional orientada a cómputo y despliegue de IA."},
-  densa:{win:"amd",pill:"amd",title:"Radeon AI PRO R9700",text:"Blower de 2 slots que expulsa el aire por detrás y solo 300 W: puedes apilar varias en un chasis. La 5090 (hasta 3,5 slots y 575 W) es un problema térmico si pones más de una."},
-  euro:{win:"amd",pill:"amd",title:"Radeon AI PRO R9700",text:"Mismos 32 GB por menos de la mitad de precio (≈68 €/GB frente a 180–220 €/GB). Por el precio de una 5090 montas dos R9700 y llegas a 64 GB de VRAM."},
-  video:{win:"nv",pill:"nv",title:"RTX 5090, y con más margen",text:"Difusión y vídeo son el terreno más duro: mucho cómputo y varias pasadas. La 5090 no solo es más rápida, sino que en la R9700 estos pipelines (ComfyUI, Flux, Wan) aún piden parches y dan más guerra. Si vas a generar vídeo en serio, la diferencia de precio se justifica."}
-};
+const BY = {}; CAT.forEach(c => BY[c.id] = c);
+const BRANDNAME = {nv:"NVIDIA", amd:"AMD · Radeon", ap:"Apple · M1 en adelante"};
+const BRANDGRP = {nv:"NVIDIA (desde RTX 3060 12 GB)", amd:"AMD Radeon (desde RX 6800)", ap:"Apple (M1 en adelante)"};
 
-const $ = s => document.querySelector(s);
+/* ============================ ESTADO ============================ */
+const $ = id => document.getElementById(id);
+const state = { a:"r9700", b:"rtx5090", perfil:"ia" };
+const fmt = (x,d) => (x===null||x===undefined||isNaN(x)) ? "—" : x.toLocaleString("es-ES",{minimumFractionDigits:d===undefined?0:d,maximumFractionDigits:d===undefined?1:d});
 
-/* ---------------------------- REVEAL ---------------------------- */
-const io = new IntersectionObserver((es)=>{
-  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
-},{threshold:.14, rootMargin:"0px 0px -40px 0px"});
-document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+/* ============================ CÁLCULOS ============================ */
+const MODELS = [
+  {k:"7b",  n:"Llama/Qwen 7B dense · Q4",      gb:4.5},
+  {k:"27b", n:"Qwen 27B dense · Q4",           gb:16.5},
+  {k:"70b", n:"Llama 70B dense · Q4",          gb:42}
+];
+function calc(c){
+  const fp16 = c.fp32 * 2;
+  const usdGb = c.msrp ? c.msrp / c.vram : null;
+  const tps = {};
+  MODELS.forEach(m => { tps[m.k] = c.vram >= m.gb ? (c.bw * 0.70 / m.gb) : null; });
+  const scale = Math.pow(fp16 / 209.5, 0.9);          // RTX 5090 = referencia
+  return {fp16, usdGb, tps, imgFlux: 5.55*scale, imgSdxl: 13.6*scale, vid: 19*scale};
+}
 
-/* ---------------------------- BARRAS ---------------------------- */
-const barsBox = $("#bars");
-BARS.forEach((d,idx)=>{
-  const max = Math.max(d.a,d.b);
-  const pa = d.a/max*100, pb = d.b/max*100;
-  const fa = d.a.toLocaleString("es-ES"), fb = d.b.toLocaleString("es-ES");
-  const row = document.createElement("div");
-  row.className = "barrow rv d" + Math.min(idx+1,6);
-  row.innerHTML = `
-    <div class="head"><span class="name">${d.n}</span><span class="unit">${d.u}</span></div>
-    <div class="track">
-      <div class="bline amd"><span class="who">R9700</span><span class="meter"><i data-w="${pa}"></i></span><span class="val">${fa} ${d.u}</span></div>
-      <div class="bline nv"><span class="who">RTX 5090</span><span class="meter"><i data-w="${pb}"></i></span><span class="val">${fb} ${d.u}</span></div>
-    </div>`;
-  barsBox.appendChild(row);
-  io.observe(row);
-});
-/* animar barras cuando entran en pantalla */
-const ioBar = new IntersectionObserver((es)=>{
+/* ============================ RENDER: SELECTORES ============================ */
+function fillSelect(sel, chosen){
+  let html = "";
+  ["nv","amd","ap"].forEach(b => {
+    html += '<optgroup label="'+BRANDGRP[b]+'">';
+    CAT.filter(c => c.brand===b).forEach(c => {
+      html += '<option value="'+c.id+'"'+(c.id===chosen?" selected":"")+'>'+c.n+' — '+c.vram+' GB · '+c.bw+' GB/s</option>';
+    });
+    html += "</optgroup>";
+  });
+  sel.innerHTML = html;
+}
+function brandBadge(c){ return '<span class="brand '+c.brand+'">'+BRANDNAME[c.brand]+'</span>'; }
+
+function renderStrip(){
+  const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
+  const box = (c,k) => {
+    return '<div class="mini '+k+'">'+brandBadge(c)+
+      '<h3>'+c.n+'</h3>'+
+      '<div class="tagline">'+c.arch+' · '+c.year+' · '+c.sw+'</div>'+
+      '<div class="kv">'+
+        '<div><b>'+c.vram+' GB</b><span>VRAM</span></div>'+
+        '<div><b>'+c.bw+'</b><span>GB/s</span></div>'+
+        '<div><b>'+c.fp32+'</b><span>TFLOPS FP32</span></div>'+
+        '<div><b>'+c.tdp+' W</b><span>consumo</span></div>'+
+      '</div></div>';
+  };
+  $("strip").innerHTML = box(A,"a") + box(B,"b");
+}
+
+/* ============================ RENDER: BARRAS ============================ */
+const ioBars = new IntersectionObserver(es=>{
   es.forEach(e=>{
     if(!e.isIntersecting) return;
     e.target.querySelectorAll("i[data-w]").forEach((i,k)=>{
-      setTimeout(()=>{ i.style.width = Math.max(parseFloat(i.dataset.w), 14) + "%"; }, 120 + k*130);
+      setTimeout(()=>{ i.style.width = Math.max(parseFloat(i.dataset.w), 2) + "%"; }, 90 + k*110);
     });
-    ioBar.unobserve(e.target);
+    ioBars.unobserve(e.target);
   });
-},{threshold:.35});
-document.querySelectorAll(".barrow").forEach(el=>ioBar.observe(el));
+},{threshold:.25});
 
-/* ---------------------------- SELECTOR ---------------------------- */
-const seg = $("#seg");
-seg.addEventListener("click", e=>{
-  const b = e.target.closest("button"); if(!b) return;
-  seg.querySelectorAll("button").forEach(x=>x.classList.toggle("on", x===b));
-  const v = VERD[b.dataset.k];
-  const box = $("#verdict");
-  box.style.animation = "none"; void box.offsetWidth; box.style.animation = "pop .45s ease";
-  $("#v-pill").className = "pill " + v.pill;
-  $("#v-pill").textContent = v.win === "nv" ? "RTX 5090" : "R9700";
-  $("#v-title").textContent = v.title;
-  $("#v-text").textContent = v.text;
-});
-/* estado inicial */
-(function(){ const v = VERD.ia; $("#v-title").textContent=v.title; $("#v-text").textContent=v.text; })();
-
-/* ---------------------- GENERACIÓN (texto / imagen / vídeo) ---------------------- */
-const GEN = {
-  texto:[
-    {n:"Qwen 35B MoE · Q4 (decode)",u:"tok/s",a:156,b:194,tag:"medido",note:"R9700: 127–156 tok/s según driver. La 5090 hace 194 en el modelo idéntico: 1,5× más."},
-    {n:"Qwen 27B dense · Q4 (decode)",u:"tok/s",a:33,b:82,tag:"estimado",note:"R9700 medido (29–33 tok/s). El valor de la 5090 se estima escalando por ancho de banda."},
-    {n:"Prefill · prompt de 512 tokens",u:"tok/s",a:2713,b:7026,tag:"medido",note:"Aquí está la brecha de verdad: 2,6× y hasta 3,4× con contextos de 32K. En coding agéntico se nota cada turno."},
-    {n:"Qwen Coder 7B · Q4 (decode)",u:"tok/s",a:99,b:270,tag:"estimado",note:"R9700 medido con ROCm afinado (stock ~56). La 5090 se estima por ancho de banda."}
-  ],
-  imagen:[
-    {n:"Flux.1 dev · 1024×1024",u:"img/min",a:2.5,b:5.55,tag:"estimado",note:"La 5090 está medida: 5,55 img/min (≈1 imagen cada 10,8 s). La R9700 se estima en ~2–2,5× más lenta."},
-    {n:"SDXL · 1024×1024",u:"img/min",a:7,b:13.6,tag:"estimado",note:"La 5090 está medida: 13,6 img/min. La R9700 se estima."},
-    {n:"Flux.2 Klein 4B · FP8",u:"img/min",a:17,b:50,tag:"estimado",note:"La 5090 está medida (~1,2 s por imagen). En modelos ligeros es donde más se estrecha la distancia."}
-  ],
-  video:[
-    {n:"Wan 2.2 14B · clip de 5 s · 720p · ~20 pasos",u:"clips/h",a:7,b:19,tag:"estimado",note:"Ambos estimados: no existe un benchmark público comparable. Es el caso más duro para la R9700."}
-  ]
-};
-
-const ioGen = new IntersectionObserver((es)=>{
-  es.forEach(e=>{
-    if(!e.isIntersecting) return;
-    e.target.querySelectorAll("i[data-w]").forEach((i,k)=>{
-      setTimeout(()=>{ i.style.width = Math.max(parseFloat(i.dataset.w), 12) + "%"; }, 100 + k*120);
-    });
-    ioGen.unobserve(e.target);
-  });
-},{threshold:.3});
-
-function mkBars(boxId, data){
-  const box = document.getElementById(boxId);
-  if(!box) return;
-  data.forEach(d=>{
-    const max = Math.max(d.a,d.b);
+function mkBars(box, rows){
+  box.innerHTML = "";
+  rows.forEach(r=>{
+    const max = Math.max(r.va, r.vb) || 1;
+    const pa = (r.va/max)*100, pb = (r.vb/max)*100;
+    const ta = r.wa || (r.na||"—"), tb = r.wb || (r.nb||"—");
     const row = document.createElement("div");
     row.className = "barrow";
     row.innerHTML =
-      '<div class="head"><span class="name">'+d.n+' <span class="tagi '+(d.tag==="medido"?"m":"e")+'">'+d.tag+'</span></span><span class="unit">'+d.u+'</span></div>'+
+      '<div class="head"><span class="name">'+r.n+' '+(r.tag?'<span class="tagi '+r.tag+'">'+(r.tag==="m"?"medido":"estimado")+'</span>':'')+'</span><span class="unit">'+r.u+'</span></div>'+
       '<div class="track">'+
-        '<div class="bline amd"><span class="who">R9700</span><span class="meter"><i data-w="'+(d.a/max*100)+'"></i></span><span class="val">'+d.a.toLocaleString("es-ES")+' '+d.u+'</span></div>'+
-        '<div class="bline nv"><span class="who">RTX 5090</span><span class="meter"><i data-w="'+(d.b/max*100)+'"></i></span><span class="val">'+d.b.toLocaleString("es-ES")+' '+d.u+'</span></div>'+
+        '<div class="bline a"><span class="who">A</span><span class="meter"><i data-w="'+pa+'"></i></span><span class="val">'+ta+'</span></div>'+
+        '<div class="bline b"><span class="who">B</span><span class="meter"><i data-w="'+pb+'"></i></span><span class="val">'+tb+'</span></div>'+
       '</div>'+
-      (d.note ? '<p class="src">'+d.note+'</p>' : '');
+      (r.src ? '<p class="src">'+r.src+'</p>' : '');
     box.appendChild(row);
-    ioGen.observe(row);
+    ioBars.observe(row);
   });
 }
-mkBars("gen-texto", GEN.texto);
-mkBars("gen-imagen", GEN.imagen);
-mkBars("gen-video", GEN.video);
+function unit(v,u,d){ return v===null ? "no cabe" : fmt(v,d===undefined?1:d)+" "+u; }
 
-/* ---------------------- ESCALA DE RUIDO ---------------------- */
-(function(){
-  const host = document.getElementById("nscale");
-  if(!host) return;
-  const NMIN = 20, NMAX = 52;
-  const pos = v => ((v - NMIN) / (NMAX - NMIN)) * 100;
-  let h = '<div class="naxis"></div>';
-  for(let v = 20; v <= 50; v += 5){
-    h += '<span class="ntick" style="left:'+pos(v)+'%">'+v+' dB</span>';
-  }
-  const marks = [
-    {v:36.3, k:"nv", up:false, lb:"5090 FE · 32,5–40 dBA"},
-    {v:38,   k:"amd", up:true,  lb:"R9700 · ~30–45 dBA"}
+function renderPerf(){
+  const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
+  const star = (a,b) => a>b ? "a" : b>a ? "b" : "t";
+  const mark = (side,winner) => winner===side ? ' <span class="winner">★</span>' : "";
+  const wA = star(A.bw,B.bw), wF = star(A.fp32,B.fp32), wV = star(A.vram,B.vram);
+  const wT = star(-A.tdp,-B.tdp), wP = star(-(A.msrp||1e9),-(B.msrp||1e9));
+  const rows = [
+    {n:"Ancho de banda"+mark("a",wA),u:"GB/s",va:A.bw,vb:B.bw,wa:fmt(A.bw)+" GB/s"+mark("a",wA),wb:fmt(B.bw)+" GB/s"+mark("b",wA)},
+    {n:"Cómputo FP32"+mark("a",wF),u:"TFLOPS",va:A.fp32,vb:B.fp32,wa:A.fp32+" TFLOPS"+mark("a",wF),wb:B.fp32+" TFLOPS"+mark("b",wF)},
+    {n:"Cómputo FP16 (matriz)",u:"TFLOPS",va:ca.fp16,vb:cb.fp16,wa:fmt(ca.fp16)+" TFLOPS",wb:fmt(cb.fp16)+" TFLOPS"},
+    {n:"VRAM"+mark("a",wV),u:"GB",va:A.vram,vb:B.vram,wa:A.vram+" GB"+mark("a",wV),wb:B.vram+" GB"+mark("b",wV)},
+    {n:"Consumo (menos es mejor)"+mark("a",wT),u:"W",va:-(A.tdp),vb:-(B.tdp),wa:A.tdp+" W"+mark("a",wT),wb:B.tdp+" W"+mark("b",wT)},
+    {n:"PVP de lanzamiento (menos es mejor)"+mark("a",wP),u:"USD",va:-(A.msrp||0),vb:-(B.msrp||0),wa:(A.msrp?fmt(A.msrp)+" USD":"va en el equipo")+mark("a",wP),wb:(B.msrp?fmt(B.msrp)+" USD":"va en el equipo")+mark("b",wP)}
   ];
-  marks.forEach(m=>{
-    h += '<div class="nmark '+m.k+(m.up?" up":"")+'" style="left:'+pos(m.v)+'%"><span class="lb">'+m.lb+'</span><span class="dot2"></span></div>';
-  });
-  host.innerHTML = h;
-})();
+  /* las barras negativas se reordenan: usamos valor absoluto para el ancho */
+  rows.forEach(r => { r.va = Math.abs(r.va); r.vb = Math.abs(r.vb); });
+  mkBars($("bars"), rows);
+}
 
-/* barra de progreso de scroll */
+/* ============================ RENDER: GENERACIÓN ============================ */
+function medOrEst(key, metric){
+  const t = CAT.filter(c => c.med && c.med[metric] !== undefined);
+  if (t.length >= 2 && t.length === CAT.filter(c=>c.med).length) { /* noop */ }
+  return t;
+}
+function genRows(kind){
+  const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
+  const both = (m) => (A.med && A.med[m]!==undefined && B.med && B.med[m]!==undefined);
+  const rows = [];
+  if (kind === "texto"){
+    /* MoE medido si ambos lo tienen */
+    if (both("moe")) rows.push({n:"Qwen 35B MoE · Q4 (decode)",u:"tok/s",va:A.med.moe,vb:B.med.moe,wa:A.med.moe+" tok/s",wb:B.med.moe+" tok/s",tag:"m",src:"Datos medidos en llama.cpp/vLLM sobre el modelo idéntico."});
+    MODELS.forEach(m => {
+      const a = ca.tps[m.k], b = cb.tps[m.k];
+      rows.push({n:m.n,u:"tok/s",va:a||0,vb:b||0,wa:(a?fmt(a,0)+" tok/s":"no cabe"),wb:(b?fmt(b,0)+" tok/s":"no cabe"),tag:"e"});
+    });
+    if (both("pre")) rows.push({n:"Prefill · prompt de 512 tokens",u:"tok/s",va:A.med.pre,vb:B.med.pre,wa:A.med.pre+" tok/s",wb:B.med.pre+" tok/s",tag:"m",src:"Medido: la brecha del prefill es la más grande entre AMD y NVIDIA."});
+  }
+  if (kind === "imagen"){
+    rows.push({n:"Flux.1 dev · 1024×1024",u:"img/min",va:ca.imgFlux,vb:cb.imgFlux,wa:fmt(ca.imgFlux,1)+" img/min",wb:fmt(cb.imgFlux,1)+" img/min",tag:both("flux")?"m":"e"});
+    rows.push({n:"SDXL · 1024×1024",u:"img/min",va:ca.imgSdxl,vb:cb.imgSdxl,wa:fmt(ca.imgSdxl,1)+" img/min",wb:fmt(cb.imgSdxl,1)+" img/min",tag:both("sdxl")?"m":"e"});
+  }
+  if (kind === "video"){
+    rows.push({n:"Clip de 5 s · 720p · ~20 pasos",u:"clips/h",va:ca.vid,vb:cb.vid,wa:fmt(ca.vid,1)+" clips/h",wb:fmt(cb.vid,1)+" clips/h",tag:both("vid")?"m":"e"});
+  }
+  return rows;
+}
+
+/* ============================ RENDER: RUIDO ============================ */
+function renderNoise(){
+  const A = BY[state.a], B = BY[state.b];
+  const NMIN = 20, NMAX = 52, pos = v => ((v - NMIN)/(NMAX-NMIN))*100;
+  let h = '<div class="naxis"></div>';
+  for (let v = 20; v <= 50; v += 5) h += '<span class="ntick" style="left:'+pos(v)+'%">'+v+' dB</span>';
+  h += '<div class="nmark b" style="left:'+pos(B.db)+'%"><span class="lb">'+B.n.split(" ").slice(0,3).join(" ")+' · '+B.db+' dB</span><span class="dot2"></span></div>';
+  h += '<div class="nmark a up" style="left:'+pos(A.db)+'%"><span class="lb">'+A.n.split(" ").slice(0,3).join(" ")+' · '+A.db+' dB</span><span class="dot2"></span></div>';
+  $("nscale").innerHTML = h;
+  const card = (c,k) => '<div class="card" style="border-color:'+(k==="a"?"rgba(255,92,56,.35)":"rgba(46,230,168,.35)")+'">'+
+    '<h3><span class="ico '+c.brand+'">dB</span> '+c.n+'</h3><p>'+c.dbTxt+'</p>'+
+    '<p class="src" style="margin-top:10px">Refrigeración: '+c.fmt+' · '+c.tdp+' W</p></div>';
+  $("noisecards").innerHTML = card(A,"a") + card(B,"b") +
+    '<div class="card" style="border-color:rgba(255,209,102,.35)"><h3><span class="ico tie">×N</span> Con varias tarjetas</h3><p>Los <b>blower</b> expulsan el aire fuera de la caja: para un clúster, N blowers suenan menos en conjunto que N axiales recirculando calor. Las <b>Apple</b> con refrigeración pasiva son las más silenciosas, pero no las puedes apilar.</p></div>';
+}
+
+/* ============================ RENDER: TABLA ============================ */
+function renderTable(){
+  const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
+  $("thA").textContent = A.n; $("thB").textContent = B.n;
+  const row = (k, a, b, win) => {
+    const w = s => win===s ? '<span class="badge-w">★</span>' : '';
+    return '<tr><td>'+k+'</td><td>'+a+w("a")+'</td><td>'+b+w("b")+'</td></tr>';
+  };
+  let html = "";
+  html += '<tr><td>Marca / arquitectura</td><td>'+BRANDNAME[A.brand]+' · '+A.arch+'</td><td>'+BRANDNAME[B.brand]+' · '+B.arch+'</td></tr>';
+  html += '<tr><td>Año</td><td>'+A.year+'</td><td>'+B.year+'</td></tr>';
+  html += row("VRAM", A.vram+" GB", B.vram+" GB", A.vram>B.vram?"a":B.vram>A.vram?"b":null);
+  html += '<tr><td>Memoria</td><td>'+A.bus+'</td><td>'+B.bus+'</td></tr>';
+  html += row("Ancho de banda", A.bw+" GB/s", B.bw+" GB/s", A.bw>B.bw?"a":B.bw>A.bw?"b":null);
+  html += row("FP32", A.fp32+" TFLOPS", B.fp32+" TFLOPS", A.fp32>B.fp32?"a":B.fp32>A.fp32?"b":null);
+  html += row("FP16 (matriz)", fmt(ca.fp16)+" TFLOPS", fmt(cb.fp16)+" TFLOPS", ca.fp16>cb.fp16?"a":cb.fp16>ca.fp16?"b":null);
+  html += row("Consumo", A.tdp+" W", B.tdp+" W", A.tdp<B.tdp?"a":B.tdp<A.tdp?"b":null);
+  html += row("PVP lanzamiento", A.msrp?fmt(A.msrp)+" USD":"—", B.msrp?fmt(B.msrp)+" USD":"—", (A.msrp&&B.msrp)?(A.msrp<B.msrp?"a":B.msrp<A.msrp?"b":null):null);
+  html += row("Coste por GB (PVP)", ca.usdGb?fmt(ca.usdGb,0)+" $/GB":"—", cb.usdGb?fmt(cb.usdGb,0)+" $/GB":"—", (ca.usdGb&&cb.usdGb)?(ca.usdGb<cb.usdGb?"a":cb.usdGb<ca.usdGb?"b":null):null);
+  html += '<tr><td>Refrigeración</td><td>'+A.fmt+'</td><td>'+B.fmt+'</td></tr>';
+  html += '<tr><td>Software</td><td>'+A.sw+'</td><td>'+B.sw+'</td></tr>';
+  html += '<tr><td>70B Q4 (~42 GB)</td><td>'+(ca.tps["70b"]?"cabe":"no cabe")+'</td><td>'+(cb.tps["70b"]?"cabe":"no cabe")+'</td></tr>';
+  $("tbody").innerHTML = html;
+}
+
+/* ============================ RENDER: PRECIO ============================ */
+function renderPrice(){
+  const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
+  const box = (c,cc,k) => '<div class="pricebox '+k+'"><span class="brand '+c.brand+'">'+BRANDNAME[c.brand]+'</span>'+
+    '<div style="font-size:14px;color:var(--muted);margin-top:8px">'+c.n+'</div>'+
+    '<div class="amt">'+(c.msrp? "$"+fmt(c.msrp)+" USD" : "va en el equipo")+'</div>'+
+    '<small>'+c.vram+' GB · '+c.tdp+' W · '+c.arch+'</small>'+
+    '<p style="margin-top:12px;color:var(--muted);font-size:14px">'+(cc.usdGb? "<b>"+fmt(cc.usdGb,0)+" $/GB</b> de VRAM (PVP)" : "sin precio de tarjeta suelta")+'</p></div>';
+  $("price").innerHTML = box(A,ca,"a") + box(B,cb,"b");
+  const cheap = (ca.usdGb&&cb.usdGb) ? (ca.usdGb<cb.usdGb ? A : B) : B;
+  const cost = 24*365/1000;
+  const ea = (A.tdp*cost*0.20).toFixed(0), eb = (B.tdp*cost*0.20).toFixed(0);
+  $("pricenote").innerHTML = '<b>Ojo:</b> estos son los <b>PVP de lanzamiento en dólares</b> (dato verificable), no lo que cuestan hoy. '+
+    'En el mercado de 2026 la RTX 3090 es mucho más barata de segunda mano y la 5090 se vendió por encima de su PVP. '+
+    'En luz (24/7 a 0,20 €/kWh) la A cuesta ≈'+ea+' €/año y la B ≈'+eb+' €/año. '+
+    (cheap.msrp ? 'Por el PVP de la '+(cheap===A?B.n:A.n)+' podrías comprar varias '+cheap.n+'.' : 'En Apple no hay tarjeta suelta: es el equipo completo, con memoria unificada limitada por configuración.');
+}
+
+/* ============================ RENDER: VEREDICTO ============================ */
+function renderVerdict(){
+  const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
+  const P = state.perfil;
+  let winner = "tie", why = "";
+  const nameOf = c => c.n;
+  if (P === "ia"){
+    const va = ca.tps["27b"]||0, vb = cb.tps["27b"]||0;
+    winner = va>vb ? "a" : vb>va ? "b" : "tie";
+    why = "En modelos densos medianos gana quien tiene más ancho de banda: <b>"+fmt(Math.max(va,vb),0)+" tok/s</b> frente a <b>"+fmt(Math.min(va,vb),0)+" tok/s</b> (27B Q4).";
+    if ((A.vram>=42) !== (B.vram>=42)) why += " Además, la de "+Math.max(A.vram,B.vram)+" GB es la única que puede cargar un 70B Q4 completo.";
+  } else if (P === "gaming"){
+    winner = A.fp32>B.fp32 ? "a" : B.fp32>A.fp32 ? "b" : "tie";
+    why = "Cómputo puro y ecosistema gráfico: <b>"+Math.max(A.fp32,B.fp32)+" vs "+Math.min(A.fp32,B.fp32)+" TFLOPS FP32</b>. En gaming y render con trazado de rayos la ventaja es de "+ (winner==="a"?A.n:B.n) +".";
+  } else if (P === "densa"){
+    const sc = c => (c.fmt==="pasivo"?2:c.fmt==="blower"?1:0) - c.tdp/500 + c.vram/64;
+    const sa = sc(A), sb = sc(B);
+    winner = sa>sb ? "a" : sb>sa ? "b" : "tie";
+    why = "Para apilar varias tarjetas pesan formato, calor y consumo: <b>"+A.fmt+" / "+A.tdp+" W</b> frente a <b>"+B.fmt+" / "+B.tdp+" W</b>.";
+  } else if (P === "video"){
+    winner = ca.fp16>cb.fp16 ? "a" : cb.fp16>ca.fp16 ? "b" : "tie";
+    why = "Difusión y vídeo dependen del cómputo: <b>"+fmt(Math.max(ca.fp16,cb.fp16),0)+" vs "+fmt(Math.min(ca.fp16,cb.fp16),0)+" TFLOPS FP16</b>. También pesa el software: donde hay CUDA, casi todo funciona a la primera.";
+  } else {
+    const ga = ca.usdGb||1e9, gb2 = cb.usdGb||1e9;
+    winner = ga<gb2 ? "a" : gb2<ga ? "b" : "tie";
+    why = "PVP por GB de VRAM: <b>"+(ca.usdGb?fmt(ca.usdGb,0)+" $/GB":"—")+"</b> frente a <b>"+(cb.usdGb?fmt(cb.usdGb,0)+" $/GB":"—")+"</b>. Ojo: el mercado de segunda mano cambia el resultado (una 3090 de 24 GB hoy es la reina del $/GB).";
+  }
+  const winCard = winner==="a"?A:winner==="b"?B:null;
+  const pill = winner==="tie" ? '<span class="pill tie">EMPATE</span>' :
+    '<span class="pill '+winCard.brand+'">'+winCard.n+'</span>';
+  $("verdict").innerHTML =
+    '<div class="win-row">'+pill+'<span>'+(winner==="tie"?"Depende del caso":("Gana "+nameOf(winCard)))+'</span></div>'+
+    '<p style="color:var(--muted)">'+why+'</p>'+
+    '<p class="src">Combinación actual: <b>'+A.n+'</b> (A) vs <b>'+B.n+'</b> (B).</p>';
+}
+
+/* ============================ RENDER GLOBAL ============================ */
+function renderAll(){
+  renderStrip();
+  renderPerf();
+  mkBars($("gen-texto"), genRows("texto"));
+  mkBars($("gen-imagen"), genRows("imagen"));
+  mkBars($("gen-video"), genRows("video"));
+  const A = BY[state.a], B = BY[state.b];
+  $("gennote").innerHTML = "<b>Nota:</b> en <b>texto</b> las tarjetas de mucho ancho de banda mandan; en <b>imagen y vídeo</b> el que manda es el cómputo y el software. "+
+    (A.brand==="ap"||B.brand==="ap" ? "En <b>Apple</b> la memoria es unificada y compartida con el sistema: la VRAM útil es menor que la cifra nominal. " : "")+
+    (A.brand==="amd"||B.brand==="amd" ? "En <b>AMD RDNA 2/3</b> el soporte ROCm existe pero exige más trabajo que CUDA." : "");
+  renderNoise();
+  renderTable();
+  renderPrice();
+  renderVerdict();
+}
+
+/* ============================ EVENTOS ============================ */
+function syncSelects(){ fillSelect($("selA"), state.a); fillSelect($("selB"), state.b); }
+$("selA").addEventListener("change", e => { state.a = e.target.value; renderAll(); });
+$("selB").addEventListener("change", e => { state.b = e.target.value; renderAll(); });
+$("swapBtn").addEventListener("click", () => { const t = state.a; state.a = state.b; state.b = t; syncSelects(); renderAll(); });
+$("presets").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  const [x,y] = b.dataset.p.split(",");
+  if (BY[x] && BY[y]) { state.a = x; state.b = y; syncSelects(); renderAll(); }
+});
+$("seg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  $("seg").querySelectorAll("button").forEach(x => x.classList.toggle("on", x===b));
+  state.perfil = b.dataset.k;
+  const box = $("verdict");
+  box.style.animation = "none"; void box.offsetWidth; box.style.animation = "pop .45s ease";
+  renderVerdict();
+});
+
+/* REVEAL */
+const io = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
+},{threshold:.12, rootMargin:"0px 0px -40px 0px"});
+document.querySelectorAll(".rv").forEach(el => io.observe(el));
+
+/* barra de progreso */
 const prog = document.createElement("div");
 prog.style.cssText = "position:fixed;left:0;top:0;height:3px;width:0;z-index:99;background:linear-gradient(90deg,var(--amd),var(--nv));transition:width .12s linear";
 document.body.appendChild(prog);
-addEventListener("scroll", ()=>{
-  const h = document.documentElement;
-  prog.style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight)*100) + "%";
-}, {passive:true});
+addEventListener("scroll", ()=>{ const h=document.documentElement;
+  prog.style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%" }, {passive:true});
+
+/* arranque */
+syncSelects();
+renderAll();
 </script>
 </body>
 </html>
