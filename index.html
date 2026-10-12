@@ -454,7 +454,8 @@ const CAT = [
 
   /* ---------------- AMD (desde RX 6800) ----------------
      Fuente: List of AMD GPUs (Wikipedia) + datasheet ASUS/AMD para la R9700 */
-  {id:"rx6800",n:"Radeon RX 6800 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:16.166,tdp:250,msrp:579,street:1267,fmt:"axial",db:33,dbTxt:"~33 dB · axial",sw:"ROCm Linux",note:"Ojo: la RX 6800 es de <b>16 GB</b>. La de 12 GB de esa familia es la RX 6700 XT."},
+  {id:"rx6800",n:"Radeon RX 6800 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:16.166,tdp:250,msrp:579,street:1267,fmt:"axial",db:33,dbTxt:"~33 dB · axial",sw:"ROCm Linux",note:"Ojo: la RX 6800 de sobremesa es de <b>16 GB</b>. La versión de portátil (RX 6800M) es de <b>12 GB</b>, y en sobremesa la de 12 GB de esta familia es la RX 6700 XT."},
+  {id:"rx6800m",n:"Radeon RX 6800M 12 GB",brand:"amd",arch:"RDNA 2",year:2021,vram:12,bus:"192-bit GDDR6",bw:384,fp32:11.78,tdp:145,msrp:null,street:null,fmt:"axial",db:40,dbTxt:"~40 dB · portátil, ventiladores al máximo bajo carga",sw:"ROCm Linux",note:"GPU de portátil (móvil). Mismo silicio que la RX 6700 XT: <b>12 GB</b> y bus de 192 bits."},
   {id:"rx6800xt",n:"Radeon RX 6800 XT 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:20.736,tdp:300,msrp:649,street:1104,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm Linux"},
   {id:"rx6900xt",n:"Radeon RX 6900 XT 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:23.04,tdp:300,msrp:999,street:990,fmt:"axial",db:35,dbTxt:"~35 dB · axial",sw:"ROCm Linux"},
   {id:"rx6950xt",n:"Radeon RX 6950 XT 16 GB",brand:"amd",arch:"RDNA 2",year:2022,vram:16,bus:"256-bit GDDR6",bw:576,fp32:23.654,tdp:335,msrp:1099,street:1567,fmt:"axial",db:36,dbTxt:"~36 dB · axial",sw:"ROCm Linux"},
@@ -631,7 +632,9 @@ const I18N = {
     [`~32 dB · Mac Studio, ventilador audible bajo carga`]: `~32 dB · Mac Studio, audible fan under load`,
     [`~30 dB · MacBook Pro, ventilador sólo bajo carga`]: `~30 dB · MacBook Pro, fan only under load`,
     [`ROCm nativo`]: `Native ROCm`,
-    [`Ojo: la RX 6800 es de <b>16 GB</b>. La de 12 GB de esa familia es la RX 6700 XT.`]: `Note: the RX 6800 has <b>16 GB</b>. The 12 GB one in that family is the RX 6700 XT.`,
+    [`Ojo: la RX 6800 de sobremesa es de <b>16 GB</b>. La versión de portátil (RX 6800M) es de <b>12 GB</b>, y en sobremesa la de 12 GB de esta familia es la RX 6700 XT.`]: `Note: the desktop RX 6800 has <b>16 GB</b>. The laptop version (RX 6800M) has <b>12 GB</b>, and on desktop the 12 GB one in this family is the RX 6700 XT.`,
+    [`GPU de portátil (móvil). Mismo silicio que la RX 6700 XT: <b>12 GB</b> y bus de 192 bits.`]: `Laptop (mobile) GPU. Same silicon as the RX 6700 XT: <b>12 GB</b> and a 192-bit bus.`,
+    [`~40 dB · portátil, ventiladores al máximo bajo carga`]: `~40 dB · laptop, fans at full tilt under load`,
     [`Memoria unificada LPDDR4X`]: `Unified memory LPDDR4X`,
     [`Memoria unificada LPDDR5`]: `Unified memory LPDDR5`,
     [`Memoria unificada LPDDR5X`]: `Unified memory LPDDR5X`,
@@ -790,7 +793,9 @@ const I18N = {
     [`~32 dB · Mac Studio, ventilador audible bajo carga`]: `~32 dB · Mac Studio, hörbarer Lüfter unter Last`,
     [`~30 dB · MacBook Pro, ventilador sólo bajo carga`]: `~30 dB · MacBook Pro, Lüfter nur unter Last`,
     [`ROCm nativo`]: `Natives ROCm`,
-    [`Ojo: la RX 6800 es de <b>16 GB</b>. La de 12 GB de esa familia es la RX 6700 XT.`]: `Achtung: Die RX 6800 hat <b>16 GB</b>. Die 12-GB-Version dieser Familie ist die RX 6700 XT.`,
+    [`Ojo: la RX 6800 de sobremesa es de <b>16 GB</b>. La versión de portátil (RX 6800M) es de <b>12 GB</b>, y en sobremesa la de 12 GB de esta familia es la RX 6700 XT.`]: `Achtung: Die Desktop-RX 6800 hat <b>16 GB</b>. Die Laptop-Version (RX 6800M) hat <b>12 GB</b>, und beim Desktop ist die 12-GB-Karte dieser Familie die RX 6700 XT.`,
+    [`GPU de portátil (móvil). Mismo silicio que la RX 6700 XT: <b>12 GB</b> y bus de 192 bits.`]: `Laptop-GPU (mobil). Gleiches Silizium wie die RX 6700 XT: <b>12 GB</b> und 192-Bit-Bus.`,
+    [`~40 dB · portátil, ventiladores al máximo bajo carga`]: `~40 dB · Laptop, Lüfter unter Last auf Maximum`,
     [`Memoria unificada LPDDR4X`]: `Unified Memory LPDDR4X`,
     [`Memoria unificada LPDDR5`]: `Unified Memory LPDDR5`,
     [`Memoria unificada LPDDR5X`]: `Unified Memory LPDDR5X`,
@@ -943,7 +948,8 @@ function renderStrip(){
         '<div><b>'+c.bw+'</b><span>GB/s</span></div>'+
         '<div><b>'+c.fp32+'</b><span>TFLOPS FP32</span></div>'+
         '<div><b>'+c.tdp+' W</b><span>'+t("consumo")+'</span></div>'+
-      '</div></div>';
+      '</div>'+
+      (c.note ? '<p class="src" style="margin-top:10px">'+t(c.note)+'</p>' : '')+'</div>';
   };
   $("strip").innerHTML = box(A) + box(B);
 }
