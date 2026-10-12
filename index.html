@@ -176,6 +176,28 @@ footer{padding:44px 0 70px;border-top:1px solid var(--line);color:var(--muted);f
 footer ul{margin:10px 0 0 18px}
 footer li{margin:4px 0}
 .note{margin-top:18px;padding:14px 16px;border-radius:14px;background:rgba(255,209,102,.07);border:1px solid rgba(255,209,102,.28);color:#ffe6ad;font-size:13.5px}
+
+/* ============================== GENERACIÓN ============================== */
+.genax{margin-top:32px}
+.genax h3{font-size:17.5px;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.src{color:var(--muted);font-size:12.5px;margin-top:9px;line-height:1.5}
+.tagi{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.tagi.m{background:rgba(46,230,168,.14);color:#a9f3d4;border:1px solid rgba(46,230,168,.45)}
+.tagi.e{background:rgba(255,209,102,.16);color:var(--win);border:1px solid rgba(255,209,102,.42)}
+.genax .barrow{margin-top:14px}
+
+/* ============================== RUIDO ============================== */
+.noise{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:26px 22px 30px}
+.nscale{position:relative;height:150px;margin:14px 0 30px}
+.naxis{position:absolute;left:0;right:0;bottom:0;height:44px;border-radius:12px;
+  background:linear-gradient(90deg,#16265c,#1d6f7a,#a08a1f,#c97a1f,#8b2020);opacity:.92}
+.ntick{position:absolute;bottom:-24px;transform:translateX(-50%);font-size:11.5px;color:var(--muted)}
+.nmark{position:absolute;bottom:20px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px}
+.nmark.up{bottom:70px}
+.nmark .dot2{width:13px;height:13px;border-radius:50%;border:2px solid #0b0b12;box-shadow:0 0 16px rgba(255,255,255,.55)}
+.nmark .lb{font-size:12px;font-weight:700;white-space:nowrap;background:rgba(10,10,18,.88);border:1px solid var(--line);padding:4px 9px;border-radius:999px}
+.nmark.amd .dot2{background:var(--amd)}.nmark.nv .dot2{background:var(--nv)}
+.nmark.amd .lb{border-color:rgba(255,92,56,.5)}.nmark.nv .lb{border-color:rgba(46,230,168,.5)}
 </style>
 </head>
 <body>
@@ -213,6 +235,7 @@ footer li{margin:4px 0}
       <button data-k="ia" class="on">IA local / LLM</button>
       <button data-k="gaming">Gaming / render</button>
       <button data-k="densa">Workstation densa</button>
+      <button data-k="video">Imagen / vídeo</button>
       <button data-k="euro">Mejor precio/GB</button>
     </div>
     <div class="verdict rv d3" id="verdict">
@@ -226,6 +249,57 @@ footer li{margin:4px 0}
     <h2 class="sec rv">Cara a cara en números</h2>
     <p class="lead rv d1">Barras normalizadas: la más alta de cada fila es el 100 %. Pasa el cursor para leer el valor.</p>
     <div class="bars" id="bars"></div>
+  </section>
+
+  <!-- ================== GENERACIÓN ================== -->
+  <section id="generacion">
+    <h2 class="sec rv">Velocidad de generación: texto, imagen y vídeo</h2>
+    <p class="lead rv d1">Cuánto tarda cada tarjeta en <b>producir contenido</b>. En texto manda el ancho de banda; en imagen y vídeo pesa además el cómputo y la madurez del software (CUDA frente a ROCm).</p>
+
+    <div class="genax rv d2">
+      <h3>Texto · LLM <span class="tagi m">datos medidos</span></h3>
+      <div class="bars" id="gen-texto"></div>
+      <p class="src">Tok/s en generación (decode) y prefill, medidos en llama.cpp sobre modelos Qwen. El prefill es donde la brecha es brutal: 2,6× y hasta 3,4× con contextos largos.</p>
+    </div>
+
+    <div class="genax rv d2">
+      <h3>Imagen · difusión <span class="tagi e">estimado</span></h3>
+      <div class="bars" id="gen-imagen"></div>
+      <p class="src">Imágenes por minuto a 1024×1024. La 5090 tiene benchmark público; la R9700 se estima en 2–2,5× más lenta (misma lógica: menos cómputo y ROCm menos pulido para estos pipelines).</p>
+    </div>
+
+    <div class="genax rv d2">
+      <h3>Vídeo · generación <span class="tagi e">estimado</span></h3>
+      <div class="bars" id="gen-video"></div>
+      <p class="src">Clips por hora (más = mejor). Un clip de 5 s a 720p con ~20 pasos es la prueba más dura: muchísimo cómputo y varias pasadas. Es donde la 5090 más se despega y donde el soporte de ROCm en ComfyUI/Wan aún obliga a parches.</p>
+    </div>
+
+    <div class="note rv d3"><b>La regla de oro:</b> en <b>texto</b> la R9700 es competitiva (hasta 156 tok/s en MoE, casi el 80 % de la 5090), pero en <b>prefill, imagen y vídeo</b> la ventaja de NVIDIA crece sin pausa: es cómputo puro, no ancho de banda.</div>
+  </section>
+
+  <!-- ================== RUIDO ================== -->
+  <section id="ruido">
+    <h2 class="sec rv">Ruido: lo que la ficha técnica no dice</h2>
+    <p class="lead rv d1">El dB es logarítmico: <b>+10 dB ≈ el doble de sonoridad percibida</b>. Y no todo es el volumen: importa el <b>tono</b> y <b>hacia dónde sale el aire</b>.</p>
+
+    <div class="noise rv d2">
+      <div class="nscale" id="nscale"></div>
+      <div class="cards" style="margin-top:6px">
+        <div class="card" style="border-color:rgba(46,230,168,.35)">
+          <h3><span class="ico nv">dB</span> RTX 5090 FE <span class="tagi m">medido</span></h3>
+          <p><b>32,5 dBA</b> a 1 m en cámara anecoica (carga sostenida) y hasta <b>40,1 dB</b> en gaming con los ventiladores a ~1.673 rpm. Es claramente <b>más ruidosa que la RTX 4090</b>. Además hay reportes de <b>coil whine</b> en algunas unidades.</p>
+        </div>
+        <div class="card" style="border-color:rgba(255,92,56,.35)">
+          <h3><span class="ico amd">dB</span> R9700 (ASUS Turbo) <span class="tagi e">estimado</span></h3>
+          <p>No hay cifra oficial. Usuarios la dejan <b>prácticamente silenciosa</b> limitándola a ~210 W y 33 % de ventilador. A plena carga el <b>blower suena más agudo</b> (silbido) que el axial de la 5090, aunque menos "grave".</p>
+        </div>
+        <div class="card" style="border-color:rgba(255,209,102,.35)">
+          <h3><span class="ico tie">×N</span> La clave: 1, 2 o 4 tarjetas</h3>
+          <p>El blower <b>expulsa el aire por detrás</b>, fuera de la caja. Con varias tarjetas, N blowers suenan menos que N axiales recirculando calor dentro del chasis. Para un clúster, la R9700 gana en ruido <b>agregado</b> aunque suene parecido sola.</p>
+        </div>
+      </div>
+      <p class="src">Escala orientativa 20–50 dBA a 1 m. La 5090 FE medida por GamersNexus (32,5 dBA) y mezha (40,1 dB). La R9700 es un rango de estimación por reports de usuarios e ingestión del diseño (blower de 2 slots); no hay medición certificada.</p>
+    </div>
   </section>
 
   <!-- ================== TABLA ================== -->
@@ -328,7 +402,8 @@ const VERD = {
   ia:{win:"nv",pill:"nv",title:"RTX 5090 gana en velocidad",text:"Si tu prioridad es generar tokens rápido con modelos que caben en 32 GB, la 5090 arrasa por ancho de banda (1.792 vs 640 GB/s) y por Tensor Cores de 5ª gen. Único freno: precio y 575 W."},
   gaming:{win:"nv",pill:"nv",title:"RTX 5090 sin discusión",text:"Para jugar, renderizar con ray tracing o usar DLSS 4 no hay comparación: la R9700 es una tarjeta profesional orientada a cómputo y despliegue de IA."},
   densa:{win:"amd",pill:"amd",title:"Radeon AI PRO R9700",text:"Blower de 2 slots que expulsa el aire por detrás y solo 300 W: puedes apilar varias en un chasis. La 5090 (hasta 3,5 slots y 575 W) es un problema térmico si pones más de una."},
-  euro:{win:"amd",pill:"amd",title:"Radeon AI PRO R9700",text:"Mismos 32 GB por menos de la mitad de precio (≈68 €/GB frente a 180–220 €/GB). Por el precio de una 5090 montas dos R9700 y llegas a 64 GB de VRAM."}
+  euro:{win:"amd",pill:"amd",title:"Radeon AI PRO R9700",text:"Mismos 32 GB por menos de la mitad de precio (≈68 €/GB frente a 180–220 €/GB). Por el precio de una 5090 montas dos R9700 y llegas a 64 GB de VRAM."},
+  video:{win:"nv",pill:"nv",title:"RTX 5090, y con más margen",text:"Difusión y vídeo son el terreno más duro: mucho cómputo y varias pasadas. La 5090 no solo es más rápida, sino que en la R9700 estos pipelines (ComfyUI, Flux, Wan) aún piden parches y dan más guerra. Si vas a generar vídeo en serio, la diferencia de precio se justifica."}
 };
 
 const $ = s => document.querySelector(s);
@@ -383,6 +458,76 @@ seg.addEventListener("click", e=>{
 });
 /* estado inicial */
 (function(){ const v = VERD.ia; $("#v-title").textContent=v.title; $("#v-text").textContent=v.text; })();
+
+/* ---------------------- GENERACIÓN (texto / imagen / vídeo) ---------------------- */
+const GEN = {
+  texto:[
+    {n:"Qwen 35B MoE · Q4 (decode)",u:"tok/s",a:156,b:194,tag:"medido",note:"R9700: 127–156 tok/s según driver. La 5090 hace 194 en el modelo idéntico: 1,5× más."},
+    {n:"Qwen 27B dense · Q4 (decode)",u:"tok/s",a:33,b:82,tag:"estimado",note:"R9700 medido (29–33 tok/s). El valor de la 5090 se estima escalando por ancho de banda."},
+    {n:"Prefill · prompt de 512 tokens",u:"tok/s",a:2713,b:7026,tag:"medido",note:"Aquí está la brecha de verdad: 2,6× y hasta 3,4× con contextos de 32K. En coding agéntico se nota cada turno."},
+    {n:"Qwen Coder 7B · Q4 (decode)",u:"tok/s",a:99,b:270,tag:"estimado",note:"R9700 medido con ROCm afinado (stock ~56). La 5090 se estima por ancho de banda."}
+  ],
+  imagen:[
+    {n:"Flux.1 dev · 1024×1024",u:"img/min",a:2.5,b:5.55,tag:"estimado",note:"La 5090 está medida: 5,55 img/min (≈1 imagen cada 10,8 s). La R9700 se estima en ~2–2,5× más lenta."},
+    {n:"SDXL · 1024×1024",u:"img/min",a:7,b:13.6,tag:"estimado",note:"La 5090 está medida: 13,6 img/min. La R9700 se estima."},
+    {n:"Flux.2 Klein 4B · FP8",u:"img/min",a:17,b:50,tag:"estimado",note:"La 5090 está medida (~1,2 s por imagen). En modelos ligeros es donde más se estrecha la distancia."}
+  ],
+  video:[
+    {n:"Wan 2.2 14B · clip de 5 s · 720p · ~20 pasos",u:"clips/h",a:7,b:19,tag:"estimado",note:"Ambos estimados: no existe un benchmark público comparable. Es el caso más duro para la R9700."}
+  ]
+};
+
+const ioGen = new IntersectionObserver((es)=>{
+  es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    e.target.querySelectorAll("i[data-w]").forEach((i,k)=>{
+      setTimeout(()=>{ i.style.width = Math.max(parseFloat(i.dataset.w), 12) + "%"; }, 100 + k*120);
+    });
+    ioGen.unobserve(e.target);
+  });
+},{threshold:.3});
+
+function mkBars(boxId, data){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+  data.forEach(d=>{
+    const max = Math.max(d.a,d.b);
+    const row = document.createElement("div");
+    row.className = "barrow";
+    row.innerHTML =
+      '<div class="head"><span class="name">'+d.n+' <span class="tagi '+(d.tag==="medido"?"m":"e")+'">'+d.tag+'</span></span><span class="unit">'+d.u+'</span></div>'+
+      '<div class="track">'+
+        '<div class="bar amd"><i data-w="'+(d.a/max*100)+'">'+d.a.toLocaleString("es-ES")+' '+d.u+'</i><span class="lbl">R9700</span></div>'+
+        '<div class="bar nv"><i data-w="'+(d.b/max*100)+'">'+d.b.toLocaleString("es-ES")+' '+d.u+'</i><span class="lbl">RTX 5090</span></div>'+
+      '</div>'+
+      (d.note ? '<p class="src">'+d.note+'</p>' : '');
+    box.appendChild(row);
+    ioGen.observe(row);
+  });
+}
+mkBars("gen-texto", GEN.texto);
+mkBars("gen-imagen", GEN.imagen);
+mkBars("gen-video", GEN.video);
+
+/* ---------------------- ESCALA DE RUIDO ---------------------- */
+(function(){
+  const host = document.getElementById("nscale");
+  if(!host) return;
+  const NMIN = 20, NMAX = 52;
+  const pos = v => ((v - NMIN) / (NMAX - NMIN)) * 100;
+  let h = '<div class="naxis"></div>';
+  for(let v = 20; v <= 50; v += 5){
+    h += '<span class="ntick" style="left:'+pos(v)+'%">'+v+' dB</span>';
+  }
+  const marks = [
+    {v:36.3, k:"nv", up:false, lb:"RTX 5090 FE · 32,5–40 dBA (medido)"},
+    {v:38,   k:"amd", up:true,  lb:"R9700 · ~30–45 dBA (estimado)"}
+  ];
+  marks.forEach(m=>{
+    h += '<div class="nmark '+m.k+(m.up?" up":"")+'" style="left:'+pos(m.v)+'%"><span class="lb">'+m.lb+'</span><span class="dot2"></span></div>';
+  });
+  host.innerHTML = h;
+})();
 
 /* barra de progreso de scroll */
 const prog = document.createElement("div");
