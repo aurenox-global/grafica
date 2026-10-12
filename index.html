@@ -3,8 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Comparador de GPUs para IA · NVIDIA (desde RTX 3060 12 GB) · AMD (desde RX 6800) · Apple M1+</title>
-<meta name="description" content="Infografía interactiva: elige dos tarjetas gráficas y compáralas al instante (VRAM, ancho de banda, FP32, consumo, precio, tokens/s, imagen, vídeo y ruido). Catálogo NVIDIA desde RTX 3060 12 GB, AMD desde RX 6800 y Apple M1 en adelante.">
+<title>Comparación de Gráficas (GPU) para IA · NVIDIA vs AMD vs Apple · Comparador interactivo</title>
+<meta name="description" content="Comparación de gráficas (tarjetas GPU) para IA: elige dos y compáralas al instante — VRAM, ancho de banda, cómputo, precio, tokens/s, imagen, vídeo y ruido. Catálogo NVIDIA desde la RTX 3060 12 GB, AMD desde la RX 6800 y Apple M1 en adelante.">
+<link rel="canonical" href="https://aurenox-global.github.io/r9700-vs-rtx5090/">
+<meta name="keywords" content="comparación de gráficas, comparar gráficas, comparador de gráficas, gráficas, tarjetas gráficas, GPU, comparador GPU, NVIDIA, AMD, Radeon, Apple, IA, LLM, VRAM, tokens/s, RTX 5090, RX 9070, R9700, M4 Max">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Andrés Mag">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Comparación de Gráficas (GPU)">
+<meta property="og:title" content="Comparación de Gráficas (GPU) para IA · NVIDIA vs AMD vs Apple">
+<meta property="og:description" content="Elige dos tarjetas gráficas y compáralas al instante: VRAM, ancho de banda, cómputo, precio, tokens/s, imagen, vídeo y ruido.">
+<meta property="og:url" content="https://aurenox-global.github.io/r9700-vs-rtx5090/">
+<meta property="og:locale" content="es_ES">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:locale:alternate" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Comparación de Gráficas (GPU) para IA">
+<meta name="twitter:description" content="Elige dos tarjetas gráficas y compáralas al instante: VRAM, ancho de banda, cómputo, precio, tokens/s, imagen, vídeo y ruido.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Comparación de Gráficas (GPU) para IA",
+  "alternateName": ["Comparador de gráficas", "Comparar gráficas", "GPU comparison", "Grafikkarten-Vergleich"],
+  "url": "https://aurenox-global.github.io/r9700-vs-rtx5090/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "inLanguage": ["es", "en", "de"],
+  "description": "Comparación de gráficas (tarjetas GPU) para IA: elige dos y compara al instante VRAM, ancho de banda, cómputo, precio, tokens/s, imagen, vídeo y ruido.",
+  "keywords": "comparación de gráficas, comparar gráficas, GPU, tarjetas gráficas, NVIDIA, AMD, Radeon, Apple, IA, LLM, VRAM, tokens/s",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}
+</script>
 <style>
 :root{
   --bg:#2A3844; --bg2:#31404D; --panel:#33424F;
@@ -269,7 +300,7 @@ footer ul{margin:10px 0 0 18px}footer li{margin:4px 0}
       <button type="button" data-lang="en">EN</button>
       <button type="button" data-lang="de">DE</button>
     </div>
-    <div class="kicker rv"><span class="dot"></span> <span data-i18n>Comparador interactivo · IA local</span></div>
+    <div class="kicker rv"><span class="dot"></span> <span data-i18n>Comparación de gráficas · IA local</span></div>
     <h1 class="rv d1" data-i18n>Elige <span class="grad">dos tarjetas</span><br>y compáralas al instante</h1>
     <p class="sub rv d2" data-i18n>VRAM, ancho de banda, cómputo, consumo, precio, <b>tokens/s</b>, imagen, vídeo y <b>ruido</b>. Catálogo: <b>NVIDIA desde la RTX 3060 12 GB</b>, <b>AMD desde la RX 6800</b> y <b>Apple M1 en adelante</b>.</p>
   </header>
@@ -465,10 +496,10 @@ const LOCALES = { es:"es-ES", en:"en-GB", de:"de-DE" };
 const I18N = {
   en: {
     // --- global ---
-    [`Comparador de GPUs para IA · NVIDIA (desde RTX 3060 12 GB) · AMD (desde RX 6800) · Apple M1+`]: `GPU comparison for AI · NVIDIA (from RTX 3060 12 GB) · AMD (from RX 6800) · Apple M1+`,
-    [`Infografía interactiva: elige dos tarjetas gráficas y compáralas al instante (VRAM, ancho de banda, FP32, consumo, precio, tokens/s, imagen, vídeo y ruido). Catálogo NVIDIA desde RTX 3060 12 GB, AMD desde RX 6800 y Apple M1 en adelante.`]: `Interactive infographic: pick two graphics cards and compare them instantly (VRAM, bandwidth, FP32, power, price, tokens/s, image, video and noise). Catalog: NVIDIA from the RTX 3060 12 GB, AMD from the RX 6800 and Apple M1 and later.`,
+    [`Comparación de Gráficas (GPU) para IA · NVIDIA vs AMD vs Apple · Comparador interactivo`]: `GPU Comparison for AI · NVIDIA vs AMD vs Apple · Interactive Comparator`,
+    [`Comparación de gráficas (tarjetas GPU) para IA: elige dos y compáralas al instante — VRAM, ancho de banda, cómputo, precio, tokens/s, imagen, vídeo y ruido. Catálogo NVIDIA desde la RTX 3060 12 GB, AMD desde la RX 6800 y Apple M1 en adelante.`]: `Graphics card (GPU) comparison for AI: pick two and compare them instantly — VRAM, bandwidth, compute, price, tokens/s, image, video and noise. Catalog: NVIDIA from the RTX 3060 12 GB, AMD from the RX 6800 and Apple M1 and later.`,
     // --- hero ---
-    [`Comparador interactivo · IA local`]: `Interactive comparison · Local AI`,
+    [`Comparación de gráficas · IA local`]: `Graphics comparison · Local AI`,
     [`Elige <span class="grad">dos tarjetas</span><br>y compáralas al instante`]: `Pick <span class="grad">two cards</span><br>and compare them instantly`,
     [`VRAM, ancho de banda, cómputo, consumo, precio, <b>tokens/s</b>, imagen, vídeo y <b>ruido</b>. Catálogo: <b>NVIDIA desde la RTX 3060 12 GB</b>, <b>AMD desde la RX 6800</b> y <b>Apple M1 en adelante</b>.`]: `VRAM, bandwidth, compute, power, price, <b>tokens/s</b>, image, video and <b>noise</b>. Catalog: <b>NVIDIA from the RTX 3060 12 GB</b>, <b>AMD from the RX 6800</b> and <b>Apple M1 and later</b>.`,
     // --- comparador ---
@@ -621,10 +652,10 @@ const I18N = {
   },
   de: {
     // --- global ---
-    [`Comparador de GPUs para IA · NVIDIA (desde RTX 3060 12 GB) · AMD (desde RX 6800) · Apple M1+`]: `GPU-Vergleich für KI · NVIDIA (ab RTX 3060 12 GB) · AMD (ab RX 6800) · Apple M1+`,
-    [`Infografía interactiva: elige dos tarjetas gráficas y compáralas al instante (VRAM, ancho de banda, FP32, consumo, precio, tokens/s, imagen, vídeo y ruido). Catálogo NVIDIA desde RTX 3060 12 GB, AMD desde RX 6800 y Apple M1 en adelante.`]: `Interaktive Infografik: zwei Grafikkarten auswählen und sofort vergleichen (VRAM, Bandbreite, FP32, Leistungsaufnahme, Preis, Tokens/s, Bild, Video und Lautstärke). Katalog: NVIDIA ab RTX 3060 12 GB, AMD ab RX 6800 und Apple M1 und neuer.`,
+    [`Comparación de Gráficas (GPU) para IA · NVIDIA vs AMD vs Apple · Comparador interactivo`]: `Grafikkarten-Vergleich (GPU) für KI · NVIDIA vs AMD vs Apple · Interaktiver Vergleich`,
+    [`Comparación de gráficas (tarjetas GPU) para IA: elige dos y compáralas al instante — VRAM, ancho de banda, cómputo, precio, tokens/s, imagen, vídeo y ruido. Catálogo NVIDIA desde la RTX 3060 12 GB, AMD desde la RX 6800 y Apple M1 en adelante.`]: `Grafikkarten-Vergleich (GPU) für KI: zwei auswählen und sofort vergleichen — VRAM, Bandbreite, Rechenleistung, Preis, Tokens/s, Bild, Video und Lautstärke. Katalog: NVIDIA ab RTX 3060 12 GB, AMD ab RX 6800 und Apple M1 und neuer.`,
     // --- hero ---
-    [`Comparador interactivo · IA local`]: `Interaktiver Vergleich · Lokale KI`,
+    [`Comparación de gráficas · IA local`]: `Grafikkarten-Vergleich · Lokale KI`,
     [`Elige <span class="grad">dos tarjetas</span><br>y compáralas al instante`]: `Wähle <span class="grad">zwei Karten</span><br>und vergleiche sie sofort`,
     [`VRAM, ancho de banda, cómputo, consumo, precio, <b>tokens/s</b>, imagen, vídeo y <b>ruido</b>. Catálogo: <b>NVIDIA desde la RTX 3060 12 GB</b>, <b>AMD desde la RX 6800</b> y <b>Apple M1 en adelante</b>.`]: `VRAM, Bandbreite, Rechenleistung, Leistungsaufnahme, Preis, <b>Tokens/s</b>, Bild, Video und <b>Lautstärke</b>. Katalog: <b>NVIDIA ab RTX 3060 12 GB</b>, <b>AMD ab RX 6800</b> und <b>Apple M1 und neuer</b>.`,
     // --- comparador ---
@@ -1120,9 +1151,9 @@ $("seg").addEventListener("click", e => {
 const i18nNodes = Array.from(document.querySelectorAll("[data-i18n]")).map(el => ({ el, es: el.innerHTML }));
 function applyLang(){
   document.documentElement.lang = LANG;
-  document.title = t("Comparador de GPUs para IA · NVIDIA (desde RTX 3060 12 GB) · AMD (desde RX 6800) · Apple M1+");
+  document.title = t("Comparación de Gráficas (GPU) para IA · NVIDIA vs AMD vs Apple · Comparador interactivo");
   const md = document.querySelector('meta[name="description"]');
-  if (md) md.setAttribute("content", t("Infografía interactiva: elige dos tarjetas gráficas y compáralas al instante (VRAM, ancho de banda, FP32, consumo, precio, tokens/s, imagen, vídeo y ruido). Catálogo NVIDIA desde RTX 3060 12 GB, AMD desde RX 6800 y Apple M1 en adelante."));
+  if (md) md.setAttribute("content", t("Comparación de gráficas (tarjetas GPU) para IA: elige dos y compáralas al instante — VRAM, ancho de banda, cómputo, precio, tokens/s, imagen, vídeo y ruido. Catálogo NVIDIA desde la RTX 3060 12 GB, AMD desde la RX 6800 y Apple M1 en adelante."));
   i18nNodes.forEach(({el, es}) => { el.innerHTML = t(es); });
   const sw = $("swapBtn");
   if (sw){ sw.setAttribute("title", t("Intercambiar A y B")); sw.setAttribute("aria-label", t("Intercambiar A y B")); }
