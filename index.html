@@ -485,7 +485,10 @@ const CAT = [
   {id:"m4",n:"Apple M4 (GPU 10 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2024,vram:32,bus:"Memoria unificada LPDDR5X",bw:120,fp32:4.6,tdp:22,msrp:null,street:null,fmt:"pasivo",db:24,dbTxt:"~24 dB · refrigeración pasiva o ventilador muy lento",sw:"Metal · MPS"},
   {id:"m4pro",n:"Apple M4 Pro (GPU 20 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2024,vram:64,bus:"Memoria unificada LPDDR5X",bw:273,fp32:9.2,tdp:45,msrp:null,street:null,fmt:"axial",db:29,dbTxt:"~29 dB · ventilador, audible bajo carga",sw:"Metal · MPS"},
   {id:"m4max",n:"Apple M4 Max (GPU 40 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2024,vram:128,bus:"Memoria unificada LPDDR5X",bw:546,fp32:16.16,tdp:70,msrp:null,street:null,fmt:"axial",db:30,dbTxt:"~30 dB · MacBook Pro, ventilador sólo bajo carga",sw:"Metal · MPS"},
-  {id:"m5",n:"Apple M5 (GPU 10 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2025,vram:32,bus:"Memoria unificada LPDDR5X",bw:153,fp32:4.9,tdp:25,msrp:null,street:null,fmt:"pasivo",db:24,dbTxt:"~24 dB · refrigeración pasiva o ventilador muy lento",sw:"Metal · MPS"}
+  {id:"m5",n:"Apple M5 (GPU 10 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2025,vram:32,bus:"Memoria unificada LPDDR5X",bw:153,fp32:4.9,tdp:25,msrp:null,street:null,fmt:"pasivo",db:24,dbTxt:"~24 dB · refrigeración pasiva o ventilador muy lento",sw:"Metal · MPS"},
+  {id:"m5pro",n:"Apple M5 Pro (GPU 20 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2026,vram:64,bus:"Memoria unificada LPDDR5X",bw:307,fp32:9.7,tdp:45,msrp:null,street:null,fmt:"axial",db:29,dbTxt:"~29 dB · ventilador, audible bajo carga",sw:"Metal · MPS"},
+  {id:"m5max",n:"Apple M5 Max (GPU 40 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2026,vram:128,bus:"Memoria unificada LPDDR5X",bw:614,fp32:19.5,tdp:75,msrp:null,street:null,fmt:"axial",db:30,dbTxt:"~30 dB · MacBook Pro, ventilador sólo bajo carga",sw:"Metal · MPS"},
+  {id:"m5ultra",n:"Apple M5 Ultra (GPU 80 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2026,vram:512,bus:"Memoria unificada LPDDR5X",bw:1228,fp32:38.9,tdp:150,msrp:null,street:null,fmt:"axial",db:32,dbTxt:"~32 dB · Mac Studio, ventilador audible bajo carga",sw:"Metal · MPS"}
 ];
 const BY = {}; CAT.forEach(c => BY[c.id] = c);
 const BRANDNAME = {nv:"NVIDIA", amd:"AMD · Radeon", ap:"Apple · M1 en adelante"};
@@ -648,6 +651,9 @@ const I18N = {
     [`Apple M4 (GPU 10 núcleos)`]: `Apple M4 (10-core GPU)`,
     [`Apple M4 Pro (GPU 20 núcleos)`]: `Apple M4 Pro (20-core GPU)`,
     [`Apple M5 (GPU 10 núcleos)`]: `Apple M5 (10-core GPU)`,
+    [`Apple M5 Pro (GPU 20 núcleos)`]: `Apple M5 Pro (20-core GPU)`,
+    [`Apple M5 Max (GPU 40 núcleos)`]: `Apple M5 Max (40-core GPU)`,
+    [`Apple M5 Ultra (GPU 80 núcleos)`]: `Apple M5 Ultra (80-core GPU)`,
     [`~29 dB · ventilador, audible bajo carga`]: `~29 dB · fan, audible under load`
   },
   de: {
@@ -804,6 +810,9 @@ const I18N = {
     [`Apple M4 (GPU 10 núcleos)`]: `Apple M4 (10-Kern-GPU)`,
     [`Apple M4 Pro (GPU 20 núcleos)`]: `Apple M4 Pro (20-Kern-GPU)`,
     [`Apple M5 (GPU 10 núcleos)`]: `Apple M5 (10-Kern-GPU)`,
+    [`Apple M5 Pro (GPU 20 núcleos)`]: `Apple M5 Pro (20-Kern-GPU)`,
+    [`Apple M5 Max (GPU 40 núcleos)`]: `Apple M5 Max (40-Kern-GPU)`,
+    [`Apple M5 Ultra (GPU 80 núcleos)`]: `Apple M5 Ultra (80-Kern-GPU)`,
     [`~29 dB · ventilador, audible bajo carga`]: `~29 dB · Lüfter, hörbar unter Last`
   }
 };
