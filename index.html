@@ -810,6 +810,7 @@ function buildPicker(hostId, key){
     const it = ev.target.closest(".pitem"); if(!it) return;
     state[key] = it.dataset.id;
     closePicker();
+    syncSelects();   /* refresca el nombre mostrado y el resaltado del desplegable */
     renderAll();
   });
   search.addEventListener("input", () => {
