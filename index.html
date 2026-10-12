@@ -152,10 +152,12 @@ tbody td:first-child{color:var(--muted);white-space:nowrap}
 .ico.tie{background:rgba(255,209,102,.16);color:var(--win);border:1px solid rgba(255,209,102,.45)}
 
 /* SELECTOR VEREDICTO */
-.seg{display:inline-flex;gap:6px;background:rgba(255,255,255,.05);border:1px solid var(--line);padding:6px;border-radius:999px;flex-wrap:wrap}
-.seg button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:14px;font-weight:600;padding:9px 15px;border-radius:999px;cursor:pointer;transition:.3s}
-.seg button:hover{color:var(--txt)}
-.seg button.on{background:linear-gradient(120deg,var(--amd),var(--nv));color:#080a10}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:8px;background:rgba(255,255,255,.045);
+  border:1px solid var(--line);padding:8px;border-radius:18px;width:100%;max-width:760px}
+.seg button{border:1px solid transparent;background:rgba(255,255,255,.03);color:var(--muted);font:inherit;font-size:14px;
+  font-weight:600;padding:13px 12px;border-radius:13px;cursor:pointer;transition:.3s;text-align:center}
+.seg button:hover{color:var(--txt);border-color:var(--line)}
+.seg button.on{background:linear-gradient(120deg,var(--amd),var(--nv));color:#080a10;box-shadow:0 6px 20px rgba(255,255,255,.12)}
 .verdict{margin-top:22px;border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--panel);display:grid;gap:12px;animation:pop .45s ease}
 @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}
 .verdict h3{font-size:18px}
@@ -211,6 +213,8 @@ footer ul{margin:10px 0 0 18px}footer li{margin:4px 0}
   .pricebox .amt{font-size:24px}
   header{padding:40px 0 18px}
   .swap{width:50px;height:50px}
+  .seg{grid-template-columns:1fr 1fr;gap:7px;padding:7px;border-radius:16px}
+  .seg button{font-size:12.5px;padding:12px 6px;border-radius:11px}
   section{padding:42px 0}
 }
 @media(max-width:400px){
@@ -343,6 +347,7 @@ footer ul{margin:10px 0 0 18px}footer li{margin:4px 0}
       <li><b>Especificaciones (verificadas):</b> <i>List of Nvidia graphics processing units</i> y <i>List of AMD graphics processing units</i> de Wikipedia (ancho de banda, FP32 boost, TDP, PVP) + <i>Apple silicon</i> para la familia M1/M4 + ficha oficial ASUS/AMD de la R9700.</li>
       <li><b>Estimaciones de LLM:</b> modelo bandwidth-bound <code>tok/s ≈ BW × 0,70 ÷ GB de pesos</code> (calibrado contra mediciones reales: R9700 ≈ 99 tok/s en 7B Q4 y 29–33 tok/s en 27B Q4).</li>
       <li><b>Imagen/vídeo:</b> escalado por cómputo FP16 sobre referencias medidas de la RTX 5090.</li>
+      <li><b>Precios:</b> agregador <b>gpuprix.com</b> (España, octubre de 2026, oferta más barata en stock) y contraste con idealo.es. Los PVP en USD son los oficiales de lanzamiento.</li>
       <li><b>Ruido:</b> mediciones publicadas para la RTX 5090 FE; el resto, estimación por diseño térmico.</li>
     </ul>
     <p class="note"><b>Corrección documentada:</b> frente a versiones anteriores, la RX 9070 son <b>36,12 TFLOPS</b> (no ~45) y la RTX 3060 12 GB tiene <b>336 GB/s</b> (no 360). Todo el catálogo se revisó contra las fuentes citadas.</p>
@@ -358,46 +363,46 @@ const CAT = [
   /* ---------------- NVIDIA (desde RTX 3060 12 GB) ----------------
      bw GB/s · fp32 TFLOPS (boost) · tdp W · msrp USD de lanzamiento
      Fuente: List of Nvidia GPUs (Wikipedia) + fichas NVIDIA */
-  {id:"rtx3060-12",n:"RTX 3060 12 GB",brand:"nv",arch:"Ampere",year:2021,vram:12,bus:"192-bit GDDR6",bw:336,fp32:12.738,tdp:170,msrp:329,fmt:"axial",db:31,dbTxt:"~31 dB · axial de 2 ventiladores",sw:"CUDA · TensorRT"},
-  {id:"rtx3080-12",n:"RTX 3080 12 GB",brand:"nv",arch:"Ampere",year:2022,vram:12,bus:"384-bit GDDR6X",bw:912.4,fp32:30.64,tdp:350,msrp:799,fmt:"axial",db:34,dbTxt:"~34 dB · axial"},
-  {id:"rtx3080ti",n:"RTX 3080 Ti 12 GB",brand:"nv",arch:"Ampere",year:2021,vram:12,bus:"384-bit GDDR6X",bw:912.4,fp32:34.099,tdp:350,msrp:1199,fmt:"axial",db:35,dbTxt:"~35 dB · axial"},
-  {id:"rtx3090",n:"RTX 3090 24 GB",brand:"nv",arch:"Ampere",year:2020,vram:24,bus:"384-bit GDDR6X",bw:936.2,fp32:35.581,tdp:350,msrp:1499,fmt:"axial",db:35,dbTxt:"~35 dB · axial"},
-  {id:"rtx3090ti",n:"RTX 3090 Ti 24 GB",brand:"nv",arch:"Ampere",year:2022,vram:24,bus:"384-bit GDDR6X",bw:1008.3,fp32:39.997,tdp:450,msrp:1999,fmt:"axial",db:37,dbTxt:"~37 dB · axial"},
-  {id:"rtx4060ti-16",n:"RTX 4060 Ti 16 GB",brand:"nv",arch:"Ada",year:2023,vram:16,bus:"128-bit GDDR6",bw:288,fp32:22.065,tdp:165,msrp:499,fmt:"axial",db:30,dbTxt:"~30 dB · axial"},
-  {id:"rtx4070-12",n:"RTX 4070 12 GB",brand:"nv",arch:"Ada",year:2023,vram:12,bus:"192-bit GDDR6X",bw:504.2,fp32:29.146,tdp:200,msrp:599,fmt:"axial",db:31,dbTxt:"~31 dB · axial"},
-  {id:"rtx4070tis",n:"RTX 4070 Ti Super 16 GB",brand:"nv",arch:"Ada",year:2024,vram:16,bus:"256-bit GDDR6X",bw:672.3,fp32:44.099,tdp:285,msrp:799,fmt:"axial",db:33,dbTxt:"~33 dB · axial"},
-  {id:"rtx4080s",n:"RTX 4080 Super 16 GB",brand:"nv",arch:"Ada",year:2024,vram:16,bus:"256-bit GDDR6X",bw:736.3,fp32:52.224,tdp:320,msrp:999,fmt:"axial",db:34,dbTxt:"~34 dB · axial"},
-  {id:"rtx4090",n:"RTX 4090 24 GB",brand:"nv",arch:"Ada",year:2022,vram:24,bus:"384-bit GDDR6X",bw:1008,fp32:82.575,tdp:450,msrp:1599,fmt:"axial",db:35.1,dbTxt:"35,1 dB medidos (FE) · axial",sw:"CUDA · TensorRT"},
-  {id:"rtx5060ti-16",n:"RTX 5060 Ti 16 GB",brand:"nv",arch:"Blackwell",year:2025,vram:16,bus:"128-bit GDDR7",bw:448,fp32:23.704,tdp:180,msrp:429,fmt:"axial",db:30,dbTxt:"~30 dB · axial"},
-  {id:"rtx5070-12",n:"RTX 5070 12 GB",brand:"nv",arch:"Blackwell",year:2025,vram:12,bus:"192-bit GDDR7",bw:672,fp32:30.717,tdp:250,msrp:549,fmt:"axial",db:32,dbTxt:"~32 dB · axial"},
-  {id:"rtx5070ti",n:"RTX 5070 Ti 16 GB",brand:"nv",arch:"Blackwell",year:2025,vram:16,bus:"256-bit GDDR7",bw:896,fp32:43.94,tdp:300,msrp:749,fmt:"axial",db:33,dbTxt:"~33 dB · axial"},
-  {id:"rtx5080",n:"RTX 5080 16 GB",brand:"nv",arch:"Blackwell",year:2025,vram:16,bus:"256-bit GDDR7",bw:960,fp32:56.276,tdp:360,msrp:999,fmt:"axial",db:34,dbTxt:"~34 dB · axial"},
-  {id:"rtx5090",n:"RTX 5090 32 GB",brand:"nv",arch:"Blackwell",year:2025,vram:32,bus:"512-bit GDDR7",bw:1792,fp32:104.753,tdp:575,msrp:1999,fmt:"axial",db:36.3,dbTxt:"32,5–40,1 dB medidos · axial (más ruidosa que la 4090)",
+  {id:"rtx3060-12",n:"RTX 3060 12 GB",brand:"nv",arch:"Ampere",year:2021,vram:12,bus:"192-bit GDDR6",bw:336,fp32:12.738,tdp:170,msrp:329,street:334,fmt:"axial",db:31,dbTxt:"~31 dB · axial de 2 ventiladores",sw:"CUDA · TensorRT"},
+  {id:"rtx3080-12",n:"RTX 3080 12 GB",brand:"nv",arch:"Ampere",year:2022,vram:12,bus:"384-bit GDDR6X",bw:912.4,fp32:30.64,tdp:350,msrp:799,street:792,fmt:"axial",db:34,dbTxt:"~34 dB · axial"},
+  {id:"rtx3080ti",n:"RTX 3080 Ti 12 GB",brand:"nv",arch:"Ampere",year:2021,vram:12,bus:"384-bit GDDR6X",bw:912.4,fp32:34.099,tdp:350,msrp:1199,street:947,fmt:"axial",db:35,dbTxt:"~35 dB · axial"},
+  {id:"rtx3090",n:"RTX 3090 24 GB",brand:"nv",arch:"Ampere",year:2020,vram:24,bus:"384-bit GDDR6X",bw:936.2,fp32:35.581,tdp:350,msrp:1499,street:2267,fmt:"axial",db:35,dbTxt:"~35 dB · axial"},
+  {id:"rtx3090ti",n:"RTX 3090 Ti 24 GB",brand:"nv",arch:"Ampere",year:2022,vram:24,bus:"384-bit GDDR6X",bw:1008.3,fp32:39.997,tdp:450,msrp:1999,street:1745,fmt:"axial",db:37,dbTxt:"~37 dB · axial"},
+  {id:"rtx4060ti-16",n:"RTX 4060 Ti 16 GB",brand:"nv",arch:"Ada",year:2023,vram:16,bus:"128-bit GDDR6",bw:288,fp32:22.065,tdp:165,msrp:499,street:null,fmt:"axial",db:30,dbTxt:"~30 dB · axial"},
+  {id:"rtx4070-12",n:"RTX 4070 12 GB",brand:"nv",arch:"Ada",year:2023,vram:12,bus:"192-bit GDDR6X",bw:504.2,fp32:29.146,tdp:200,msrp:599,street:1100,fmt:"axial",db:31,dbTxt:"~31 dB · axial"},
+  {id:"rtx4070tis",n:"RTX 4070 Ti Super 16 GB",brand:"nv",arch:"Ada",year:2024,vram:16,bus:"256-bit GDDR6X",bw:672.3,fp32:44.099,tdp:285,msrp:799,street:1490,fmt:"axial",db:33,dbTxt:"~33 dB · axial"},
+  {id:"rtx4080s",n:"RTX 4080 Super 16 GB",brand:"nv",arch:"Ada",year:2024,vram:16,bus:"256-bit GDDR6X",bw:736.3,fp32:52.224,tdp:320,msrp:999,street:1261,fmt:"axial",db:34,dbTxt:"~34 dB · axial"},
+  {id:"rtx4090",n:"RTX 4090 24 GB",brand:"nv",arch:"Ada",year:2022,vram:24,bus:"384-bit GDDR6X",bw:1008,fp32:82.575,tdp:450,msrp:1599,street:3790,fmt:"axial",db:35.1,dbTxt:"35,1 dB medidos (FE) · axial",sw:"CUDA · TensorRT"},
+  {id:"rtx5060ti-16",n:"RTX 5060 Ti 16 GB",brand:"nv",arch:"Blackwell",year:2025,vram:16,bus:"128-bit GDDR7",bw:448,fp32:23.704,tdp:180,msrp:429,street:null,fmt:"axial",db:30,dbTxt:"~30 dB · axial"},
+  {id:"rtx5070-12",n:"RTX 5070 12 GB",brand:"nv",arch:"Blackwell",year:2025,vram:12,bus:"192-bit GDDR7",bw:672,fp32:30.717,tdp:250,msrp:549,street:861,fmt:"axial",db:32,dbTxt:"~32 dB · axial"},
+  {id:"rtx5070ti",n:"RTX 5070 Ti 16 GB",brand:"nv",arch:"Blackwell",year:2025,vram:16,bus:"256-bit GDDR7",bw:896,fp32:43.94,tdp:300,msrp:749,street:1238,fmt:"axial",db:33,dbTxt:"~33 dB · axial"},
+  {id:"rtx5080",n:"RTX 5080 16 GB",brand:"nv",arch:"Blackwell",year:2025,vram:16,bus:"256-bit GDDR7",bw:960,fp32:56.276,tdp:360,msrp:999,street:1586,fmt:"axial",db:34,dbTxt:"~34 dB · axial"},
+  {id:"rtx5090",n:"RTX 5090 32 GB",brand:"nv",arch:"Blackwell",year:2025,vram:32,bus:"512-bit GDDR7",bw:1792,fp32:104.753,tdp:575,msrp:1999,street:6488,fmt:"axial",db:36.3,dbTxt:"32,5–40,1 dB medidos · axial (más ruidosa que la 4090)",
    med:{moe:194,pre:7026,flux:5.55,sdxl:13.6,vid:19}},
 
   /* ---------------- AMD (desde RX 6800) ----------------
      Fuente: List of AMD GPUs (Wikipedia) + datasheet ASUS/AMD para la R9700 */
-  {id:"rx6800",n:"Radeon RX 6800 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:16.166,tdp:250,msrp:579,fmt:"axial",db:33,dbTxt:"~33 dB · axial",sw:"ROCm Linux",note:"Ojo: la RX 6800 es de <b>16 GB</b>. La de 12 GB de esa familia es la RX 6700 XT."},
-  {id:"rx6800xt",n:"Radeon RX 6800 XT 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:20.736,tdp:300,msrp:649,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm Linux"},
-  {id:"rx6900xt",n:"Radeon RX 6900 XT 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:23.04,tdp:300,msrp:999,fmt:"axial",db:35,dbTxt:"~35 dB · axial",sw:"ROCm Linux"},
-  {id:"rx6950xt",n:"Radeon RX 6950 XT 16 GB",brand:"amd",arch:"RDNA 2",year:2022,vram:16,bus:"256-bit GDDR6",bw:576,fp32:23.654,tdp:335,msrp:1099,fmt:"axial",db:36,dbTxt:"~36 dB · axial",sw:"ROCm Linux"},
-  {id:"rx7700xt",n:"Radeon RX 7700 XT 12 GB",brand:"amd",arch:"RDNA 3",year:2023,vram:12,bus:"192-bit GDDR6",bw:432,fp32:35.17,tdp:245,msrp:449,fmt:"axial",db:33,dbTxt:"~33 dB · axial",sw:"ROCm Linux"},
-  {id:"rx7800xt",n:"Radeon RX 7800 XT 16 GB",brand:"amd",arch:"RDNA 3",year:2023,vram:16,bus:"256-bit GDDR6",bw:624,fp32:37.32,tdp:263,msrp:499,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm Linux"},
-  {id:"rx7900gre",n:"Radeon RX 7900 GRE 16 GB",brand:"amd",arch:"RDNA 3",year:2024,vram:16,bus:"256-bit GDDR6",bw:576,fp32:45.98,tdp:260,msrp:549,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm Linux"},
-  {id:"rx7900xt",n:"Radeon RX 7900 XT 20 GB",brand:"amd",arch:"RDNA 3",year:2022,vram:20,bus:"320-bit GDDR6",bw:800,fp32:51.61,tdp:315,msrp:899,fmt:"axial",db:35,dbTxt:"~35 dB · axial",sw:"ROCm Linux"},
-  {id:"rx7900xtx",n:"Radeon RX 7900 XTX 24 GB",brand:"amd",arch:"RDNA 3",year:2022,vram:24,bus:"384-bit GDDR6",bw:960,fp32:61.44,tdp:355,msrp:999,fmt:"axial",db:36,dbTxt:"~36 dB · axial",sw:"ROCm Linux"},
-  {id:"rx9070",n:"Radeon RX 9070 16 GB",brand:"amd",arch:"RDNA 4",year:2025,vram:16,bus:"256-bit GDDR6",bw:640,fp32:36.12,tdp:220,msrp:549,fmt:"axial",db:33,dbTxt:"~33 dB · axial",sw:"ROCm nativo"},
-  {id:"rx9070xt",n:"Radeon RX 9070 XT 16 GB",brand:"amd",arch:"RDNA 4",year:2025,vram:16,bus:"256-bit GDDR6",bw:640,fp32:48.66,tdp:304,msrp:599,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm nativo"},
-  {id:"r9700",n:"ASUS Turbo Radeon AI PRO R9700 32 GB",brand:"amd",arch:"RDNA 4",year:2025,vram:32,bus:"256-bit GDDR6",bw:640,fp32:47.8,tdp:300,msrp:1299,fmt:"blower",db:38,dbTxt:"~30–45 dB estimado · blower de 2 slots (casi silenciosa a ~210 W)",sw:"ROCm nativo",
+  {id:"rx6800",n:"Radeon RX 6800 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:16.166,tdp:250,msrp:579,street:1267,fmt:"axial",db:33,dbTxt:"~33 dB · axial",sw:"ROCm Linux",note:"Ojo: la RX 6800 es de <b>16 GB</b>. La de 12 GB de esa familia es la RX 6700 XT."},
+  {id:"rx6800xt",n:"Radeon RX 6800 XT 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:20.736,tdp:300,msrp:649,street:1104,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm Linux"},
+  {id:"rx6900xt",n:"Radeon RX 6900 XT 16 GB",brand:"amd",arch:"RDNA 2",year:2020,vram:16,bus:"256-bit GDDR6",bw:512,fp32:23.04,tdp:300,msrp:999,street:990,fmt:"axial",db:35,dbTxt:"~35 dB · axial",sw:"ROCm Linux"},
+  {id:"rx6950xt",n:"Radeon RX 6950 XT 16 GB",brand:"amd",arch:"RDNA 2",year:2022,vram:16,bus:"256-bit GDDR6",bw:576,fp32:23.654,tdp:335,msrp:1099,street:1567,fmt:"axial",db:36,dbTxt:"~36 dB · axial",sw:"ROCm Linux"},
+  {id:"rx7700xt",n:"Radeon RX 7700 XT 12 GB",brand:"amd",arch:"RDNA 3",year:2023,vram:12,bus:"192-bit GDDR6",bw:432,fp32:35.17,tdp:245,msrp:449,street:1000,fmt:"axial",db:33,dbTxt:"~33 dB · axial",sw:"ROCm Linux"},
+  {id:"rx7800xt",n:"Radeon RX 7800 XT 16 GB",brand:"amd",arch:"RDNA 3",year:2023,vram:16,bus:"256-bit GDDR6",bw:624,fp32:37.32,tdp:263,msrp:499,street:999,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm Linux"},
+  {id:"rx7900gre",n:"Radeon RX 7900 GRE 16 GB",brand:"amd",arch:"RDNA 3",year:2024,vram:16,bus:"256-bit GDDR6",bw:576,fp32:45.98,tdp:260,msrp:549,street:807,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm Linux"},
+  {id:"rx7900xt",n:"Radeon RX 7900 XT 20 GB",brand:"amd",arch:"RDNA 3",year:2022,vram:20,bus:"320-bit GDDR6",bw:800,fp32:51.61,tdp:315,msrp:899,street:908,fmt:"axial",db:35,dbTxt:"~35 dB · axial",sw:"ROCm Linux"},
+  {id:"rx7900xtx",n:"Radeon RX 7900 XTX 24 GB",brand:"amd",arch:"RDNA 3",year:2022,vram:24,bus:"384-bit GDDR6",bw:960,fp32:61.44,tdp:355,msrp:999,street:2728,fmt:"axial",db:36,dbTxt:"~36 dB · axial",sw:"ROCm Linux"},
+  {id:"rx9070",n:"Radeon RX 9070 16 GB",brand:"amd",arch:"RDNA 4",year:2025,vram:16,bus:"256-bit GDDR6",bw:640,fp32:36.12,tdp:220,msrp:549,street:706,fmt:"axial",db:33,dbTxt:"~33 dB · axial",sw:"ROCm nativo"},
+  {id:"rx9070xt",n:"Radeon RX 9070 XT 16 GB",brand:"amd",arch:"RDNA 4",year:2025,vram:16,bus:"256-bit GDDR6",bw:640,fp32:48.66,tdp:304,msrp:599,street:736,fmt:"axial",db:34,dbTxt:"~34 dB · axial",sw:"ROCm nativo"},
+  {id:"r9700",n:"ASUS Turbo Radeon AI PRO R9700 32 GB",brand:"amd",arch:"RDNA 4",year:2025,vram:32,bus:"256-bit GDDR6",bw:640,fp32:47.8,tdp:300,msrp:1299,street:2078,fmt:"blower",db:38,dbTxt:"~30–45 dB estimado · blower de 2 slots (casi silenciosa a ~210 W)",sw:"ROCm nativo",
    med:{moe:156,pre:2713,flux:2.5,sdxl:7,vid:7}},
 
   /* ---------------- Apple (M1 en adelante) ----------------
      Fuente: Apple silicon (Wikipedia): FP32, ancho de banda y capacidad máx. */
-  {id:"m1",n:"Apple M1 (GPU 8 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2020,vram:16,bus:"Memoria unificada LPDDR4X",bw:68.25,fp32:2.617,tdp:15,msrp:null,fmt:"pasivo",db:24,dbTxt:"~24 dB · refrigeración pasiva o ventilador muy lento",sw:"Metal · MPS"},
-  {id:"m1pro",n:"Apple M1 Pro (GPU 16 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2021,vram:32,bus:"Memoria unificada LPDDR5",bw:204.8,fp32:5.308,tdp:30,msrp:null,fmt:"pasivo",db:26,dbTxt:"~26 dB · refrigeración pasiva o ventilador suave",sw:"Metal · MPS"},
-  {id:"m1max",n:"Apple M1 Max (GPU 32 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2021,vram:64,bus:"Memoria unificada LPDDR5",bw:409.6,fp32:10.616,tdp:60,msrp:null,fmt:"axial",db:30,dbTxt:"~30 dB · ventilador, sube bajo carga larga",sw:"Metal · MPS"},
-  {id:"m1ultra",n:"Apple M1 Ultra (GPU 64 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2022,vram:128,bus:"Memoria unificada LPDDR5",bw:819.2,fp32:21.233,tdp:120,msrp:null,fmt:"axial",db:32,dbTxt:"~32 dB · Mac Studio, ventilador audible bajo carga",sw:"Metal · MPS"},
-  {id:"m4max",n:"Apple M4 Max (GPU 40 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2024,vram:128,bus:"Memoria unificada LPDDR5X",bw:546,fp32:16.16,tdp:70,msrp:null,fmt:"axial",db:30,dbTxt:"~30 dB · MacBook Pro, ventilador sólo bajo carga",sw:"Metal · MPS"}
+  {id:"m1",n:"Apple M1 (GPU 8 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2020,vram:16,bus:"Memoria unificada LPDDR4X",bw:68.25,fp32:2.617,tdp:15,msrp:null,street:null,fmt:"pasivo",db:24,dbTxt:"~24 dB · refrigeración pasiva o ventilador muy lento",sw:"Metal · MPS"},
+  {id:"m1pro",n:"Apple M1 Pro (GPU 16 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2021,vram:32,bus:"Memoria unificada LPDDR5",bw:204.8,fp32:5.308,tdp:30,msrp:null,street:null,fmt:"pasivo",db:26,dbTxt:"~26 dB · refrigeración pasiva o ventilador suave",sw:"Metal · MPS"},
+  {id:"m1max",n:"Apple M1 Max (GPU 32 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2021,vram:64,bus:"Memoria unificada LPDDR5",bw:409.6,fp32:10.616,tdp:60,msrp:null,street:null,fmt:"axial",db:30,dbTxt:"~30 dB · ventilador, sube bajo carga larga",sw:"Metal · MPS"},
+  {id:"m1ultra",n:"Apple M1 Ultra (GPU 64 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2022,vram:128,bus:"Memoria unificada LPDDR5",bw:819.2,fp32:21.233,tdp:120,msrp:null,street:null,fmt:"axial",db:32,dbTxt:"~32 dB · Mac Studio, ventilador audible bajo carga",sw:"Metal · MPS"},
+  {id:"m4max",n:"Apple M4 Max (GPU 40 núcleos)",brand:"ap",arch:"Apple GPU (Metal)",year:2024,vram:128,bus:"Memoria unificada LPDDR5X",bw:546,fp32:16.16,tdp:70,msrp:null,street:null,fmt:"axial",db:30,dbTxt:"~30 dB · MacBook Pro, ventilador sólo bajo carga",sw:"Metal · MPS"}
 ];
 const BY = {}; CAT.forEach(c => BY[c.id] = c);
 const BRANDNAME = {nv:"NVIDIA", amd:"AMD · Radeon", ap:"Apple · M1 en adelante"};
@@ -417,10 +422,11 @@ const MODELS = [
 function calc(c){
   const fp16 = c.fp32 * 2;
   const usdGb = c.msrp ? c.msrp / c.vram : null;
+  const eurGb = c.street ? c.street / c.vram : null;
   const tps = {};
   MODELS.forEach(m => { tps[m.k] = c.vram >= m.gb ? (c.bw * 0.70 / m.gb) : null; });
   const scale = Math.pow(fp16 / 209.5, 0.9);          // RTX 5090 = referencia
-  return {fp16, usdGb, tps, imgFlux: 5.55*scale, imgSdxl: 13.6*scale, vid: 19*scale};
+  return {fp16, usdGb, eurGb, tps, imgFlux: 5.55*scale, imgSdxl: 13.6*scale, vid: 19*scale};
 }
 
 /* ============================ RENDER: SELECTORES ============================ */
@@ -490,14 +496,14 @@ function renderPerf(){
   const star = (a,b) => a>b ? "a" : b>a ? "b" : "t";
   const mark = (side,winner) => winner===side ? ' <span class="winner">★</span>' : "";
   const wA = star(A.bw,B.bw), wF = star(A.fp32,B.fp32), wV = star(A.vram,B.vram);
-  const wT = star(-A.tdp,-B.tdp), wP = star(-(A.msrp||1e9),-(B.msrp||1e9));
+  const wT = star(-A.tdp,-B.tdp), wP = star(-(A.street||1e9),-(B.street||1e9));
   const rows = [
     {n:"Ancho de banda"+mark("a",wA),u:"GB/s",va:A.bw,vb:B.bw,wa:fmt(A.bw)+" GB/s"+mark("a",wA),wb:fmt(B.bw)+" GB/s"+mark("b",wA)},
     {n:"Cómputo FP32"+mark("a",wF),u:"TFLOPS",va:A.fp32,vb:B.fp32,wa:A.fp32+" TFLOPS"+mark("a",wF),wb:B.fp32+" TFLOPS"+mark("b",wF)},
     {n:"Cómputo FP16 (matriz)",u:"TFLOPS",va:ca.fp16,vb:cb.fp16,wa:fmt(ca.fp16)+" TFLOPS",wb:fmt(cb.fp16)+" TFLOPS"},
     {n:"VRAM"+mark("a",wV),u:"GB",va:A.vram,vb:B.vram,wa:A.vram+" GB"+mark("a",wV),wb:B.vram+" GB"+mark("b",wV)},
     {n:"Consumo (menos es mejor)"+mark("a",wT),u:"W",va:-(A.tdp),vb:-(B.tdp),wa:A.tdp+" W"+mark("a",wT),wb:B.tdp+" W"+mark("b",wT)},
-    {n:"PVP de lanzamiento (menos es mejor)"+mark("a",wP),u:"USD",va:-(A.msrp||0),vb:-(B.msrp||0),wa:(A.msrp?fmt(A.msrp)+" USD":"va en el equipo")+mark("a",wP),wb:(B.msrp?fmt(B.msrp)+" USD":"va en el equipo")+mark("b",wP)}
+    {n:"Precio de mercado España (oct. 2026 · menos es mejor)"+mark("a",wP),u:"€",va:-(A.street||0),vb:-(B.street||0),wa:(A.street?fmt(A.street)+" €":"n/d")+mark("a",wP),wb:(B.street?fmt(B.street)+" €":"n/d")+mark("b",wP)}
   ];
   /* las barras negativas se reordenan: usamos valor absoluto para el ancho */
   rows.forEach(r => { r.va = Math.abs(r.va); r.vb = Math.abs(r.vb); });
@@ -566,8 +572,9 @@ function renderTable(){
   html += row("FP32", A.fp32+" TFLOPS", B.fp32+" TFLOPS", A.fp32>B.fp32?"a":B.fp32>A.fp32?"b":null);
   html += row("FP16 (matriz)", fmt(ca.fp16)+" TFLOPS", fmt(cb.fp16)+" TFLOPS", ca.fp16>cb.fp16?"a":cb.fp16>ca.fp16?"b":null);
   html += row("Consumo", A.tdp+" W", B.tdp+" W", A.tdp<B.tdp?"a":B.tdp<A.tdp?"b":null);
-  html += row("PVP lanzamiento", A.msrp?fmt(A.msrp)+" USD":"—", B.msrp?fmt(B.msrp)+" USD":"—", (A.msrp&&B.msrp)?(A.msrp<B.msrp?"a":B.msrp<A.msrp?"b":null):null);
-  html += row("Coste por GB (PVP)", ca.usdGb?fmt(ca.usdGb,0)+" $/GB":"—", cb.usdGb?fmt(cb.usdGb,0)+" $/GB":"—", (ca.usdGb&&cb.usdGb)?(ca.usdGb<cb.usdGb?"a":cb.usdGb<ca.usdGb?"b":null):null);
+  html += row("Precio de mercado (España, oct. 2026)", A.street?fmt(A.street)+" €":"n/d", B.street?fmt(B.street)+" €":"n/d", (A.street&&B.street)?(A.street<B.street?"a":B.street<A.street?"b":null):null);
+  html += row("Coste por GB (mercado)", ca.eurGb?fmt(ca.eurGb,0)+" €/GB":"—", cb.eurGb?fmt(cb.eurGb,0)+" €/GB":"—", (ca.eurGb&&cb.eurGb)?(ca.eurGb<cb.eurGb?"a":cb.eurGb<ca.eurGb?"b":null):null);
+  html += row("PVP de lanzamiento", A.msrp?fmt(A.msrp)+" USD":"—", B.msrp?fmt(B.msrp)+" USD":"—", (A.msrp&&B.msrp)?(A.msrp<B.msrp?"a":B.msrp<A.msrp?"b":null):null);
   html += '<tr><td>Refrigeración</td><td>'+A.fmt+'</td><td>'+B.fmt+'</td></tr>';
   html += '<tr><td>Software</td><td>'+A.sw+'</td><td>'+B.sw+'</td></tr>';
   html += '<tr><td>70B Q4 (~42 GB)</td><td>'+(ca.tps["70b"]?"cabe":"no cabe")+'</td><td>'+(cb.tps["70b"]?"cabe":"no cabe")+'</td></tr>';
@@ -579,17 +586,18 @@ function renderPrice(){
   const A = BY[state.a], B = BY[state.b], ca = calc(A), cb = calc(B);
   const box = (c,cc,k) => '<div class="pricebox '+k+'"><span class="brand '+c.brand+'">'+BRANDNAME[c.brand]+'</span>'+
     '<div style="font-size:14px;color:var(--muted);margin-top:8px">'+c.n+'</div>'+
-    '<div class="amt">'+(c.msrp? "$"+fmt(c.msrp)+" USD" : "va en el equipo")+'</div>'+
-    '<small>'+c.vram+' GB · '+c.tdp+' W · '+c.arch+'</small>'+
-    '<p style="margin-top:12px;color:var(--muted);font-size:14px">'+(cc.usdGb? "<b>"+fmt(cc.usdGb,0)+" $/GB</b> de VRAM (PVP)" : "sin precio de tarjeta suelta")+'</p></div>';
+    '<div class="amt">'+(c.street? fmt(c.street)+" €" : "n/d")+'</div>'+
+    '<small>'+c.vram+' GB · '+c.tdp+' W · '+c.arch+'<br>'+(c.msrp? 'PVP de lanzamiento: $'+fmt(c.msrp)+' USD' : 'sin tarjeta suelta (va en el equipo)')+'</small>'+
+    '<p style="margin-top:12px;color:var(--muted);font-size:14px">'+(cc.eurGb? "<b>"+fmt(cc.eurGb,0)+" €/GB</b> a precio de mercado" : "sin precio de mercado")+'</p></div>';
   $("price").innerHTML = box(A,ca,"a") + box(B,cb,"b");
-  const cheap = (ca.usdGb&&cb.usdGb) ? (ca.usdGb<cb.usdGb ? A : B) : B;
+  const cheap = (ca.eurGb&&cb.eurGb) ? (ca.eurGb<cb.eurGb ? A : B) : B;
   const cost = 24*365/1000;
   const ea = (A.tdp*cost*0.20).toFixed(0), eb = (B.tdp*cost*0.20).toFixed(0);
-  $("pricenote").innerHTML = '<b>Ojo:</b> estos son los <b>PVP de lanzamiento en dólares</b> (dato verificable), no lo que cuestan hoy. '+
-    'En el mercado de 2026 la RTX 3090 es mucho más barata de segunda mano y la 5090 se vendió por encima de su PVP. '+
+  $("pricenote").innerHTML = '<b>Estos son precios de mercado reales</b> (España, octubre de 2026, agregador gpuprix.com: la oferta más barata en stock). '+
+    'La <b>crisis de memoria de 2025–2026</b> los ha disparado muy por encima del PVP: una RTX 5090 de $1.999 de PVP se vende cerca de <b>6.500 €</b>. '+
+    'Ojo con las paradojas: por escasez y demanda de IA, tarjetas viejas como la RX 6800 (16 GB) o la 7900 XTX pueden costar <b>más</b> que modelos nuevos mejores. Compra por <b>€/GB y por resultados</b>, no por generación. '+
     'En luz (24/7 a 0,20 €/kWh) la A cuesta ≈'+ea+' €/año y la B ≈'+eb+' €/año. '+
-    (cheap.msrp ? 'Por el PVP de la '+(cheap===A?B.n:A.n)+' podrías comprar varias '+cheap.n+'.' : 'En Apple no hay tarjeta suelta: es el equipo completo, con memoria unificada limitada por configuración.');
+    (cheap.street ? 'Con el precio de la '+(cheap===A?B.n:A.n)+' te compras varias '+cheap.n+'.' : 'En Apple no hay tarjeta suelta: es el equipo completo, con memoria unificada limitada por configuración.');
 }
 
 /* ============================ RENDER: VEREDICTO ============================ */
@@ -615,9 +623,9 @@ function renderVerdict(){
     winner = ca.fp16>cb.fp16 ? "a" : cb.fp16>ca.fp16 ? "b" : "tie";
     why = "Difusión y vídeo dependen del cómputo: <b>"+fmt(Math.max(ca.fp16,cb.fp16),0)+" vs "+fmt(Math.min(ca.fp16,cb.fp16),0)+" TFLOPS FP16</b>. También pesa el software: donde hay CUDA, casi todo funciona a la primera.";
   } else {
-    const ga = ca.usdGb||1e9, gb2 = cb.usdGb||1e9;
+    const ga = ca.eurGb||1e9, gb2 = cb.eurGb||1e9;
     winner = ga<gb2 ? "a" : gb2<ga ? "b" : "tie";
-    why = "PVP por GB de VRAM: <b>"+(ca.usdGb?fmt(ca.usdGb,0)+" $/GB":"—")+"</b> frente a <b>"+(cb.usdGb?fmt(cb.usdGb,0)+" $/GB":"—")+"</b>. Ojo: el mercado de segunda mano cambia el resultado (una 3090 de 24 GB hoy es la reina del $/GB).";
+    why = "€ por GB de VRAM a precio de mercado: <b>"+(ca.eurGb?fmt(ca.eurGb,0)+" €/GB":"—")+"</b> frente a <b>"+(cb.eurGb?fmt(cb.eurGb,0)+" €/GB":"—")+"</b>.";
   }
   const winCard = winner==="a"?A:winner==="b"?B:null;
   const pill = winner==="tie" ? '<span class="pill tie">EMPATE</span>' :
