@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aurenox-global.github.io/r9700-vs-rtx5090/sitemap.xml
+Sitemap: https://aurenox-global.github.io/grafica/sitemap.xml
