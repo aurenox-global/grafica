@@ -6,7 +6,7 @@
 <title>Comparación de Gráficas (GPU) para IA · NVIDIA vs AMD vs Apple · Comparador interactivo</title>
 <meta name="description" content="Comparación de gráficas (tarjetas GPU) para IA: elige dos y compáralas al instante — VRAM, ancho de banda, cómputo, precio, tokens/s, imagen, vídeo y ruido. Catálogo NVIDIA desde la RTX 3060 12 GB, AMD desde la RX 6800 y Apple M1 en adelante.">
 <link rel="canonical" href="https://aurenox-global.github.io/grafica/">
-<meta name="keywords" content="comparación de gráficas, comparar gráficas, comparador de gráficas, gráficas, tarjetas gráficas, GPU, comparador GPU, NVIDIA, AMD, Radeon, Apple, IA, LLM, VRAM, tokens/s, RTX 5090, RX 9070, R9700, M4 Max">
+<meta name="keywords" content="comparación de gráficas, comparar gráficas, comparador de gráficas, gráficas, tarjetas gráficas, GPU, comparador GPU, NVIDIA, AMD, Radeon, Apple, IA, LLM, VRAM, tokens/s, RTX 5090, RX 9070, R9700, DGX Spark, M4 Max">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="author" content="Andrés Mag">
 <meta property="og:type" content="website">
@@ -321,6 +321,7 @@ footer ul{margin:10px 0 0 18px}footer li{margin:4px 0}
 
     <div class="presets rv d2" id="presets">
       <button data-p="r9700,rtx5090">R9700 32 GB vs RTX 5090</button>
+      <button data-p="dgxspark,r9700">DGX Spark vs R9700</button>
       <button data-p="rtx3060-12,rtx4090">3060 12 GB vs 4090</button>
       <button data-p="rx6800,rtx3060-12">RX 6800 vs 3060 12 GB</button>
       <button data-p="m1max,rtx3090">Mac M1 Max vs 3090</button>
@@ -451,6 +452,10 @@ const CAT = [
   {id:"rtx5080",n:"RTX 5080 16 GB",brand:"nv",arch:"Blackwell",year:2025,vram:16,bus:"256-bit GDDR7",bw:960,fp32:56.276,tdp:360,msrp:999,street:1586,fmt:"axial",db:34,dbTxt:"~34 dB · axial"},
   {id:"rtx5090",n:"RTX 5090 32 GB",brand:"nv",arch:"Blackwell",year:2025,vram:32,bus:"512-bit GDDR7",bw:1792,fp32:104.753,tdp:575,msrp:1999,street:6488,fmt:"axial",db:36.3,dbTxt:"32,5–40,1 dB medidos · axial (más ruidosa que la 4090)",
    med:{moe:194,pre:7026,flux:5.55,sdxl:13.6,vid:19}},
+  /* DGX Spark: no es una tarjeta suelta, es un mini-PC con superchip GB10.
+     Fuente: ficha oficial NVIDIA (273 GB/s, 128 GB LPDDR5X, 1 PFLOP FP4, 140 W GB10 / 240 W PSU).
+     FP32 estimado: 6.144 núcleos CUDA x 2 x 2,42 GHz = 29,7 TFLOPS (NVIDIA no lo publica). */
+  {id:"dgxspark",n:"NVIDIA DGX Spark 128 GB",brand:"nv",arch:"Grace Blackwell (GB10)",year:2025,vram:128,bus:"Memoria unificada LPDDR5X",bw:273,fp32:29.7,tdp:240,msrp:3999,street:4700,fmt:"blower",db:30,dbTxt:"~25–32 dB estimado · mini-PC de 1,2 kg con un ventilador",sw:"CUDA · DGX OS (Linux ARM)",note:"No es una tarjeta suelta: es un <b>mini-PC</b> con el superchip <b>GB10</b> (CPU ARM de 20 núcleos + GPU Blackwell) y 128 GB de <b>memoria unificada</b> compartida con el sistema. Dos unidades se enlazan por <b>ConnectX-7</b> (200 Gb/s) para modelos de hasta ~405B. FP32 estimado (6.144 núcleos CUDA × 2 × 2,42 GHz): NVIDIA no lo publica."},
 
   /* ---------------- AMD (desde RX 6800) ----------------
      Fuente: List of AMD GPUs (Wikipedia) + datasheet ASUS/AMD para la R9700 */
@@ -657,7 +662,13 @@ const I18N = {
     [`Apple M5 Pro (GPU 20 núcleos)`]: `Apple M5 Pro (20-core GPU)`,
     [`Apple M5 Max (GPU 40 núcleos)`]: `Apple M5 Max (40-core GPU)`,
     [`Apple M5 Ultra (GPU 80 núcleos)`]: `Apple M5 Ultra (80-core GPU)`,
-    [`~29 dB · ventilador, audible bajo carga`]: `~29 dB · fan, audible under load`
+    [`~29 dB · ventilador, audible bajo carga`]: `~29 dB · fan, audible under load`,
+    [`NVIDIA DGX Spark 128 GB`]: `NVIDIA DGX Spark 128 GB`,
+    [`Grace Blackwell (GB10)`]: `Grace Blackwell (GB10)`,
+    [`CUDA · DGX OS (Linux ARM)`]: `CUDA · DGX OS (Linux ARM)`,
+    [`~25–32 dB estimado · mini-PC de 1,2 kg con un ventilador`]: `~25–32 dB estimated · 1.2 kg mini-PC with a single fan`,
+    [`No es una tarjeta suelta: es un <b>mini-PC</b> con el superchip <b>GB10</b> (CPU ARM de 20 núcleos + GPU Blackwell) y 128 GB de <b>memoria unificada</b> compartida con el sistema. Dos unidades se enlazan por <b>ConnectX-7</b> (200 Gb/s) para modelos de hasta ~405B. FP32 estimado (6.144 núcleos CUDA × 2 × 2,42 GHz): NVIDIA no lo publica.`]: `Not a standalone card: it is a <b>mini-PC</b> with the <b>GB10</b> superchip (20-core Arm CPU + Blackwell GPU) and 128 GB of <b>unified memory</b> shared with the system. Two units link over <b>ConnectX-7</b> (200 Gb/s) for models up to ~405B. FP32 is an estimate (6,144 CUDA cores × 2 × 2.42 GHz): NVIDIA does not publish it.`,
+    [`En el <b>DGX Spark</b> la memoria (128 GB) también es unificada y compartida con el sistema. `]: `On the <b>DGX Spark</b> the memory (128 GB) is also unified and shared with the system. `
   },
   de: {
     // --- global ---
@@ -818,7 +829,13 @@ const I18N = {
     [`Apple M5 Pro (GPU 20 núcleos)`]: `Apple M5 Pro (20-Kern-GPU)`,
     [`Apple M5 Max (GPU 40 núcleos)`]: `Apple M5 Max (40-Kern-GPU)`,
     [`Apple M5 Ultra (GPU 80 núcleos)`]: `Apple M5 Ultra (80-Kern-GPU)`,
-    [`~29 dB · ventilador, audible bajo carga`]: `~29 dB · Lüfter, hörbar unter Last`
+    [`~29 dB · ventilador, audible bajo carga`]: `~29 dB · Lüfter, hörbar unter Last`,
+    [`NVIDIA DGX Spark 128 GB`]: `NVIDIA DGX Spark 128 GB`,
+    [`Grace Blackwell (GB10)`]: `Grace Blackwell (GB10)`,
+    [`CUDA · DGX OS (Linux ARM)`]: `CUDA · DGX OS (Linux ARM)`,
+    [`~25–32 dB estimado · mini-PC de 1,2 kg con un ventilador`]: `~25–32 dB geschätzt · 1,2-kg-Mini-PC mit einem Lüfter`,
+    [`No es una tarjeta suelta: es un <b>mini-PC</b> con el superchip <b>GB10</b> (CPU ARM de 20 núcleos + GPU Blackwell) y 128 GB de <b>memoria unificada</b> compartida con el sistema. Dos unidades se enlazan por <b>ConnectX-7</b> (200 Gb/s) para modelos de hasta ~405B. FP32 estimado (6.144 núcleos CUDA × 2 × 2,42 GHz): NVIDIA no lo publica.`]: `Keine einzelne Karte, sondern ein <b>Mini-PC</b> mit dem Superchip <b>GB10</b> (20-Kern-ARM-CPU + Blackwell-GPU) und 128 GB <b>unified memory</b>, die sich das System teilt. Zwei Einheiten lassen sich per <b>ConnectX-7</b> (200 Gb/s) verbinden — für Modelle bis ~405B. FP32 ist geschätzt (6.144 CUDA-Kerne × 2 × 2,42 GHz): NVIDIA veröffentlicht den Wert nicht.`,
+    [`En el <b>DGX Spark</b> la memoria (128 GB) también es unificada y compartida con el sistema. `]: `Beim <b>DGX Spark</b> ist der Speicher (128 GB) ebenfalls unifiziert und wird mit dem System geteilt. `
   }
 };
 let LANG = "es";
@@ -1138,6 +1155,7 @@ function renderAll(){
   const A = BY[state.a], B = BY[state.b];
   $("gennote").innerHTML = t("<b>Nota:</b> en <b>texto</b> las tarjetas de mucho ancho de banda mandan; en <b>imagen y vídeo</b> el que manda es el cómputo y el software. ")
     + (A.brand==="ap"||B.brand==="ap" ? t("En <b>Apple</b> la memoria es unificada y compartida con el sistema: la VRAM útil es menor que la cifra nominal. ") : "")
+    + (A.id==="dgxspark"||B.id==="dgxspark" ? t("En el <b>DGX Spark</b> la memoria (128 GB) también es unificada y compartida con el sistema. ") : "")
     + (A.brand==="amd"||B.brand==="amd" ? t("En <b>AMD RDNA 2/3</b> el soporte ROCm existe pero exige más trabajo que CUDA.") : "");
   renderNoise();
   renderTable();
